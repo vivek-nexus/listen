@@ -1,0 +1,32 @@
+{
+    "name": "Listen",
+    "short_name": "Listen",
+    "description": "Stop long form reading, cut screen time and start listening!",
+    "id": "/listen/app",
+    "start_url": "/listen/app?utm_source=pwa",
+    "display": "fullScreen",
+    "background_color": "#000000",
+    "theme_color": "#008080",
+    "icons": [
+        {
+            "src": "https://vivek-nexus.github.io/listen/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://vivek-nexus.github.io/listen/icon-256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "https://vivek-nexus.github.io/listen/icon-384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "https://vivek-nexus.github.io/listen/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
