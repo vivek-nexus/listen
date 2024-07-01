@@ -9,24 +9,16 @@ export function useIsPwaInstallable() {
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (event) => {
+            // Prevent the mini-infobar from appearing on mobile
+            event.preventDefault()
             console.log("Captured and saved reference to beforeinstallprompt ")
+            // Stash the event so it can be triggered later
             deferredPrompt = event
+            // Update state to indicate PWA installable
             setIsPwaInstallable(true)
         })
     }, [])
 
     return isPwaInstallable
-}
-
-// Call this to show PWA install prompt at any point in time. Implement handling return values.
-export function fireInstallPrompt() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt()
-        return true
-    }
-    else {
-        console.log(`To install this app, find and click the "Add to home screen" or "Install app" option in your browser`)
-        return false
-    }
 }
 

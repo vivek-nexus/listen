@@ -3,7 +3,7 @@
 import Button from "@/components/Button/Button"
 import Phone from "@/components/Phone"
 import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants"
-import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle"
+import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle/fireInstallPrompt"
 import { useIsMobile } from "@/helpers/useIsMobile"
 import { useIsTablet } from "@/helpers/useIsTablet"
 import Link from "next/link"
