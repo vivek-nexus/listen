@@ -2,9 +2,13 @@ import { MOBILE_BREAKPOINT, TABLET_BREAKPOINT } from '@/constants'
 import { useState, useEffect } from 'react'
 
 export function useIsTablet() {
-    const [isTablet, setIsTablet] = useState((window.innerWidth > MOBILE_BREAKPOINT) && (window.innerWidth <= TABLET_BREAKPOINT))
+    const [isTablet, setIsTablet] = useState(false)
+
 
     useEffect(() => {
+        // Evaluate as soon as the component mounts
+        setIsTablet((window.innerWidth > MOBILE_BREAKPOINT) && (window.innerWidth <= TABLET_BREAKPOINT))
+
         const handleResize = () => setIsTablet((window.innerWidth > MOBILE_BREAKPOINT) && (window.innerWidth <= TABLET_BREAKPOINT))
 
         // Evaluate isTablet whenever window size changes

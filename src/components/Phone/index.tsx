@@ -17,29 +17,29 @@ const rectangles = 20
 
 export default function Phone({ content, children }: PhoneProps) {
     return (
-        // Phone border
+        // PHONE BORDER
         <div className={`${styles.phone} relative h-full w-full p-2 rounded-2xl bg-black overflow-hidden`}>
-            {/* Phone background */}
+            {/* PHONE BACKGROUND */}
             <div className={`${styles["phone-background"]} w-full h-full rounded-xl p-2 overflow-hidden`} >
 
-                {/* Phone contents: reading */}
+                {/* PHONE CONTENTS: READING */}
                 {content === "reading" &&
                     <>
                         <div className={`${styles["content-container-1"]}`}>
-                            {[...Array(rectangles)].map(() => {
-                                return (<Rectangle />)
+                            {[...Array(rectangles)].map((item, index) => {
+                                return (<Rectangle key={1 + index} />)
                             })}
                         </div>
                         {/* Duplicate rectangles to give the continuity effect. Hidden from screen readers to prevent confusion. */}
                         <div aria-hidden="true" className={`${styles["content-container-2"]}`}>
-                            {[...Array(rectangles)].map(() => {
-                                return (<Rectangle />)
+                            {[...Array(rectangles)].map((item, index) => {
+                                return (<Rectangle key={2 + index} />)
                             })}
                         </div>
                     </>
                 }
 
-                {/* Phone contents: listening */}
+                {/* PHONE CONTENTS: LISTENING */}
                 {content === "listening" &&
                     <div className="w-full h-full flex items-center justify-center">
                         {/* Setting height and width of sound bars container, for them to fill */}
@@ -49,7 +49,7 @@ export default function Phone({ content, children }: PhoneProps) {
                     </div>
                 }
 
-                {/* Phone contents: custom */}
+                {/* PHONE CONTENTS: CUSTOM */}
                 {content === "custom" &&
                     <>
                         {children}
@@ -57,7 +57,7 @@ export default function Phone({ content, children }: PhoneProps) {
                 }
             </div>
 
-            {/* Phone navigation indicator */}
+            {/* PHONE NAVIGATION INDICATOR */}
             <div className="bg-white/70 h-1 rounded-full w-1/3 absolute mx-auto left-0 right-0 bottom-2"></div>
         </div>
     )
