@@ -15,7 +15,6 @@
   --primary-50: #dff7f6;
 }
 
-
 /* TODO: Add comments on cross browser compatibility */
 .hide-scrollbars {
   scrollbar-width: none;
@@ -38,4 +37,9 @@
   background-color: var(--primary-800);
   border-radius: 8px;
   height: 32px;
+}
+
+.background-with-pattern {
+  background-image: url("/bg-pattern.svg");
+  background-size: 172px 172px;
 }

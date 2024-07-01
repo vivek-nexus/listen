@@ -1,0 +1,23 @@
+.phone {
+    box-shadow: 0px 0px 192px 28px var(--primary-900);
+}
+
+.phone-background {
+    background: linear-gradient(180deg, #1e1e1e 0%, #393939 100%);
+}
+
+/* Two containers for infinite reading scroll reading animation https://www.youtube.com/watch?v=bd9MLIb3DCg*/
+.content-container-1 {
+    animation: reading-scroll 10s linear infinite;
+}
+
+.content-container-2 {
+    animation: reading-scroll 10s linear infinite;
+}
+
+/* Subtraction of my-3 to prevent jerk animation effect when a new cycle starts every 10s*/
+@keyframes reading-scroll {
+    to {
+        transform: translateY(calc(-100% - 0.75rem));
+    }
+}

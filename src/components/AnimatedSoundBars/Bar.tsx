@@ -1,0 +1,12 @@
+import styles from "./AnimatedSoundBars.module.css"
+
+type BarProps = {
+    number: number,
+    isPlaying: boolean
+}
+
+export default function Bar({ number, isPlaying }: BarProps) {
+    return (
+        <div className={`bg-primary-800 rounded-full w-[7.5%] h-[7.5%] ${styles["bar"]} ${styles[`bar-${number}`]} ${isPlaying ? styles["animation-running"] : styles["animation-paused"]}`}></div>
+    )
+}

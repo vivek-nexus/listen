@@ -5,4 +5,4 @@ const nextConfig = {
     assetPrefix: process.env.NEXT_PUBLIC_LINK_PREFIX,
 };
 
-export default nextConfig;
+export default nextConfig
