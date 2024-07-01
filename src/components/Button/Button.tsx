@@ -19,6 +19,7 @@ export default function Button({ type, children, className, isDisabled, disabled
     )
 }
 
+// Special treatment for secondary button, since semi transparent secondary button colour interferes with background pattern on home page
 function ButtonTypeHelper(type: ButtonType) {
     switch (type) {
         case "primary":

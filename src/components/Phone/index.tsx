@@ -13,11 +13,11 @@ type PhoneProps = {
     children: React.ReactNode
 }
 
-// TODO: Calculate number of triangles from height
 const rectangles = 20
 
 export default function Phone({ content, children }: PhoneProps) {
     return (
+        // Phone border
         <div className={`${styles.phone} relative h-full w-full p-2 rounded-2xl bg-black overflow-hidden`}>
             {/* Phone background */}
             <div className={`${styles["phone-background"]} w-full h-full rounded-xl p-2 overflow-hidden`} >
@@ -42,6 +42,7 @@ export default function Phone({ content, children }: PhoneProps) {
                 {/* Phone contents: listening */}
                 {content === "listening" &&
                     <div className="w-full h-full flex items-center justify-center">
+                        {/* Setting height and width of sound bars container, for them to fill */}
                         <div className="w-[84px] h-[84px]">
                             <AnimatedSoundBars isPlaying={true} />
                         </div>

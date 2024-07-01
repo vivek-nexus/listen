@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Head component adds these tags: title tag, meta tags and PWA manifest*/}
+      {/* Head component adds: title tag, meta tags and PWA manifest*/}
       <Head />
 
       <body className={`${figtree.className} animate__animated animate__fadeIn bg-black text-white/70 selection:bg-primary-800 selection:text-white/60`}>
