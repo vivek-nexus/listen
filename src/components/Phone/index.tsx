@@ -15,6 +15,7 @@ type PhoneProps = {
 
 const rectangles = 20
 
+// Phone will stretch to 100% height and 100% width of the parent. Parent must have definite height and width.
 export default function Phone({ content, children }: PhoneProps) {
     return (
         // PHONE BORDER

@@ -1,6 +1,8 @@
 "use client"
 
 import Button from "@/components/Button/Button"
+import HomePageBranding from "@/components/HomePageBranding"
+import ImageWrapper from "@/components/ImageWrapper"
 import Phone from "@/components/Phone"
 import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants"
 import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle/fireInstallPrompt"
@@ -51,7 +53,10 @@ export default function Home() {
             </a>
           </div>
           {/* ELEMENT FOR DESKTOP */}
-          <p className="hidden lg:block text-center text-primary-800">Another project by <a href={PORTFOLIO_LINK} target="_blank" className="underline underline-offset-4">Vivek</a></p>
+
+          <div className="hidden lg:block ">
+            <HomePageBranding />
+          </div>
         </div>
 
         {/* LISTENING CONTENT */}
@@ -67,7 +72,9 @@ export default function Home() {
         </div>
 
         {/* ELEMENT FOR PAGE BOTTOM POSITIONING ON MOBILE AND TABLET*/}
-        <p className="block lg:hidden text-center text-primary-800 order-4">Another project by <a href={PORTFOLIO_LINK} target="_blank" className="underline underline-offset-4">Vivek</a></p>
+        <div className="block lg:hidden order-4">
+          <HomePageBranding />
+        </div>
       </div>
     </div>
   )
