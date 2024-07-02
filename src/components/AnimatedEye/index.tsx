@@ -1,17 +1,26 @@
-import { useEffect, useState } from "react"
-import FollowMouse from "./followMouse"
-import { AnimatedEyeProps, QuerySelectorType } from "./AnimatedEye.types"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import styles from "./AnimatedEye.module.css"
 
-// Renders an animated eye. There can be exactly one left and one right eye, in the document.
-// TODO: Remove dependency on querySelector and move to refs
-export default function AnimatedEye({ eye, isLoading }: AnimatedEyeProps) {
+// Renders an animated eye
+export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
     const [isClosed, setIsClosed] = useState(false)
     const [angle, setAngle] = useState(0)
+    // Ref needed to manipulate style.transform property of the pupil div directly
+    // typecast to avoid pupil.current might be possibly null
+    const pupil = useRef() as MutableRefObject<HTMLDivElement>
 
     //follow mouse when not loading
     useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => { FollowMouse(event, eye) }
+        // named function to remove callback during cleanup
+        function handleMouseMove(event: MouseEvent) {
+            if (pupil.current) {
+                const x = event.pageX - pupil.current.getBoundingClientRect().left
+                const y = event.pageY - pupil.current.getBoundingClientRect().top
+                const translateX = (x * 24) / (window.innerWidth)
+                const translateY = (y * 64) / (window.innerHeight)
+                pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
+            }
+        }
         if (!isLoading) {
             document.addEventListener("mousemove", handleMouseMove, false)
         }
@@ -20,12 +29,11 @@ export default function AnimatedEye({ eye, isLoading }: AnimatedEyeProps) {
 
     // spin when loading
     useEffect(() => {
-        const pupil: QuerySelectorType = document.querySelector(`#${eye}`)
-        if (pupil && isLoading) {
+        if (pupil.current && isLoading) {
             setTimeout(() => {
                 const translateX = (Math.cos(angle * (Math.PI / 180)) * 0.5 * 24)
                 const translateY = (Math.sin(angle * (Math.PI / 180)) * 0.5 * 64)
-                pupil.style.transform = `translate(${translateX}px, ${translateY}px)`
+                pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
                 setAngle(angle + 10)
             }, 20)
         }
@@ -63,7 +71,7 @@ export default function AnimatedEye({ eye, isLoading }: AnimatedEyeProps) {
             {/* PUPIL */}
             <div
                 className={`absolute w-8 h-8 top-0 bottom-0 my-auto left-0 right-0 mx-auto bg-black/90 rounded-full`}
-                id={eye}
+                ref={pupil}
             >
                 {/* PUPIL REFLECTION */}
                 <div className="w-2 h-2 bg-white/60 rounded-full ml-2 mt-2"></div>
