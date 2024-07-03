@@ -2,10 +2,8 @@
 
 import Button from "@/components/Button/Button"
 import HomePageBranding from "@/components/HomePageBranding"
-import ImageWrapper from "@/components/ImageWrapper"
 import Phone from "@/components/Phone"
 import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants"
-import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle/fireInstallPrompt"
 import { useIsMobile } from "@/helpers/useIsMobile"
 import { useIsTablet } from "@/helpers/useIsTablet"
 import Link from "next/link"
@@ -15,7 +13,7 @@ export default function Home() {
   const isTablet = useIsTablet()
 
   return (
-    <div className="bg-black background-with-pattern min-h-dvh flex items-center">
+    <div className="min-h-dvh flex items-center">
       <div className="max-w-[1280px] mx-auto px-12 py-12 lg:py-0 flex-grow flex flex-col lg:flex-row items-center justify-between gap-24">
 
         {/* READING CONTENT */}
@@ -70,6 +68,8 @@ export default function Home() {
             <p className="text-2xl text-green-500">Low screen time 😍</p>
           </div>
         </div>
+
+
 
         {/* ELEMENT FOR PAGE BOTTOM POSITIONING ON MOBILE AND TABLET*/}
         <div className="block lg:hidden order-4">

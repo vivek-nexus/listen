@@ -13,7 +13,7 @@ type PhoneProps = {
     children: React.ReactNode
 }
 
-const rectangles = 20
+const RECTANGLES = 20
 
 // Phone will stretch to 100% height and 100% width of the parent. Parent must have definite height and width.
 export default function Phone({ content, children }: PhoneProps) {
@@ -27,13 +27,13 @@ export default function Phone({ content, children }: PhoneProps) {
                 {content === "reading" &&
                     <>
                         <div className={`${styles["content-container-1"]}`}>
-                            {[...Array(rectangles)].map((item, index) => {
+                            {[...Array(RECTANGLES)].map((item, index) => {
                                 return (<Rectangle key={1 + index} />)
                             })}
                         </div>
                         {/* Duplicate rectangles to give the continuity effect. Hidden from screen readers to prevent confusion. */}
                         <div aria-hidden="true" className={`${styles["content-container-2"]}`}>
-                            {[...Array(rectangles)].map((item, index) => {
+                            {[...Array(RECTANGLES)].map((item, index) => {
                                 return (<Rectangle key={2 + index} />)
                             })}
                         </div>

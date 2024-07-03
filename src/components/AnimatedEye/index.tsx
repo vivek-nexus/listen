@@ -1,6 +1,10 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react"
 import styles from "./AnimatedEye.module.css"
 
+// Multiplying factors for pupil movement. Adjust based on eye ball size.
+const PUPIL_X_ADJUSTMENT = 12
+const PUPIL_Y_ADJUSTMENT = 32
+
 // Renders an animated eye
 export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
     const [isClosed, setIsClosed] = useState(false)
@@ -14,10 +18,13 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
         // named function to remove callback during cleanup
         function handleMouseMove(event: MouseEvent) {
             if (pupil.current) {
+                // Get the x and y coordinate difference between mouse pointer location and the pupil. More distance of the pointer will cause the pupil to move farther.
                 const x = event.pageX - pupil.current.getBoundingClientRect().left
                 const y = event.pageY - pupil.current.getBoundingClientRect().top
-                const translateX = (x * 24) / (window.innerWidth)
-                const translateY = (y * 64) / (window.innerHeight)
+
+                // Calculate sin/cos to move the pupil, based on window width and height and multiply with a factor to get final pixels to move.  Different x and y multiplication factors to account for eye ball height being greater than width.
+                const translateX = ((x / (window.innerWidth * 0.5)) * PUPIL_X_ADJUSTMENT)
+                const translateY = ((y / (window.innerHeight * 0.5)) * PUPIL_Y_ADJUSTMENT)
                 pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
             }
         }
@@ -31,8 +38,9 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
     useEffect(() => {
         if (pupil.current && isLoading) {
             setTimeout(() => {
-                const translateX = (Math.cos(angle * (Math.PI / 180)) * 0.5 * 24)
-                const translateY = (Math.sin(angle * (Math.PI / 180)) * 0.5 * 64)
+                // Calculate the x and y based on angle. Multiply with different factors for x and y, to account for eye ball height being greater than width.
+                const translateX = (Math.cos(angle * (Math.PI / 180)) * PUPIL_X_ADJUSTMENT)
+                const translateY = (Math.sin(angle * (Math.PI / 180)) * PUPIL_Y_ADJUSTMENT)
                 pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
                 setAngle(angle + 10)
             }, 20)
