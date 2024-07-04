@@ -1,6 +1,6 @@
 "use client"
 
-import Button from "@/components/Button/Button"
+import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
 import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants"

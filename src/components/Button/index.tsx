@@ -1,18 +1,20 @@
-type ButtonType = "primary" | "secondary" | "default";
+type ButtonType = "primary" | "secondary" | "tertiary";
 
 type ButtonProps = {
     type: ButtonType,
     children?: React.ReactNode,
     className?: string,
     isDisabled?: boolean,
-    disabledTitle?: string
+    disabledTitle?: string,
+    onClick?: () => void
 }
 
-export default function Button({ type, children, className, isDisabled, disabledTitle }: ButtonProps) {
+export default function Button({ type, children, className, isDisabled, disabledTitle, onClick }: ButtonProps) {
     return (
         <button
             className={`rounded-full duration-500 ${className} ${ButtonTypeHelper(type)} ${isDisabled ? `opacity-50 cursor-not-allowed` : ``}`}
             title={isDisabled ? disabledTitle : ``}
+            onClick={onClick}
         >
             {children}
         </button>

@@ -1,9 +1,9 @@
 "use client"
 
 import { Figtree } from "next/font/google"
+import 'material-icons/iconfont/filled.css'
 import "animate.css";
 import "./globals.css"
-import 'material-icons/iconfont/filled.css'
 import Head from "@/components/Head"
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
 

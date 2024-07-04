@@ -21,6 +21,9 @@ const config: Config = {
         "primary-50": "#dff7f6",
         "secondary-button-special": "#002727"
       },
+      boxShadow: {
+        "container-glow-on-pattern": "0px 0px 192px 28px var(--primary-900)"
+      }
     },
   },
   plugins: [],
