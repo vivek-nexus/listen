@@ -9,8 +9,10 @@ import PasteTab from "./PasteTab"
 import { DEFAULT_PASTED_ARTICLE } from "@/constants"
 import { useIsMobile } from "@/helpers/useIsMobile"
 import { useIsTablet } from "@/helpers/useIsTablet"
+import Toast from "../Toast.tsx"
 
 export type Tabs = "fetch" | "paste"
+type ToastType = "language-detected" | "fetch-message"
 
 
 export default function ArticleForm() {
@@ -26,6 +28,7 @@ export default function ArticleForm() {
     const [tab, setTab] = useState<Tabs>("fetch")
     const [isFetching, setIsFetching] = useState(false)
     const [showToast, setShowToast] = useState(false)
+    const [toastType, setToastType] = useState<ToastType>()
     const isMobile = useIsMobile()
     const isTablet = useIsTablet()
 
@@ -47,20 +50,13 @@ export default function ArticleForm() {
             setArticleStoreItem("pastedArticle", DEFAULT_PASTED_ARTICLE)
     }, [tab])
 
+    // Show language toast whenever detected language changes
     useEffect(() => {
-        console.log(languageCodeOfArticleToSpeak)
-
-        // Show toast only if there is some articleToSpeak
-        if (articleToSpeak !== "")
+        if (articleToSpeak === "")
+            setShowToast(false)
+        else {
+            setToastType("language-detected")
             setShowToast(true)
-        const toastTimeOut = setTimeout(() => {
-            setShowToast(false)
-        }, 5000)
-
-        // Clear toast and the timeout, if toast firing state variable changes
-        return () => {
-            clearTimeout(toastTimeOut)
-            setShowToast(false)
         }
     }, [languageCodeOfArticleToSpeak])
 
@@ -123,17 +119,18 @@ export default function ArticleForm() {
                     </Button>
                 </div>
             }
+
             {/* TOAST */}
-            {showToast &&
-                <div
-                    key={languageCodeOfArticleToSpeak}
-                    className={`absolute w-full left-0 bg-primary-900 p-1 animate__animated ${(isMobile || isTablet) ? `bottom-0 animate__fadeInUp` : `bottom-0 animate__fadeInUp`} `}
-                >
-                    <p className="text-center">
-                        Auto detected article language: {languageCodeOfArticleToSpeak}
-                        {/* Could not fetch the article! You may directly paste the article text. */}
-                    </p>
-                </div>}
+            <Toast
+                keyToCleanUp={languageCodeOfArticleToSpeak}
+                showToast={showToast}
+                setShowToast={setShowToast}
+            >
+                <p className="text-center">
+                    {toastType === "language-detected" && <>Auto detected article language: {languageCodeOfArticleToSpeak}</>}
+                    {toastType === "fetch-message" && <>Could not fetch the article! You may directly paste the article text.</>}
+                </p>
+            </Toast>
         </div >
     )
 }
