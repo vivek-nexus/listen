@@ -1,23 +1,19 @@
+import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
+import { getLanguageName } from "@/helpers/getLanguageName"
 import { useDetectAndUpdateLanguage } from "@/helpers/useDetectAndUpdateLanguage"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import Button from "../Button"
+import Toast from "../Toast.tsx"
 import FetchTab from "./FetchTab"
 import PasteTab from "./PasteTab"
-import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
-import { useIsMobile } from "@/helpers/useIsMobile"
-import { useIsTablet } from "@/helpers/useIsTablet"
-import Toast from "../Toast.tsx"
-import { getLanguageName } from "@/helpers/getLanguageName"
 
-export type Tabs = "fetch" | "paste"
 export type ToastType = "language-detected" | "fetch-message"
 
-
 export default function ArticleForm() {
-    const articleLink = useArticleStore((state) => state.articleLink)
+    const tab = useArticleStore((state) => state.tab)
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const pastedArticle = useArticleStore((state) => state.pastedArticle)
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
@@ -26,10 +22,9 @@ export default function ArticleForm() {
     const setIsPlayerOpen = usePlayerStore((state) => state.setIsPlayerOpen)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
 
-    const [tab, setTab] = useState<Tabs>("fetch")
-    const [isFetching, setIsFetching] = useState(false)
     const [showToast, setShowToast] = useState(false)
     const [toastType, setToastType] = useState<ToastType>()
+    const [showPlayButton, setShowPlayButton] = useState(false)
 
 
     // Update articleToSpeak
@@ -62,6 +57,22 @@ export default function ArticleForm() {
         }
     }, [languageCodeOfArticleToSpeak])
 
+    // Conditionally show or hide play button
+    useEffect(() => {
+        if (tab === "fetch") {
+            if ((fetchedArticle.title !== "") && (fetchedArticle.article !== ""))
+                setShowPlayButton(true)
+            else
+                setShowPlayButton(false)
+        }
+        if (tab === "paste") {
+            if (pastedArticle !== "")
+                setShowPlayButton(true)
+            else
+                setShowPlayButton(false)
+        }
+    }, [tab, articleToSpeak])
+
     return (
         // ARTICLE FORM CONTAINER: Fills the height of the parent.
         <div
@@ -84,14 +95,14 @@ export default function ArticleForm() {
                 <Button
                     type={tab === "fetch" ? `primary` : `tertiary`}
                     className="px-6 py-2"
-                    onClick={() => setTab("fetch")}
+                    onClick={() => setArticleStoreStringItem("tab", "fetch")}
                 >
                     Fetch article
                 </Button>
                 <Button
                     type={tab === "paste" ? `primary` : `tertiary`}
                     className="px-6 py-2"
-                    onClick={() => setTab("paste")}
+                    onClick={() => setArticleStoreStringItem("tab", "paste")}
                 >
                     Paste article
                 </Button>
@@ -110,7 +121,7 @@ export default function ArticleForm() {
             }
 
             {/* PLAY BUTTON */}
-            {(fetchedArticle.title && fetchedArticle.article) &&
+            {showPlayButton &&
                 <div
                     className="fixed bottom-8 w-min mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                     style={{
@@ -131,7 +142,7 @@ export default function ArticleForm() {
 
             {/* TOAST */}
             {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
-            {/* TODO: Recollect why I made keysToCleanup as an array and I wanted to include pastedArticle in the array. */}
+            {/* Toast is cleaned up if ArticleForm component re-renders, irrespective of keysToCleanup, since Toast is a child of ArticleForm. */}
             <Toast
                 keysToCleanUp={[languageCodeOfArticleToSpeak, articleToSpeak]}
                 showToast={showToast}

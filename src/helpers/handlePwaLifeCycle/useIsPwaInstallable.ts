@@ -4,7 +4,7 @@ import { usePwaStore } from "../../stores/usePwaStore"
 // beforeinstallprompt is non standard web API. Hence skipping type, since there isn't much value. https://stackoverflow.com/q/51503754
 export let deferredPrompt: any
 
-// Call this hook in the top most component, on page load
+// Call this hook in the top most component on page load to set isPwaInstallable store variable
 export function useIsPwaInstallable() {
     const setIsPwaInstallable = usePwaStore((state) => state.setIsPwaInstallable)
 

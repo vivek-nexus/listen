@@ -36,7 +36,7 @@ export default function Home() {
             <Link href="/app">
               <Button
                 type="primary"
-                className="text-lg font-bold px-6 py-2 mb-3"
+                className="text-lg font-bold px-6 py-2 mb-4"
               >
                 Listen now
               </Button>
@@ -44,7 +44,7 @@ export default function Home() {
             <a href={GITHUB_REPO_LINK} target="_blank" referrerPolicy="same-origin" >
               <Button
                 type="secondary"
-                className="text-lg font-bold px-6 py-2 mb-3"
+                className="text-lg font-bold px-6 py-2 mb-4"
               >
                 Use on your blog
               </Button>
