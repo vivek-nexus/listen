@@ -1,20 +1,21 @@
-import { DEFAULT_PASTED_ARTICLE } from "@/constants"
+import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
 import { LanguageCode } from "cld3-asm"
 import { create } from "zustand"
 
 // Store items that use a common setter function
-type ArticleStoreItemsWithCommonSetter = "articleLink" | "pastedArticle" | "articleToSpeak"
+type ArticleStoreItemsOfTypeString = "articleLink" | "pastedArticle" | "articleToSpeak"
+export type FetchedArticle = {
+    title: string,
+    article: string
+}
 
 interface ArticleStoreState {
     articleLink: string,
-    fetchedArticle: {
-        title: string,
-        article: string
-    },
+    fetchedArticle: FetchedArticle,
     pastedArticle: string,
     articleToSpeak: string,
     languageCodeOfArticleToSpeak: LanguageCode,
-    setArticleStoreItem: (item: ArticleStoreItemsWithCommonSetter, newValue: string) => void
+    setArticleStoreStringItem: (item: ArticleStoreItemsOfTypeString, newValue: string) => void
     setFetchedArticle: (item: "title" | "article", newValue: string) => void,
     setArticleLanguageCode: (newValue: LanguageCode) => void
 }
@@ -28,7 +29,7 @@ export const useArticleStore = create<ArticleStoreState>((set) => ({
     pastedArticle: DEFAULT_PASTED_ARTICLE,
     articleToSpeak: "",
     languageCodeOfArticleToSpeak: LanguageCode.EN,
-    setArticleStoreItem: (item, newValue) => set({ [item]: newValue }),
+    setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
     setFetchedArticle: (item, newValue) => set((state) => ({
         fetchedArticle: {
             ...state.fetchedArticle,

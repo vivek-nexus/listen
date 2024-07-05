@@ -1,4 +1,4 @@
-import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants";
+import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants/appConstants";
 import ImageWrapper from "../ImageWrapper";
 
 export default function HomePageBranding() {

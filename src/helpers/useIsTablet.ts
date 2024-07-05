@@ -1,4 +1,4 @@
-import { MOBILE_BREAKPOINT, TABLET_BREAKPOINT } from '@/constants'
+import { MOBILE_BREAKPOINT, TABLET_BREAKPOINT } from '@/constants/appConstants'
 import { useState, useEffect } from 'react'
 
 export function useIsTablet() {

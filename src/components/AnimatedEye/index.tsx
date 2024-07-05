@@ -25,7 +25,13 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
                 // Calculate sin/cos to move the pupil, based on window width and height and multiply with a factor to get final pixels to move.  Different x and y multiplication factors to account for eye ball height being greater than width.
                 const translateX = ((x / (window.innerWidth * 0.5)) * PUPIL_X_ADJUSTMENT)
                 const translateY = ((y / (window.innerHeight * 0.5)) * PUPIL_Y_ADJUSTMENT)
-                pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
+                // Try catch since react gives warnings that the DOM element is null, when changing state isLoading from true to false. 
+                try {
+                    pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
+                }
+                catch (error) {
+
+                }
             }
         }
         if (!isLoading) {
@@ -41,7 +47,12 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
                 // Calculate the x and y based on angle. Multiply with different factors for x and y, to account for eye ball height being greater than width.
                 const translateX = (Math.cos(angle * (Math.PI / 180)) * PUPIL_X_ADJUSTMENT)
                 const translateY = (Math.sin(angle * (Math.PI / 180)) * PUPIL_Y_ADJUSTMENT)
-                pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
+                // Just repeating the try catch from above, for extra safety
+                try {
+                    pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
+                } catch (error) {
+
+                }
                 setAngle(angle + 10)
             }, 20)
         }

@@ -3,7 +3,7 @@
 import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
-import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants"
+import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants/appConstants"
 import { useIsMobile } from "@/helpers/useIsMobile"
 import { useIsTablet } from "@/helpers/useIsTablet"
 import Link from "next/link"

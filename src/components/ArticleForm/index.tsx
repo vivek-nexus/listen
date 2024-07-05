@@ -6,13 +6,14 @@ import { useEffect, useState } from "react"
 import Button from "../Button"
 import FetchTab from "./FetchTab"
 import PasteTab from "./PasteTab"
-import { DEFAULT_PASTED_ARTICLE } from "@/constants"
+import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
 import { useIsMobile } from "@/helpers/useIsMobile"
 import { useIsTablet } from "@/helpers/useIsTablet"
 import Toast from "../Toast.tsx"
+import { getLanguageName } from "@/helpers/getLanguageName"
 
 export type Tabs = "fetch" | "paste"
-type ToastType = "language-detected" | "fetch-message"
+export type ToastType = "language-detected" | "fetch-message"
 
 
 export default function ArticleForm() {
@@ -23,22 +24,20 @@ export default function ArticleForm() {
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
     const setIsPlayerOpen = usePlayerStore((state) => state.setIsPlayerOpen)
-    const setArticleStoreItem = useArticleStore((state) => state.setArticleStoreItem)
+    const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
 
     const [tab, setTab] = useState<Tabs>("fetch")
     const [isFetching, setIsFetching] = useState(false)
     const [showToast, setShowToast] = useState(false)
     const [toastType, setToastType] = useState<ToastType>()
-    const isMobile = useIsMobile()
-    const isTablet = useIsTablet()
 
 
     // Update articleToSpeak
     useEffect(() => {
         if (tab === "fetch")
-            setArticleStoreItem("articleToSpeak", fetchedArticle.article)
+            setArticleStoreStringItem("articleToSpeak", fetchedArticle.article)
         if (tab === "paste")
-            setArticleStoreItem("articleToSpeak", pastedArticle)
+            setArticleStoreStringItem("articleToSpeak", pastedArticle)
     }, [fetchedArticle, pastedArticle, tab])
 
     // Custom hook that detects and updates articleLanguageCode state variable, whenever articleToSpeak changes
@@ -47,16 +46,19 @@ export default function ArticleForm() {
     // Reset default pasted text, if text area is empty in paste tab
     useEffect(() => {
         if ((tab === "paste") && (pastedArticle === ""))
-            setArticleStoreItem("pastedArticle", DEFAULT_PASTED_ARTICLE)
+            setArticleStoreStringItem("pastedArticle", DEFAULT_PASTED_ARTICLE)
     }, [tab])
 
     // Show language toast whenever detected language changes
     useEffect(() => {
-        if (articleToSpeak === "")
-            setShowToast(false)
-        else {
+        console.log(languageCodeOfArticleToSpeak)
+        // Show toast only when non English articleToSpeak exists. Showing toast for English language seems rudimentary. 
+        if ((articleToSpeak !== "") && (languageCodeOfArticleToSpeak !== "en")) {
             setToastType("language-detected")
             setShowToast(true)
+        }
+        else {
+            setShowToast(false)
         }
     }, [languageCodeOfArticleToSpeak])
 
@@ -67,6 +69,7 @@ export default function ArticleForm() {
                 ${false ? `pointer-events-none touch-none cursor-not-allowed opacity-50` : ``}
                 `}
         >
+
             {/* PAGE TITLE */}
             <Link
                 href="/"
@@ -75,6 +78,7 @@ export default function ArticleForm() {
                 <span className="material-icons text-4xl text-primary-800">graphic_eq</span>
                 <h3 className="text-primary-800 font-bold text-2xl">LISTEN</h3>
             </Link>
+
             {/* TABS */}
             <div className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
                 <Button
@@ -92,14 +96,19 @@ export default function ArticleForm() {
                     Paste article
                 </Button>
             </div>
+
             {/* FETCH TAB */}
             {tab === "fetch" &&
-                <FetchTab />
+                <FetchTab
+                    setShowToast={setShowToast}
+                    setToastType={setToastType}
+                />
             }
             {/* PASTE TAB */}
             {tab === "paste" &&
                 <PasteTab />
             }
+
             {/* PLAY BUTTON */}
             {(fetchedArticle.title && fetchedArticle.article) &&
                 <div
@@ -121,13 +130,15 @@ export default function ArticleForm() {
             }
 
             {/* TOAST */}
+            {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
+            {/* TODO: Recollect why I made keysToCleanup as an array and I wanted to include pastedArticle in the array. */}
             <Toast
-                keyToCleanUp={languageCodeOfArticleToSpeak}
+                keysToCleanUp={[languageCodeOfArticleToSpeak, articleToSpeak]}
                 showToast={showToast}
                 setShowToast={setShowToast}
             >
                 <p className="text-center">
-                    {toastType === "language-detected" && <>Auto detected article language: {languageCodeOfArticleToSpeak}</>}
+                    {toastType === "language-detected" && <>Auto detected article language: {getLanguageName(languageCodeOfArticleToSpeak)}</>}
                     {toastType === "fetch-message" && <>Could not fetch the article! You may directly paste the article text.</>}
                 </p>
             </Toast>

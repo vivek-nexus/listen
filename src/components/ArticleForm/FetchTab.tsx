@@ -1,35 +1,64 @@
 import { useArticleStore } from "@/stores/useArticleStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
-import { useState } from "react"
+import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from "react"
 import Input from "../Input"
 import Button from "../Button"
 import AnimatedEye from "../AnimatedEye"
-import { Tabs } from "."
+import { Tabs, ToastType } from "."
+import { fetchArticle } from "@/helpers/fetchArticle"
 
-export default function FetchTab() {
+type FetchTabProps = {
+    setShowToast: Dispatch<SetStateAction<boolean>>,
+    setToastType: Dispatch<SetStateAction<ToastType | undefined>>
+}
+
+export default function FetchTab({ setShowToast, setToastType }: FetchTabProps) {
     const articleLink = useArticleStore((state) => state.articleLink)
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
-    const setArticleStoreItem = useArticleStore((state) => state.setArticleStoreItem)
+    const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
+    const setFetchedArticle = useArticleStore((state) => state.setFetchedArticle)
 
-    const [tab, setTab] = useState<Tabs>("fetch")
     const [isFetching, setIsFetching] = useState(false)
+    const articleLinkRef = useRef() as MutableRefObject<HTMLDivElement>
+
+    function handleFetchButtonClick() {
+        // Fetch only if there is non empty link
+        if (articleLink !== "") {
+            setFetchedArticle("title", "")
+            setFetchedArticle("article", "")
+            setIsFetching(true)
+            fetchArticle(articleLink).then((fetchedArticle) => {
+                setIsFetching(false)
+                if (fetchedArticle.title !== "" && fetchedArticle.article !== "") {
+                    setFetchedArticle("title", fetchedArticle.title)
+                    setFetchedArticle("article", fetchedArticle.article)
+                }
+                else {
+                    setToastType("fetch-message")
+                    setShowToast(true)
+                }
+            })
+        }
+    }
 
     return (
         <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
             <div
-                key={articleLink}
-                className={`relative mb-12 ${`animate__animated animate__pulse`}`}>
+                ref={articleLinkRef}
+                className="relative mb-12">
                 <Input
                     placeholder="Link to article"
                     value={articleLink}
                     onChange={(event) => {
-                        setArticleStoreItem("articleLink", event.target.value)
+                        setArticleStoreStringItem("articleLink", event.target.value)
                     }}
                 />
                 <Button
                     type="primary"
                     className="absolute right-0 rounded-l-none py-2 px-4 h-full"
+                    onClick={handleFetchButtonClick}
+                    isDisabled={articleLink === ""}
                 >
                     Fetch
                 </Button>
@@ -38,14 +67,17 @@ export default function FetchTab() {
             {(!fetchedArticle.title || !fetchedArticle.article) &&
                 <div
                     className="flex-grow cursor-pointer animate__animated animate__bounceIn flex flex-col justify-center items-center"
-                    onClick={() =>
-                        setArticleStoreItem("articleLink", "https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")}
+                    onClick={() => {
+                        setArticleStoreStringItem("articleLink", "https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")
+                        // Animate populating the input field, to draw attention
+                        articleLinkRef.current.classList.add('animate__animated', 'animate__pulse')
+                    }}
                 >
                     <div
                         className={`flex gap-4 justify-center w-min mb-6`}
                     >
-                        <AnimatedEye isLoading={false} />
-                        <AnimatedEye isLoading={false} />
+                        <AnimatedEye isLoading={isFetching} />
+                        <AnimatedEye isLoading={isFetching} />
                     </div>
                     <p
                         className=" text-primary-800 ">
