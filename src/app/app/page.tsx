@@ -13,13 +13,13 @@ export default function App() {
         <div className="h-dvh flex justify-center items-center">
             {/* CONTAINER FOR ARTICLE FORM AND PLAYER */}
             <div
-                className={`relative w-full h-full bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh]  lg:overflow-clip shadow-container-glow-on-pattern-2 lg:flex lg:flex-row`}
+                className={`relative w-full h-full bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:overflow-clip shadow-container-glow-on-pattern-2 lg:flex lg:flex-row`}
             >
 
                 {/* CONTAINER FOR ARTICLE FORM*/}
                 {/* Mobile: No flex. Article form stays as it is and absolutely positioned player comes over the  article form, for the overlay effect. */}
                 {/* Desktop: Flex row. Article form take half each space when the player is open. */}
-                <div className={`h-full ${isPlayerOpen ? `lg:w-1/2 opacity-50` : `lg:w-full opacity-100`} duration-500 transition-all`}>
+                <div className={`h-full ${isPlayerOpen ? `lg:w-1/2` : `lg:w-full`} duration-500 transition-all`}>
                     <ArticleForm />
                 </div>
 

@@ -5,15 +5,19 @@ type ButtonProps = {
     children?: React.ReactNode,
     className?: string,
     isDisabled?: boolean,
-    disabledTitle?: string,
+    toolTipText?: string,
+    toolTipPosition?: "top-left" | "top-right" | "bottom-left" | "bottom-right"
     onClick?: () => void
 }
 
-export default function Button({ type, children, className, isDisabled, disabledTitle, onClick }: ButtonProps) {
+export default function Button({ type, children, className, isDisabled, toolTipText, toolTipPosition, onClick }: ButtonProps) {
     return (
         <button
-            className={`rounded-full duration-500 ${className} ${ButtonTypeHelper(type)} ${isDisabled ? `opacity-50 cursor-not-allowed` : ``}`}
-            title={isDisabled ? disabledTitle : ``}
+            // Uses data-tool-tip HTML attribute to specify tool tip text. Tool tip shown as :after element.
+            // Defaults tool tip position to bottom-left, if not provided
+            // Disabled hover opacity is 100, in order to show tooltip at full opacity
+            className={`rounded-full transition-all duration-500 ${className} ${toolTipText ? `tool-tip tool-tip-${toolTipPosition ? toolTipPosition : `bottom-left`}` : ``} ${getButtonType(type)} ${isDisabled ? `opacity-50 hover:opacity-100 cursor-not-allowed` : ``}`}
+            data-tool-tip={toolTipText}
             onClick={onClick}
         >
             {children}
@@ -22,7 +26,7 @@ export default function Button({ type, children, className, isDisabled, disabled
 }
 
 // Special treatment for secondary button, since semi transparent secondary button colour interferes with background pattern on home page
-function ButtonTypeHelper(type: ButtonType) {
+function getButtonType(type: ButtonType) {
     switch (type) {
         case "primary":
             return `bg-primary-800 text-white/70`

@@ -4,6 +4,28 @@ import Button from "../Button";
 export default function PlayerControls() {
     return (
         <div className="relative">
+            <input
+                // ref={inputRangeValue}
+                type="range"
+                min={0}
+                max={100}
+                step={1}
+                // value={40}
+                // To visually offset gap below the input field, absolute and -top-1 is used
+                className="w-full absolute -top-1 accent-primary-800"
+            // onClick={() => {
+            //     console.log("Click event with input range value " + inputRangeValue.current.value)
+            // }}
+            // onChange={(e) => {
+            //     const skipToSentence = parseInt(e.target.value);
+            //     console.log("Received event to skip to " + skipToSentence)
+            //     pauseUtterance()
+            //     setTimeout(() => {
+            //         setCurrentSentence(skipToSentence)
+            //     }, 100);
+            // }}
+            // disabled={currentSentence == null}
+            />
             <div className="bg-primary-800/20 flex gap-4 justify-center items-center px-6 py-6">
                 <Button
                     type="tertiary"

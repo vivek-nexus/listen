@@ -60,18 +60,18 @@ export default function ArticleForm() {
     // Conditionally show or hide play button
     useEffect(() => {
         if (tab === "fetch") {
-            if ((fetchedArticle.title !== "") && (fetchedArticle.article !== ""))
+            if ((fetchedArticle.title !== "") && (fetchedArticle.article !== "") && (!isPlayerOpen))
                 setShowPlayButton(true)
             else
                 setShowPlayButton(false)
         }
         if (tab === "paste") {
-            if (pastedArticle !== "")
+            if ((pastedArticle !== "") && (!isPlayerOpen))
                 setShowPlayButton(true)
             else
                 setShowPlayButton(false)
         }
-    }, [tab, articleToSpeak])
+    }, [tab, articleToSpeak, isPlayerOpen])
 
     return (
         // ARTICLE FORM CONTAINER: Fills the height of the parent.
@@ -95,14 +95,26 @@ export default function ArticleForm() {
                 <Button
                     type={tab === "fetch" ? `primary` : `tertiary`}
                     className="px-6 py-2"
-                    onClick={() => setArticleStoreStringItem("tab", "fetch")}
+                    isDisabled={isPlayerOpen}
+                    toolTipText={`${isPlayerOpen ? `Close player to change tab` : ``}`}
+                    toolTipPosition="bottom-left"
+                    onClick={() => {
+                        if (!isPlayerOpen)
+                            setArticleStoreStringItem("tab", "fetch")
+                    }}
                 >
                     Fetch article
                 </Button>
                 <Button
                     type={tab === "paste" ? `primary` : `tertiary`}
                     className="px-6 py-2"
-                    onClick={() => setArticleStoreStringItem("tab", "paste")}
+                    isDisabled={isPlayerOpen}
+                    toolTipText={`${isPlayerOpen ? `Close player to change tab` : ``}`}
+                    toolTipPosition="bottom-left"
+                    onClick={() => {
+                        if (!isPlayerOpen)
+                            setArticleStoreStringItem("tab", "paste")
+                    }}
                 >
                     Paste article
                 </Button>
@@ -121,7 +133,7 @@ export default function ArticleForm() {
             }
 
             {/* PLAY BUTTON */}
-            {showPlayButton &&
+            {(showPlayButton) &&
                 <div
                     className="fixed bottom-8 w-min mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                     style={{

@@ -19,6 +19,58 @@
   cursor: pointer;
 }
 
+/* All elements that use tool-tip must be of position relative for tool-tip absolute position to work. If it is needed to be something else, wrap it in a div instead and apply desired positioning to the div. */
+.tool-tip {
+  position: relative;
+}
+
+.tool-tip::after {
+  content: attr(data-tool-tip);
+  width: max-content;
+  position: absolute;
+  padding: 4px 8px;
+  background-color: var(--primary-900);
+  color: rgb(255, 255, 255, 70%);
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transition-delay: 0.5s;
+  z-index: 50;
+}
+
+.tool-tip-top-left::after {
+  left: 0px;
+  top: -8px;
+  transform: translateY(-100%);
+}
+
+.tool-tip-top-right::after {
+  right: 0px;
+  top: -8px;
+  /* Allows div to expand towards left */
+  width: max-content;
+  transform: translateY(-100%);
+}
+
+.tool-tip-bottom-left::after {
+  left: 0px;
+  bottom: -8px;
+  transform: translateY(100%);
+}
+
+.tool-tip-bottom-right::after {
+  right: 0px;
+  bottom: -8px;
+  /* Allows div to expand towards left */
+  width: max-content;
+  transform: translateY(100%);
+}
+
+.tool-tip:hover::after {
+  opacity: 1;
+}
+
+
 /* TODO: Add comments on cross browser compatibility */
 .hide-scrollbars {
   scrollbar-width: none;

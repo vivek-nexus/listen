@@ -4,7 +4,7 @@ import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from "re
 import Input from "../Input"
 import Button from "../Button"
 import AnimatedEye from "../AnimatedEye"
-import { Tabs, ToastType } from "."
+import { ToastType } from "."
 import { fetchArticle } from "@/helpers/fetchArticle"
 
 type FetchTabProps = {
@@ -18,13 +18,14 @@ export default function FetchTab({ setShowToast, setToastType }: FetchTabProps) 
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
     const setFetchedArticle = useArticleStore((state) => state.setFetchedArticle)
+    const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
 
     const [isFetching, setIsFetching] = useState(false)
     const articleLinkRef = useRef() as MutableRefObject<HTMLDivElement>
 
     function handleFetchButtonClick() {
         // Fetch only if there is non empty link
-        if (articleLink !== "") {
+        if ((articleLink !== "") && (!isPlayerOpen)) {
             setFetchedArticle("title", "")
             setFetchedArticle("article", "")
             setIsFetching(true)
@@ -54,14 +55,18 @@ export default function FetchTab({ setShowToast, setToastType }: FetchTabProps) 
                         setArticleStoreStringItem("articleLink", event.target.value)
                     }}
                 />
-                <Button
-                    type="primary"
-                    className="absolute right-0 rounded-l-none py-2 px-4 h-full"
-                    onClick={handleFetchButtonClick}
-                    isDisabled={articleLink === ""}
-                >
-                    Fetch
-                </Button>
+                <div className="absolute inline-block right-0 h-full">
+                    <Button
+                        type="primary"
+                        className="rounded-l-none py-2 px-4 "
+                        onClick={handleFetchButtonClick}
+                        isDisabled={(articleLink === "") || isPlayerOpen}
+                        toolTipText={isPlayerOpen ? `Close player to fetch` : (articleLink === "" ? `Please provide a link` : ``)}
+                        toolTipPosition="bottom-right"
+                    >
+                        Fetch
+                    </Button>
+                </div>
             </div>
             {/* EYES: Follows mouse or shows loading state. Grows to take the the available space in article form container. */}
             {(!fetchedArticle.title || !fetchedArticle.article) &&
