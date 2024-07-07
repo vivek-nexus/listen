@@ -3,14 +3,13 @@ import { LanguageCode } from "cld3-asm"
 import { create } from "zustand"
 
 // Store items that use a common setter function
-type ArticleStoreItemsOfTypeString = "tab" | "articleLink" | "pastedArticle" | "articleToSpeak"
+type ArticleStoreItemsOfTypeString = "articleLink" | "pastedArticle" | "articleToSpeak"
 export type FetchedArticle = {
     title: string,
     article: string
 }
 
 interface ArticleStoreState {
-    tab: "fetch" | "paste",
     articleLink: string,
     fetchedArticle: FetchedArticle,
     pastedArticle: string,
@@ -22,7 +21,6 @@ interface ArticleStoreState {
 }
 
 export const useArticleStore = create<ArticleStoreState>((set) => ({
-    tab: "fetch",
     articleLink: "",
     fetchedArticle: {
         title: "",

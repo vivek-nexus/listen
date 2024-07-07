@@ -33,9 +33,11 @@
   color: rgb(255, 255, 255, 70%);
   border-radius: 4px;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: all 0.5s ease;
   transition-delay: 0.5s;
   z-index: 50;
+  /* If this is not specified, the element will have opacity 0, but will still pick up clicks */
+  visibility: hidden;
 }
 
 .tool-tip-top-left::after {
@@ -68,6 +70,7 @@
 
 .tool-tip:hover::after {
   opacity: 1;
+  visibility: visible;
 }
 
 
@@ -81,16 +84,48 @@
   height: 0;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
+/* Modify dropdown menu scroll bar to custom */
+.custom-scrollbar::-webkit-scrollbar,
+.voices-dropdown__menu-list::-webkit-scrollbar {
   width: 4px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+.custom-scrollbar::-webkit-scrollbar-track,
+.voices-dropdown__menu-list::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
+.custom-scrollbar::-webkit-scrollbar-thumb,
+.voices-dropdown__menu-list::-webkit-scrollbar-thumb {
   background-color: var(--primary-800);
   border-radius: 8px;
   height: 32px;
 }
+
+@keyframes openDropdown {
+  0% {
+    height: 0px;
+  }
+
+  100% {
+    height: 300px;
+  }
+}
+
+@keyframes closeDropdown {
+  0% {
+    height: 300px;
+  }
+
+  100% {
+    height: 0px;
+  }
+}
+
+.voices-dropdown__menu {
+  animation: openDropdown 0.5s;
+}
+
+/* .menu--close {
+  animation: closeDropdown 0.5s;
+} */

@@ -1,13 +1,13 @@
 import { useArticleStore } from "@/stores/useArticleStore";
+import { useGenericStore } from "@/stores/useGenericStore";
 import Button from "../Button";
 import TextArea from "../TextArea";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 
 export default function PasteTab() {
     const pastedArticle = useArticleStore((state) => state.pastedArticle)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
 
-    const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
 
     return (
         <div className="relative flex-grow animate__animated animate__fadeIn">
@@ -20,7 +20,7 @@ export default function PasteTab() {
                     // SplitArticleToSentencesHelper((event), setSentencesArray)
                 }}
                 isDisabled={isPlayerOpen ? true : false}
-                toolTipText="Close player to edit"
+                toolTipText={isPlayerOpen ? `Close player to edit` : ``}
                 toolTipPosition="bottom-left"
             />
             <div className="text-right">

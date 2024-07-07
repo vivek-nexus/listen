@@ -1,24 +1,21 @@
-import { useArticleStore } from "@/stores/useArticleStore"
-import { usePlayerStore } from "@/stores/usePlayerStore"
-import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from "react"
-import Input from "../Input"
-import Button from "../Button"
-import AnimatedEye from "../AnimatedEye"
-import { ToastType } from "."
 import { fetchArticle } from "@/helpers/fetchArticle"
+import { useArticleStore } from "@/stores/useArticleStore"
+import { useGenericStore } from "@/stores/useGenericStore"
+import { MutableRefObject, useRef, useState } from "react"
+import AnimatedEye from "../AnimatedEye"
+import Button from "../Button"
+import Input from "../Input"
 
-type FetchTabProps = {
-    setShowToast: Dispatch<SetStateAction<boolean>>,
-    setToastType: Dispatch<SetStateAction<ToastType | undefined>>
-}
+export default function FetchTab() {
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const setToastType = useGenericStore((state) => state.setToastType)
 
-export default function FetchTab({ setShowToast, setToastType }: FetchTabProps) {
     const articleLink = useArticleStore((state) => state.articleLink)
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
     const setFetchedArticle = useArticleStore((state) => state.setFetchedArticle)
-    const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
 
     const [isFetching, setIsFetching] = useState(false)
     const articleLinkRef = useRef() as MutableRefObject<HTMLDivElement>
@@ -101,7 +98,7 @@ export default function FetchTab({ setShowToast, setToastType }: FetchTabProps) 
                         </a>
                     </div>
                     {/* FETCHED ARTICLE TEXT */}
-                    <div className="p-6 bg-primary-800/30 overflow-y-auto pointer-events-auto cursor-auto custom-scrollbar text-white/60">
+                    <div className="p-6 bg-primary-800/30 overflow-y-auto custom-scrollbar text-white/60">
                         <p>{fetchedArticle.article}</p>
                     </div>
                 </div>}

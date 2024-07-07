@@ -1,29 +1,28 @@
 import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
-import { getLanguageName } from "@/helpers/getLanguageName"
 import { useDetectAndUpdateLanguage } from "@/helpers/useDetectAndUpdateLanguage"
 import { useArticleStore } from "@/stores/useArticleStore"
-import { usePlayerStore } from "@/stores/usePlayerStore"
+import { useGenericStore } from "@/stores/useGenericStore"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import Button from "../Button"
-import Toast from "../Toast.tsx"
 import FetchTab from "./FetchTab"
 import PasteTab from "./PasteTab"
 
-export type ToastType = "language-detected" | "fetch-message"
 
 export default function ArticleForm() {
-    const tab = useArticleStore((state) => state.tab)
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const setToastType = useGenericStore((state) => state.setToastType)
+
+    const tab = useGenericStore((state) => state.tab)
+    const setTab = useGenericStore((state) => state.setTab)
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const pastedArticle = useArticleStore((state) => state.pastedArticle)
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
-    const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
-    const setIsPlayerOpen = usePlayerStore((state) => state.setIsPlayerOpen)
+    const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
 
-    const [showToast, setShowToast] = useState(false)
-    const [toastType, setToastType] = useState<ToastType>()
     const [showPlayButton, setShowPlayButton] = useState(false)
 
 
@@ -56,6 +55,7 @@ export default function ArticleForm() {
             setShowToast(false)
         }
     }, [languageCodeOfArticleToSpeak])
+
 
     // Conditionally show or hide play button
     useEffect(() => {
@@ -100,7 +100,7 @@ export default function ArticleForm() {
                     toolTipPosition="bottom-left"
                     onClick={() => {
                         if (!isPlayerOpen)
-                            setArticleStoreStringItem("tab", "fetch")
+                            setTab("fetch")
                     }}
                 >
                     Fetch article
@@ -113,7 +113,7 @@ export default function ArticleForm() {
                     toolTipPosition="bottom-left"
                     onClick={() => {
                         if (!isPlayerOpen)
-                            setArticleStoreStringItem("tab", "paste")
+                            setTab("paste")
                     }}
                 >
                     Paste article
@@ -122,10 +122,7 @@ export default function ArticleForm() {
 
             {/* FETCH TAB */}
             {tab === "fetch" &&
-                <FetchTab
-                    setShowToast={setShowToast}
-                    setToastType={setToastType}
-                />
+                <FetchTab />
             }
             {/* PASTE TAB */}
             {tab === "paste" &&
@@ -152,19 +149,6 @@ export default function ArticleForm() {
                 </div>
             }
 
-            {/* TOAST */}
-            {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
-            {/* Toast is cleaned up if ArticleForm component re-renders, irrespective of keysToCleanup, since Toast is a child of ArticleForm. */}
-            <Toast
-                keysToCleanUp={[languageCodeOfArticleToSpeak, articleToSpeak]}
-                showToast={showToast}
-                setShowToast={setShowToast}
-            >
-                <p className="text-center">
-                    {toastType === "language-detected" && <>Auto detected article language: {getLanguageName(languageCodeOfArticleToSpeak)}</>}
-                    {toastType === "fetch-message" && <>Could not fetch the article! You may directly paste the article text.</>}
-                </p>
-            </Toast>
         </div >
     )
 }

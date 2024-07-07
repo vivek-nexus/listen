@@ -2,15 +2,29 @@
 
 import ArticleForm from "@/components/ArticleForm"
 import Player from "@/components/Player"
-import { usePlayerStore } from "@/stores/usePlayerStore"
+import Toast from "@/components/Toast.tsx"
+import { getLanguageName } from "@/helpers/getLanguageName"
+import { useArticleStore } from "@/stores/useArticleStore"
+import { useGenericStore } from "@/stores/useGenericStore"
+import { useEffect } from "react"
+
+export type ToastType = "language-detected" | "fetch-message"
 
 export default function App() {
-    const isPlayerOpen = usePlayerStore((state) => state.isPlayerOpen)
+    const showToast = useGenericStore((state) => state.showToast)
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const toastType = useGenericStore((state) => state.toastType)
+
+    const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
+    const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
+
 
 
     return (
         // PAGE CONTAINER WITH BACKGROUND
-        <div className="h-dvh flex justify-center items-center">
+        // Over flow clip is needed to control unwanted scroll on mobile device. Can't understand why, but it is needed.
+        <div className="h-dvh overflow-clip flex justify-center items-center">
             {/* CONTAINER FOR ARTICLE FORM AND PLAYER */}
             <div
                 className={`relative w-full h-full bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:overflow-clip shadow-container-glow-on-pattern-2 lg:flex lg:flex-row`}
@@ -29,8 +43,28 @@ export default function App() {
                     {/* isPlayerOpen added, to avoid unpleasant visual compression of player contents when minimising. */}
                     {isPlayerOpen && <Player />}
                 </div>
-            </div>
 
+                {/* TOAST */}
+                {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
+                {/* Toast is cleaned up if ArticleForm component re-renders, irrespective of keysToCleanup, since Toast is a child of ArticleForm. */}
+                <Toast
+                    stateVariablesToCleanUp={[languageCodeOfArticleToSpeak, articleToSpeak, isPlayerOpen]}
+                    showToast={showToast}
+                    setShowToast={setShowToast}
+                >
+                    <p className="text-center">
+                        {toastType === "language-detected" &&
+                            <>Auto detected article language: {getLanguageName(languageCodeOfArticleToSpeak)}</>
+                        }
+                        {toastType === "fetch-message" &&
+                            <>Could not fetch the article! You may directly paste the article text.</>
+                        }
+                        {toastType === "no-voice-found" &&
+                            <>No {getLanguageName(languageCodeOfArticleToSpeak)} voices found. Using default voice.</>
+                        }
+                    </p>
+                </Toast>
+            </div>
         </div>
     )
 }

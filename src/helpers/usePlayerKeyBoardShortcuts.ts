@@ -1,8 +1,8 @@
-import { usePlayerStore } from "@/stores/usePlayerStore"
+import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
 
 export function usePlayerKeyBoardShortcuts() {
-    const setIsPlayerOpen = usePlayerStore((state) => state.setIsPlayerOpen)
+    const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
     function closePlayer(event: KeyboardEvent) {
         if (event.key === "Escape")
