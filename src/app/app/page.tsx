@@ -4,6 +4,7 @@ import ArticleForm from "@/components/ArticleForm"
 import Player from "@/components/Player"
 import Toast from "@/components/Toast.tsx"
 import { getLanguageName } from "@/helpers/getLanguageName"
+import { useFetchArticle } from "@/helpers/useFetchArticle"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
@@ -14,12 +15,35 @@ export default function App() {
     const showToast = useGenericStore((state) => state.showToast)
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const toastType = useGenericStore((state) => state.toastType)
-
-    const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
-    const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
+    const setTab = useGenericStore((state) => state.setTab)
 
+    const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+    const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
+    const setIsFetching = useArticleStore((state) => state.setIsFetching)
 
+    // Fetches article whenever isFetching is set to true
+    useFetchArticle()
+
+    // Parse URL params
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const paramURLValue = searchParams.get("url")
+        const paramTextValue = searchParams.get("text")
+
+        // Fetch article if url is passed
+        if ((paramURLValue !== null)) {
+            setArticleStoreStringItem("articleLink", paramURLValue)
+            setIsFetching(true)
+        }
+        // Parse text if text is passed. Text may or may not be URL encoded.
+        if (paramTextValue !== null) {
+            setArticleStoreStringItem("pastedArticle", paramTextValue)
+            // SplitArticleToSentencesHelper(paramTextValue, setSentencesArray)
+            setTab("paste")
+        }
+        // If both params are passed, then text is given precedence
+    }, [])
 
     return (
         // PAGE CONTAINER WITH BACKGROUND
@@ -45,10 +69,7 @@ export default function App() {
                 </div>
 
                 {/* TOAST */}
-                {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
-                {/* Toast is cleaned up if ArticleForm component re-renders, irrespective of keysToCleanup, since Toast is a child of ArticleForm. */}
                 <Toast
-                    stateVariablesToCleanUp={[languageCodeOfArticleToSpeak, articleToSpeak, isPlayerOpen]}
                     showToast={showToast}
                     setShowToast={setShowToast}
                 >
@@ -64,6 +85,7 @@ export default function App() {
                         }
                     </p>
                 </Toast>
+                {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
             </div>
         </div>
     )

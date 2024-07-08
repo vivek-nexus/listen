@@ -16,20 +16,12 @@ export default function Player() {
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
 
-    const tab = useGenericStore((state) => state.tab)
-
     // Register keyboard shortcuts in the player
     usePlayerKeyBoardShortcuts()
 
     useEffect(() => {
         setToastType("no-voice-found")
         setShowToast(true)
-
-        // On close of player, reset the toast type back to default and remove any no-voice-found toast
-        return () => {
-            setToastType("language-detected")
-            setShowToast(false)
-        }
     }, [])
 
     return (

@@ -1,37 +1,44 @@
 import { useEffect } from "react"
+import { renderToString } from "react-dom/server"
 
 type ToastProps = {
-    stateVariablesToCleanUp?: any,
     showToast: boolean,
     setShowToast: (showToast: boolean) => void,
     children: React.ReactNode
 }
 
-// Shows toast message for 5 seconds . Cleans up any previous toast pending timeout if one or more state variables are provided, so that the new toast always has 5 seconds timeout.
-export default function Toast({ stateVariablesToCleanUp, showToast, setShowToast, children }: ToastProps) {
+// Shows toast message for 5 seconds. 
+
+// Toast completes 5 seconds. setTimeout calls setShowToast(false). 1.1 Toast is removed from DOM since showToast is now false. 1.2 setShowToast(false) returns useEffect and clears timeout.
+// 2. Toast has to be cancelled within 5 seconds, but no new toast needs to be fired. setShowToast(false) is called by the respective function. 1.1 and 1.2 happen.
+// 3. Toast has to be cancelled within 5 seconds, but new toast needs to be fired. A new toast is that needs to override current toast is assumed to have different children (otherwise  it is the same toast, isn't it?). Change in children clears previous timeout and since showToast is still true, a new timeout is started. Stringified children is passed as key to toast, so that children of the new toast reanimate.
+
+export default function Toast({ showToast, setShowToast, children }: ToastProps) {
     useEffect(() => {
+        // TODO: Understand why below statement is logged to the console, when some random state variables in the store changes (some examples: articleLink, isPlayerOpen etc.)
         console.log("New render effect " + showToast)
         if (showToast) {
             const toastTimeOut = setTimeout(() => {
                 setShowToast(false)
             }, 5000)
 
-            // Clear the timeout, whenever stateVariablesToCleanUp changes
+            // Clear the timeout
             return () => {
-                console.log("Cleaning up previous toast " + showToast)
+                console.log("Cleaning up any open timeout" + showToast)
                 clearTimeout(toastTimeOut)
             }
         }
-    }, [stateVariablesToCleanUp])
+        // showToast dependency to show toast whenever setShowToast(true) is called
+        // children dependency to clear old toast timeout and start a new timeout, whenever children changes
+    }, [showToast, children])
 
     return (
         <>
             {/* showToast is needed to remove the toast, after the timeout elapses */}
             {showToast &&
                 <div
-                    // stateVariablesToCleanUp is passed as a key, to just retrigger the class based animation. Change in keys here does not trigger a render, but a render is still triggered because stateVariablesToCleanUp is passed as dependency array to useEffect.
-                    key={stateVariablesToCleanUp}
-                    className={`absolute w-full bg-primary-900 p-1 animate__animated bottom-0 animate__fadeInUp`}
+                    key={(renderToString(children))}
+                    className={`absolute w-full bottom-0 bg-primary-900 p-1 animate__animated  animate__fadeInUp`}
                 >
                     {children}
                 </div>}

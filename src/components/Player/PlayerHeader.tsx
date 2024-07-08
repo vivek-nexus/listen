@@ -55,9 +55,6 @@ export default function PlayerHeader() {
                     <span className="material-icons text-2xl">help</span>
                 </Button>
             </div>
-            {/* {tab === "fetch" &&
-                <p className="text-sm ml-8">{fetchedArticle.title}</p>
-            } */}
         </div>
     )
 }

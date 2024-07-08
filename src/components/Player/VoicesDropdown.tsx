@@ -77,6 +77,7 @@ export function VoicesDropdown() {
 
         <Select
             isSearchable={true}
+            placeholder="Default voice"
             options={options}
             classNamePrefix="voices-dropdown"
             formatGroupLabel={formattedGroupLabel}
@@ -93,7 +94,7 @@ export function VoicesDropdown() {
                     borderColor: `${state.isFocused ? colours["primary-800"] : colours["primary-800/50"]}`,
                     boxShadow: "none",
                     borderRadius: "32px",
-                    padding: "2px 4px",
+                    padding: "0px 2px",
                     ":hover": {
                         borderColor: colours["primary-800"],
                     },
@@ -101,6 +102,10 @@ export function VoicesDropdown() {
                         borderColor: colours["primary-800"],
                     },
                     cursor: "pointer"
+                }),
+                input: (base) => ({
+                    ...base,
+                    color: colours["white/70"]
                 }),
                 singleValue: (base: CSSObjectWithLabel) => ({
                     ...base,
@@ -151,7 +156,7 @@ export function VoicesDropdown() {
                     position: "sticky",
                     top: "0px",
                 }),
-                // Not able to understand what is the right prop for state. Setting it to OptionProps<any, false, any> doesn't work. 
+                // Not able to understand what is the right type for state. Setting it to OptionProps<any, false, any> doesn't work. 
                 option: (base: CSSObjectWithLabel, state: any) => ({
                     ...base,
                     transition: "color 0.2s",

@@ -1,26 +1,28 @@
 import { create } from "zustand"
+import { createJSONStorage, persist } from "zustand/middleware"
 
 type ToastType = "language-detected" | "fetch-message" | "no-voice-found"
 type TabsType = "fetch" | "paste"
 
 interface GenericStoreState {
     showToast: boolean,
-    setShowToast: (showToast: boolean) => void,
+    setShowToast: (newValue: boolean) => void,
     toastType: ToastType,
-    setToastType: (toastType: ToastType) => void,
+    setToastType: (newValue: ToastType) => void,
     tab: "fetch" | "paste",
     setTab: (tab: TabsType) => void,
     isPlayerOpen: boolean,
-    setIsPlayerOpen: (isPlayerOpen: boolean) => void
+    setIsPlayerOpen: (newValue: boolean) => void
 }
 
-export const useGenericStore = create<GenericStoreState>((set) => ({
-    showToast: false,
-    setShowToast: (showToast) => set({ showToast: showToast }),
-    toastType: "language-detected",
-    setToastType: (toastType) => set({ toastType: toastType }),
-    tab: "fetch",
-    setTab: (tab) => set({ tab: tab }),
-    isPlayerOpen: false,
-    setIsPlayerOpen: (isPlayerOpen) => set({ isPlayerOpen: isPlayerOpen })
-}))
+export const useGenericStore = create<GenericStoreState>(
+    (set) => ({
+        showToast: false,
+        setShowToast: (newValue) => set({ showToast: newValue }),
+        toastType: "language-detected",
+        setToastType: (newValue) => set({ toastType: newValue }),
+        tab: "fetch",
+        setTab: (tab) => set({ tab: tab }),
+        isPlayerOpen: false,
+        setIsPlayerOpen: (newValue) => set({ isPlayerOpen: newValue })
+    }))

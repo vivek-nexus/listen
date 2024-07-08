@@ -1,44 +1,20 @@
-import { fetchArticle } from "@/helpers/fetchArticle"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
-import { MutableRefObject, useRef, useState } from "react"
+import { MutableRefObject, useRef } from "react"
 import AnimatedEye from "../AnimatedEye"
 import Button from "../Button"
 import Input from "../Input"
 
 export default function FetchTab() {
-    const setShowToast = useGenericStore((state) => state.setShowToast)
-    const setToastType = useGenericStore((state) => state.setToastType)
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
 
     const articleLink = useArticleStore((state) => state.articleLink)
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
-    const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+    const isFetching = useArticleStore((state) => state.isFetching)
+    const setIsFetching = useArticleStore((state) => state.setIsFetching)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
-    const setFetchedArticle = useArticleStore((state) => state.setFetchedArticle)
-    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
 
-    const [isFetching, setIsFetching] = useState(false)
     const articleLinkRef = useRef() as MutableRefObject<HTMLDivElement>
-
-    function handleFetchButtonClick() {
-        // Fetch only if there is non empty link
-        if ((articleLink !== "") && (!isPlayerOpen)) {
-            setFetchedArticle("title", "")
-            setFetchedArticle("article", "")
-            setIsFetching(true)
-            fetchArticle(articleLink).then((fetchedArticle) => {
-                setIsFetching(false)
-                if (fetchedArticle.title !== "" && fetchedArticle.article !== "") {
-                    setFetchedArticle("title", fetchedArticle.title)
-                    setFetchedArticle("article", fetchedArticle.article)
-                }
-                else {
-                    setToastType("fetch-message")
-                    setShowToast(true)
-                }
-            })
-        }
-    }
 
     return (
         <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
@@ -56,7 +32,7 @@ export default function FetchTab() {
                     <Button
                         type="primary"
                         className="rounded-l-none py-2 px-4 "
-                        onClick={handleFetchButtonClick}
+                        onClick={() => setIsFetching(true)}
                         isDisabled={(articleLink === "") || isPlayerOpen}
                         toolTipText={isPlayerOpen ? `Close player to fetch` : (articleLink === "" ? `Please provide a link` : ``)}
                         toolTipPosition="bottom-right"

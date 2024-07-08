@@ -51,9 +51,8 @@ export default function ArticleForm() {
             setToastType("language-detected")
             setShowToast(true)
         }
-        else {
+        else
             setShowToast(false)
-        }
     }, [languageCodeOfArticleToSpeak])
 
 

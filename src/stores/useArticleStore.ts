@@ -15,26 +15,31 @@ interface ArticleStoreState {
     pastedArticle: string,
     articleToSpeak: string,
     languageCodeOfArticleToSpeak: LanguageCode,
+    isFetching: boolean,
+    setIsFetching: (newValue: boolean) => void,
     setArticleStoreStringItem: (item: ArticleStoreItemsOfTypeString, newValue: string) => void
     setFetchedArticle: (item: "title" | "article", newValue: string) => void,
     setArticleLanguageCode: (newValue: LanguageCode) => void
 }
 
-export const useArticleStore = create<ArticleStoreState>((set) => ({
-    articleLink: "",
-    fetchedArticle: {
-        title: "",
-        article: ""
-    },
-    pastedArticle: DEFAULT_PASTED_ARTICLE,
-    articleToSpeak: "",
-    languageCodeOfArticleToSpeak: LanguageCode.EN,
-    setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
-    setFetchedArticle: (item, newValue) => set((state) => ({
+export const useArticleStore = create<ArticleStoreState>(
+    (set) => ({
+        articleLink: "",
         fetchedArticle: {
-            ...state.fetchedArticle,
-            [item]: newValue
-        }
-    })),
-    setArticleLanguageCode: (newValue) => set({ languageCodeOfArticleToSpeak: newValue })
-}))
+            title: "",
+            article: ""
+        },
+        pastedArticle: DEFAULT_PASTED_ARTICLE,
+        articleToSpeak: "",
+        languageCodeOfArticleToSpeak: LanguageCode.EN,
+        isFetching: false,
+        setIsFetching: (newValue) => set({ isFetching: newValue }),
+        setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
+        setFetchedArticle: (item, newValue) => set((state) => ({
+            fetchedArticle: {
+                ...state.fetchedArticle,
+                [item]: newValue
+            }
+        })),
+        setArticleLanguageCode: (newValue) => set({ languageCodeOfArticleToSpeak: newValue })
+    }))
