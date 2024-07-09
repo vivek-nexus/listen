@@ -46,7 +46,6 @@ export function usePopulateVoices() {
                 value: rawVoice.voiceURI,
             })
         }
-        console.log(voices)
         setVoices([...voices])
     }
 }

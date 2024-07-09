@@ -20,7 +20,9 @@ interface PlayerStoreState {
     decrementStepValue: (item: Item, step: number) => void,
     resetStepValue: (item: Item, defaultValue: number) => void,
     voices: Array<Voice>
-    setVoices: (newVoices: Array<Voice>) => void
+    setVoices: (newVoices: Array<Voice>) => void,
+    voiceToSpeakWith: Voice,
+    setVoiceToSpeakWith: (newValue: Voice) => void
 }
 
 export const usePlayerStore = create<PlayerStoreState>((set) => ({
@@ -31,5 +33,13 @@ export const usePlayerStore = create<PlayerStoreState>((set) => ({
     decrementStepValue: (item, step) => set((state) => ({ [item]: (state[item] - step) })),
     resetStepValue: (item, defaultValue) => set({ [item]: defaultValue }),
     voices: [],
-    setVoices: (newVoices: Array<Voice>) => set(({ voices: newVoices }))
+    setVoices: (newVoices: Array<Voice>) => set({ voices: newVoices }),
+    voiceToSpeakWith: {
+        default: false,
+        lang: "en",
+        localService: true,
+        name: "Default voice",
+        value: "default-voice"
+    },
+    setVoiceToSpeakWith: (newValue: Voice) => set({ voiceToSpeakWith: newValue })
 }))

@@ -1,6 +1,8 @@
 import { getLanguageName } from '@/helpers/getLanguageName'
+import { isLocalStorageSupported } from '@/helpers/isLocalStorageSupported'
 import { useIsMobile } from '@/helpers/useIsMobile'
 import { useIsTablet } from '@/helpers/useIsTablet'
+import { useChooseBestVoice } from '@/helpers/webSpeech/useChooseBestVoice'
 import { useArticleStore } from '@/stores/useArticleStore'
 import { useGenericStore } from '@/stores/useGenericStore'
 import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
@@ -11,8 +13,12 @@ export function VoicesDropdown() {
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
 
-    const voices = usePlayerStore((state) => state.voices)
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+
+    const voices = usePlayerStore((state) => state.voices)
+    const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
+    const setVoiceToSpeakWith = usePlayerStore((state) => state.setVoiceToSpeakWith)
+
     const [voicesOfAutoDetectedLanguage, setVoicesOfAutoDetectedLanguage] = useState<Array<Voice>>([])
     const [voicesOfOtherLanguages, setVoicesOfOtherLanguages] = useState<Array<Voice>>([])
 
@@ -58,9 +64,12 @@ export function VoicesDropdown() {
         }
     ]
 
+    // Chooses the best voice based on a combination of factors
+    useChooseBestVoice()
+
     // Formatted group heading
     // TODO: Set the right type for data
-    function formattedGroupLabel(data: any) {
+    function formattedGroupLabel(data: { label: string, options: Voice[] }) {
         return (
             <div className="text-sm text-center">
                 <span>{data.label}</span>
@@ -70,15 +79,29 @@ export function VoicesDropdown() {
 
     // Formatted option
     // TODO: Set the right type for data
-    function formattedOption(data: any) {
+    function formattedOption(data: Voice) {
         return (
-            <div className="flex items-center justify-between">
+            <div
+                className="flex items-center justify-between"
+                onClick={() => handleOptionClick(data)}
+            >
                 <span>{data.name}</span>
                 {!data.localService &&
                     <span className="ml-2 px-3 py-1 text-xs bg-primary-800/30 text-white/70 rounded-full">NATURAL</span>
                 }
             </div>
         )
+    }
+
+    function handleOptionClick(data: Voice) {
+        for (const voice of voices) {
+            if (voice.value === data.value)
+                setVoiceToSpeakWith(voice)
+        }
+        if (isLocalStorageSupported()) {
+            // Save voice name as the preferred voice for this language
+            window.localStorage.setItem(`${data.lang}`, data.name)
+        }
     }
 
 
@@ -88,13 +111,7 @@ export function VoicesDropdown() {
             isSearchable={(isMobile || isTablet) ? false : true}
             placeholder="Default voice"
             // TODO: Read from local storage
-            defaultValue={{
-                default: false,
-                lang: "en",
-                localService: false,
-                name: "Google UK English Male",
-                value: "Google UK English Male"
-            }}
+            value={voiceToSpeakWith}
             options={optionsForDropdown}
             classNamePrefix="voices-dropdown"
             formatGroupLabel={formattedGroupLabel}
