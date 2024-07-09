@@ -22,6 +22,12 @@ export default function Player() {
     useEffect(() => {
         setToastType("no-voice-found")
         setShowToast(true)
+
+        // On close of player, reset the toast type back to default and remove any no-voice-found toast
+        return () => {
+            setToastType("language-detected")
+            setShowToast(false)
+        }
     }, [])
 
     return (

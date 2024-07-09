@@ -23,7 +23,8 @@ const config: Config = {
       },
       boxShadow: {
         "container-glow-on-pattern": "0px 0px 192px 28px var(--primary-900)",
-        "container-glow-on-pattern-2": "0px 0px 480px 14px var(--primary-900)"
+        "container-glow-on-pattern-2": "0px 0px 480px 14px var(--primary-900)",
+        "menu-container-glow": "var(--shadow-menu-container-glow)"
       }
     },
   },

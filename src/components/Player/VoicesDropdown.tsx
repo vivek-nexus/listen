@@ -1,4 +1,3 @@
-import { colours } from '@/constants/dropdownColours'
 import Select, { CSSObjectWithLabel } from 'react-select'
 
 export function VoicesDropdown() {
@@ -90,34 +89,34 @@ export function VoicesDropdown() {
             styles={{
                 control: (base: CSSObjectWithLabel, state) => ({
                     ...base,
-                    backgroundColor: colours["primary-800/20"],
-                    borderColor: `${state.isFocused ? colours["primary-800"] : colours["primary-800/50"]}`,
+                    backgroundColor: "var(--primary-800-20)",
+                    borderColor: `${state.isFocused ? "var(--primary-800)" : "var(--primary-800-50)"}`,
                     boxShadow: "none",
                     borderRadius: "32px",
                     padding: "0px 2px",
                     ":hover": {
-                        borderColor: colours["primary-800"],
+                        borderColor: "var(--primary-800)",
                     },
                     ":active": {
-                        borderColor: colours["primary-800"],
+                        borderColor: "var(--primary-800)",
                     },
-                    cursor: "pointer"
+                    cursor: "pointer",
                 }),
                 input: (base) => ({
                     ...base,
-                    color: colours["white/70"]
+                    color: "var(--white-70)",
                 }),
                 singleValue: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: colours["white/70"],
+                    color: "var(--white-70)",
                 }),
                 dropdownIndicator: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: colours["primary-800"]
+                    color: "var(--primary-800)",
                 }),
                 indicatorSeparator: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    backgroundColor: colours["primary-800"]
+                    backgroundColor: "var(--primary-800)",
                 }),
                 container: (base: CSSObjectWithLabel) => ({
                     ...base,
@@ -125,32 +124,32 @@ export function VoicesDropdown() {
                 }),
                 menuList: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    padding: "0px"
+                    padding: "0px",
                 }),
                 menu: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: colours["primary-800"],
+                    color: "var(--primary-800)",
                     overflow: "clip",
-                    backgroundColor: colours["black/40"],
+                    backgroundColor: `var(--black-40)`,
                     borderRadius: "8px",
-                    border: `2px ${colours["primary-800/50"]} solid`,
+                    border: "2px var(--primary-800-50) solid",
                     backdropFilter: "blur(8px)",
-                    boxShadow: `0px 4px 24px 0px ${colours["primary-800/80"]}`,
+                    boxShadow: "var(--shadow-menu-container-glow)",
                     padding: "0px",
                     maxHeight: "300px",
                     transition: "all 0.5s linear",
                 }),
                 group: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: colours["primary-800"],
+                    color: "var(--primary-800)",
                     padding: "0px",
                     marginBottom: "16px",
                 }),
                 groupHeading: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: colours["white/70"],
+                    color: "var(--white-70)",
                     padding: "8px",
-                    backgroundColor: colours["group-heading-bg"],
+                    backgroundColor: "var(--group-heading-bg)",
                     border: "none",
                     borderWidth: "2px 0px",
                     position: "sticky",
@@ -160,16 +159,16 @@ export function VoicesDropdown() {
                 option: (base: CSSObjectWithLabel, state: any) => ({
                     ...base,
                     transition: "color 0.2s",
-                    color: state.isSelected ? colours["white/70"] : colours["primary-800"],
-                    backgroundColor: state.isSelected && colours["primary-800/80"],
+                    color: state.isSelected ? "var(--white-70)" : "var(--primary-800)",
+                    backgroundColor: state.isSelected && "var(--primary-800-80)",
                     ":hover": {
-                        color: colours["white/70"],
+                        color: "var(--white-70)",
                     },
                     ":active": {
-                        backgroundColor: colours["primary-800/60"],
+                        backgroundColor: "var(--primary-800-60)",
                     },
                     ":focus": {
-                        backgroundColor: colours["primary-800/40"],
+                        backgroundColor: "var(--primary-800-40)",
                     },
                     cursor: "pointer"
                 }),

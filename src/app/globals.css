@@ -13,6 +13,23 @@
   --primary-200: #80dddb;
   --primary-100: #b1eae8;
   --primary-50: #dff7f6;
+  --shadow-menu-container-glow: 0px 8px 32px 0px rgba(0, 128, 128, 0.75);
+
+  /* Colour variables for dropdown */
+  --primary-800: rgba(0, 128, 128);
+  --primary-800-90: rgba(0, 128, 128, 0.9);
+  --primary-800-80: rgba(0, 128, 128, 0.8);
+  --primary-800-70: rgba(0, 128, 128, 0.7);
+  --primary-800-60: rgba(0, 128, 128, 0.6);
+  --primary-800-50: rgba(0, 128, 128, 0.5);
+  --primary-800-40: rgba(0, 128, 128, 0.4);
+  --primary-800-30: rgba(0, 128, 128, 0.3);
+  --primary-800-20: rgba(0, 128, 128, 0.2);
+  --primary-800-10: rgba(0, 128, 128, 0.1);
+  --white-70: rgba(255, 255, 255, 0.7);
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-70: rgba(0, 0, 0, 0.7);
+  --group-heading-bg: #002c2c;
 }
 
 .material-icons {
@@ -34,7 +51,7 @@
   border-radius: 4px;
   opacity: 0;
   transition: all 0.5s ease;
-  transition-delay: 0.5s;
+  transition-delay: 0.25s;
   z-index: 50;
   /* If this is not specified, the element will have opacity 0, but will still pick up clicks */
   visibility: hidden;

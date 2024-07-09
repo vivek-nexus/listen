@@ -28,7 +28,7 @@ export default function PlayerHeader() {
                     onClick={() => setIsPlayerOpen(false)}
                 >
                     <span className="material-icons text-2xl">close</span>
-                    <p className={`text-white/70 font-bold text-nowrap`}>
+                    <p className={`text-white/70 font-bold`}>
                         {tab === "fetch" ? `Fetched article` : `Pasted article`}
                     </p>
                     <p className="text-white/70">|</p>

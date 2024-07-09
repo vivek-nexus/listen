@@ -78,11 +78,13 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
             className={`relative bg-white/60 w-12 h-24 rounded-[50%] overflow-clip ${styles["eye-container"]}`}
         >
             {/* EYE BALL TOP HALF */}
+            {/* Height 2/3 when closed, to create visual effect of closing completely */}
             <div
                 className={`absolute top-0 w-full bg-[#808080] z-10 transition-all duration-300 ${isClosed ? `h-2/3` : `h-0`}`}
             >
             </div>
             {/* EYE BALL BOTTOM HALF */}
+            {/* Height 2/3 when closed, to create visual effect of closing completely */}
             <div
                 className={`absolute bottom-0 w-full bg-[#808080] z-10 transition-all duration-300 ${isClosed ? `h-2/3` : `h-0`}`}
             >

@@ -8,6 +8,7 @@ export function useFetchArticle() {
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
     const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
+    const tab = useGenericStore((state) => state.tab)
 
     const articleLink = useArticleStore((state) => state.articleLink)
     const setFetchedArticle = useArticleStore((state) => state.setFetchedArticle)
@@ -33,4 +34,13 @@ export function useFetchArticle() {
             })
         }
     }, [isFetching])
+
+    // Clean up fetch message toast, when tab changes
+    useEffect(() => {
+        if (tab !== "fetch") {
+            setToastType("language-detected")
+            setShowToast(false)
+        }
+
+    }, [tab])
 }
