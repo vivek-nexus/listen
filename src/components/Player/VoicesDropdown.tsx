@@ -1,70 +1,66 @@
+import { getLanguageName } from '@/helpers/getLanguageName'
+import { useIsMobile } from '@/helpers/useIsMobile'
+import { useIsTablet } from '@/helpers/useIsTablet'
+import { useArticleStore } from '@/stores/useArticleStore'
+import { useGenericStore } from '@/stores/useGenericStore'
+import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
+import { useEffect, useState } from 'react'
 import Select, { CSSObjectWithLabel } from 'react-select'
 
 export function VoicesDropdown() {
-    const options =
-        [
-            {
-                label: "English voices",
-                options:
-                    [
-                        {
-                            label: "English Voice 1",
-                            value: "english voice 1",
-                            isNatural: true
-                        },
-                        {
-                            label: "English Voice 2",
-                            value: "english voice 2"
-                        }
-                    ]
-            },
-            {
-                label: "All other voices",
-                options: [
-                    {
-                        label: "Non English Voice 1",
-                        value: "non english voice 1"
-                    },
-                    {
-                        label: "Non English Voice 2 Non English Voice 2",
-                        value: "non english voice 2",
-                        isNatural: true
-                    },
-                    {
-                        label: "Non English Voice 2",
-                        value: "non english voice 3"
-                    },
-                    {
-                        label: "Non English Voice 2",
-                        value: "non english voice 4"
-                    },
-                    {
-                        label: "Non English Voice 2",
-                        value: "non english voice 5"
-                    },
-                    {
-                        label: "Non English Voice 2",
-                        value: "non english voice 6"
-                    },
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const setToastType = useGenericStore((state) => state.setToastType)
 
-                ]
-            }
-        ]
+    const voices = usePlayerStore((state) => state.voices)
+    const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+    const [voicesOfAutoDetectedLanguage, setVoicesOfAutoDetectedLanguage] = useState<Array<Voice>>([])
+    const [voicesOfOtherLanguages, setVoicesOfOtherLanguages] = useState<Array<Voice>>([])
 
-    function formattedOption(data: any) {
-        console.log(data)
-        return (
-            <div className="flex items-center justify-between">
-                <span>{data.label}</span>
-                {data.hasOwnProperty("isNatural") &&
-                    <span className="ml-2 px-3 py-1 text-xs bg-primary-800/30 text-white/70 rounded-full">NATURAL</span>
-                }
-            </div>
-        )
-    }
+    const isMobile = useIsMobile()
+    const isTablet = useIsTablet()
 
+    useEffect(() => {
+        // Group voices for dropdown
+        const tempVoicesOfAutoDetectedLanguage: Array<Voice> = []
+        const tempVoicesOfOtherLanguages: Array<Voice> = []
+
+        for (const voice of voices) {
+            if (voice.lang === languageCodeOfArticleToSpeak)
+                tempVoicesOfAutoDetectedLanguage.push(voice)
+            else
+                tempVoicesOfOtherLanguages.push(voice)
+        }
+        setVoicesOfAutoDetectedLanguage(tempVoicesOfAutoDetectedLanguage)
+        setVoicesOfOtherLanguages(tempVoicesOfOtherLanguages)
+    }, [languageCodeOfArticleToSpeak, voices])
+
+    // TODO: Decide what to do, when no voices are available in both 1 and 2
+    useEffect(() => {
+        if (voicesOfAutoDetectedLanguage.length === 0) {
+            setToastType("no-voice-found")
+            setShowToast(true)
+        }
+        // On close of player, reset the toast type back to default and remove any no-voice-found toast
+        return () => {
+            setToastType("language-detected")
+            setShowToast(false)
+        }
+    }, [voicesOfAutoDetectedLanguage])
+
+    const optionsForDropdown = [
+        {
+            label: `${getLanguageName(languageCodeOfArticleToSpeak)} voices`,
+            options: voicesOfAutoDetectedLanguage
+        },
+        {
+            label: "Other language voices",
+            options: voicesOfOtherLanguages
+        }
+    ]
+
+    // Formatted group heading
+    // TODO: Set the right type for data
     function formattedGroupLabel(data: any) {
-        console.log(data)
         return (
             <div className="text-sm text-center">
                 <span>{data.label}</span>
@@ -72,12 +68,34 @@ export function VoicesDropdown() {
         )
     }
 
-    return (
+    // Formatted option
+    // TODO: Set the right type for data
+    function formattedOption(data: any) {
+        return (
+            <div className="flex items-center justify-between">
+                <span>{data.name}</span>
+                {!data.localService &&
+                    <span className="ml-2 px-3 py-1 text-xs bg-primary-800/30 text-white/70 rounded-full">NATURAL</span>
+                }
+            </div>
+        )
+    }
 
+
+    return (
         <Select
-            isSearchable={true}
+            // TODO: Find a way to not bring up virtual keyboard on mobile, with isSearchable set to true
+            isSearchable={(isMobile || isTablet) ? false : true}
             placeholder="Default voice"
-            options={options}
+            // TODO: Read from local storage
+            defaultValue={{
+                default: false,
+                lang: "en",
+                localService: false,
+                name: "Google UK English Male",
+                value: "Google UK English Male"
+            }}
+            options={optionsForDropdown}
             classNamePrefix="voices-dropdown"
             formatGroupLabel={formattedGroupLabel}
             formatOptionLabel={formattedOption}

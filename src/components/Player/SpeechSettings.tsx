@@ -11,6 +11,7 @@ export default function SpeechSettings() {
 
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
+    // For detecting clicks outside the settings container
     const settingsRef = useRef() as MutableRefObject<HTMLDivElement>
 
     function detectOutsideClick(event: Event) {

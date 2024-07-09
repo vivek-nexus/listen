@@ -1,10 +1,10 @@
-import { CORS_ERROR_MESSAGE } from "@/constants/appConstants"
+import { CORS_ERROR_MESSAGE, PROXY_SERVER_URL } from "@/constants/appConstants"
 import { FetchedArticle } from "@/stores/useArticleStore"
 import { Readability } from "@mozilla/readability"
 
 export function fetchArticle(link: string): Promise<FetchedArticle> {
     {
-        const urlToFetch = shouldFetchViaProxyServer() ? `https://render-express-server-q222.onrender.com/fetch-html?url=${link}` : `${link}`
+        const urlToFetch = shouldFetchViaProxyServer() ? `${PROXY_SERVER_URL}/fetch-html?url=${link}` : `${link}`
 
         // Return the fetch promise
         return fetch(urlToFetch)

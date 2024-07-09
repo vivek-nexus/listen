@@ -8,6 +8,7 @@ import { useFetchArticle } from "@/helpers/fetchArticle/useFetchArticle"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
+import { usePopulateVoices } from "@/helpers/webSpeech/usePopulateVoices"
 
 export type ToastType = "language-detected" | "fetch-message"
 
@@ -24,6 +25,9 @@ export default function App() {
 
     // Fetches article whenever isFetching is set to true
     useFetchArticle()
+
+    // Populates voices available on the device and re-populates if list of voices change (mostly never happens)
+    usePopulateVoices()
 
     // Parse URL params
     useEffect(() => {
