@@ -14,10 +14,6 @@ export default function Player() {
 
     const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
 
-
-    // Register keyboard shortcuts in the player
-    usePlayerKeyBoardShortcuts()
-
     const isMobile = useIsMobileOnClient()
     const isTablet = useIsTabletOnClient()
 

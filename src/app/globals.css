@@ -13,7 +13,7 @@
   --primary-200: #80dddb;
   --primary-100: #b1eae8;
   --primary-50: #dff7f6;
-  --shadow-menu-container-glow: 0px 8px 32px 0px rgba(0, 128, 128, 0.75);
+  --shadow-menu-container-glow: 0px 4px 16px 0px rgba(0, 128, 128, 0.75);
 
   /* Colour variables for dropdown */
   --primary-800: rgba(0, 128, 128);
