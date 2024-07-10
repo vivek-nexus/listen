@@ -1,14 +1,52 @@
 import { usePlayerKeyBoardShortcuts } from "@/helpers/usePlayerKeyBoardShortcuts"
-import { useArticleStore } from "@/stores/useArticleStore"
 import PlayerControls from "./PlayerControls"
 import PlayerHeader from "./PlayerHeader"
 import SpeechSettings from "./SpeechSettings"
+import { useEffect } from "react"
+import { useGenericStore } from "@/stores/useGenericStore"
+import { usePlayerStore } from "@/stores/usePlayerStore"
+import { useIsMobile } from "@/helpers/useIsMobile"
+import { useIsTablet } from "@/helpers/useIsTablet"
 
 export default function Player() {
-    const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const setToastType = useGenericStore((state) => state.setToastType)
+
+    const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
+
 
     // Register keyboard shortcuts in the player
     usePlayerKeyBoardShortcuts()
+
+    const isMobile = useIsMobile()
+    const isTablet = useIsTablet()
+
+    // Show toasts
+    useEffect(() => {
+        // If voiceToSpeakWith is dummy (no voice found for auto detected language)
+        if ((voiceToSpeakWith.value === "default-voice")) {
+            setShowToast(true)
+            setToastType("no-voice-found")
+        }
+        // If voiceToSpeakWith is defined
+        else {
+            // Show informational toast on mobile and tablet
+            if (isMobile || isTablet) {
+                setShowToast(true)
+                setToastType("install-selected-voice")
+            }
+        }
+        // Toast clean up done by the useEffect in index.tsx to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
+        return (() => {
+            setShowToast(false)
+            setToastType("language-detected")
+        })
+    }, [])
+
+    // Clean up any toasts from all components inside the player
+    useEffect(() => {
+
+    }, [])
 
     return (
         <div className="bg-primary-800/10 lg:bg-primary-800/20 h-full flex flex-col">
@@ -22,18 +60,8 @@ export default function Player() {
                 <SpeechSettings />
             </div>
 
-            {/* READING ARTICLE */}
-            <div className="flex-grow mx-8 my-6 flex flex-col justify-center">
-                {/* Restrict height, without which the reading article container will flex grow and push player controls out of the screen. Hard coded to max-h-32 since percentage does not work with parent that is set to flex-grow. */}
-                <p className="text-center max-h-32 overflow-y-auto custom-scrollbar text-white/60 animate__animated animate__fadeIn">
-                    {articleToSpeak}
-                </p>
-            </div>
-
-            {/* PLAYER CONTROLS */}
-            <div>
-                <PlayerControls />
-            </div>
+            {/* READING ARTICLE AND PLAYER CONTROLS */}
+            <PlayerControls />
         </div >
     )
 }

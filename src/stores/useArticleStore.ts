@@ -1,5 +1,4 @@
 import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
-import { LanguageCode } from "cld3-asm"
 import { create } from "zustand"
 
 // Store items that use a common setter function
@@ -11,35 +10,41 @@ export type FetchedArticle = {
 
 interface ArticleStoreState {
     articleLink: string,
-    fetchedArticle: FetchedArticle,
     pastedArticle: string,
     articleToSpeak: string,
-    languageCodeOfArticleToSpeak: LanguageCode,
+    fetchedArticle: FetchedArticle,
+    setFetchedArticle: (item: "title" | "article", newValue: string) => void,
+    languageCodeOfArticleToSpeak: string,
+    setArticleLanguageCode: (newValue: string) => void,
     isFetching: boolean,
     setIsFetching: (newValue: boolean) => void,
+    sentences: string[],
+    setSentences: (newValue: string[]) => void,
     setArticleStoreStringItem: (item: ArticleStoreItemsOfTypeString, newValue: string) => void
-    setFetchedArticle: (item: "title" | "article", newValue: string) => void,
-    setArticleLanguageCode: (newValue: LanguageCode) => void
 }
 
 export const useArticleStore = create<ArticleStoreState>(
     (set) => ({
         articleLink: "",
+
+        pastedArticle: DEFAULT_PASTED_ARTICLE,
+        articleToSpeak: "",
         fetchedArticle: {
             title: "",
             article: ""
         },
-        pastedArticle: DEFAULT_PASTED_ARTICLE,
-        articleToSpeak: "",
-        languageCodeOfArticleToSpeak: LanguageCode.EN,
-        isFetching: false,
-        setIsFetching: (newValue) => set({ isFetching: newValue }),
-        setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
         setFetchedArticle: (item, newValue) => set((state) => ({
             fetchedArticle: {
                 ...state.fetchedArticle,
                 [item]: newValue
             }
         })),
-        setArticleLanguageCode: (newValue) => set({ languageCodeOfArticleToSpeak: newValue })
+        languageCodeOfArticleToSpeak: "en",
+        setArticleLanguageCode: (newValue) => set({ languageCodeOfArticleToSpeak: newValue }),
+        isFetching: false,
+        setIsFetching: (newValue) => set({ isFetching: newValue }),
+        sentences: [],
+        setSentences: (newValue: string[]) => set({ sentences: newValue }),
+        setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
+
     }))

@@ -3,8 +3,13 @@ import Button from "../Button";
 import { VoicesDropdown } from "./VoicesDropdown";
 import StepInput from "./StepInput";
 import { usePlayerStore } from "@/stores/usePlayerStore";
+import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported";
+import { useGenericStore } from "@/stores/useGenericStore";
 
 export default function SpeechSettings() {
+    const setShowToast = useGenericStore((state) => state.setShowToast)
+    const setToastType = useGenericStore((state) => state.setToastType)
+
     const rate = usePlayerStore((state) => state.rate)
     const pitch = usePlayerStore((state) => state.pitch)
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)
@@ -24,6 +29,23 @@ export default function SpeechSettings() {
         document.addEventListener("click", detectOutsideClick)
         return () => document.removeEventListener("click", detectOutsideClick)
     }, [isSettingsOpen])
+
+    // Save values to localStorage
+    // Ideally should have been present on the click handlers, since programmatic changes are probably not user preferences. In these values, values change only due to user clicks, so doesn't make a difference.
+    useEffect(() => {
+        if (isLocalStorageSupported()) {
+            window.localStorage.setItem("rate", `${rate}`)
+            window.localStorage.setItem("pitch", `${pitch}`)
+            window.localStorage.setItem("bgMusicVol", `${bgMusicVol}`)
+        }
+    }, [rate, pitch, bgMusicVol])
+
+    // TODO: Add hot reload toast when values change, but only on first render
+    useEffect(() => {
+
+
+        // Toast clean up done by the useEffect in index.tsx to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
+    }, [rate, pitch, bgMusicVol])
 
     return (
         <div className="relative">
@@ -74,7 +96,7 @@ export default function SpeechSettings() {
                     value={bgMusicVol}
                 />
             </div>
-            <p className="lg:hidden text-primary-800 text-center text-sm">On mobile devices, change voice in your device text to speech settings</p>
+            <p className="lg:hidden text-primary-800 text-center text-sm">On mobile devices, ensure selected voice is installed in your device text to speech settings</p>
             <p className="hidden lg:block text-primary-800 text-center text-sm">On desktop devices, use Google Chrome for more natural voices</p>
         </div>
     )

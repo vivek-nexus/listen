@@ -5,7 +5,8 @@ interface PwaStoreState {
     setIsPwaInstallable: (newValue: boolean) => void
 }
 
-export const usePwaStore = create<PwaStoreState>((set) => ({
-    isPwaInstallable: false,
-    setIsPwaInstallable: (newValue) => set({ isPwaInstallable: newValue })
-}))
+export const usePwaStore = create<PwaStoreState>(
+    (set) => ({
+        isPwaInstallable: false,
+        setIsPwaInstallable: (newValue) => set({ isPwaInstallable: newValue })
+    }))

@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-type ToastType = "language-detected" | "fetch-message" | "no-voice-found"
+type ToastType = "language-detected" | "fetch-message" | "no-voice-found" | "install-selected-voice" | "param-hot-reload"
 type TabsType = "fetch" | "paste"
 
 interface GenericStoreState {

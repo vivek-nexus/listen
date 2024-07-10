@@ -1,4 +1,3 @@
-import { ReactNode } from "react"
 import Button from "../Button"
 import { Item, usePlayerStore } from "@/stores/usePlayerStore"
 import { SpeechSettingDefaultValues } from "@/constants/appConstants"
@@ -15,7 +14,7 @@ type StepInputProps = {
 export default function StepInput({ label, item, min, max, step, value }: StepInputProps) {
     const incrementStepValue = usePlayerStore((state) => state.incrementStepValue)
     const decrementStepValue = usePlayerStore((state) => state.decrementStepValue)
-    const resetStepValue = usePlayerStore((state) => state.resetStepValue)
+    const setStepValue = usePlayerStore((state) => state.setStepValue)
 
 
     return (
@@ -25,7 +24,7 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                 <Button
                     type="tertiary"
                     className={`flex items-center`}
-                    onClick={() => resetStepValue(item, SpeechSettingDefaultValues[item])}
+                    onClick={() => setStepValue(item, SpeechSettingDefaultValues[item])}
                 >
                     <span className="material-icons text-primary-800">backspace</span>
                 </Button>

@@ -6,6 +6,7 @@ import "animate.css";
 import "./globals.css"
 import Head from "@/components/Head"
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
+import { usePopulateVoices } from "@/helpers/webSpeech/usePopulateVoices";
 
 const figtree = Figtree({ subsets: ["latin"] })
 
@@ -15,7 +16,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
 
+  // Determine PWA status. Initialised in RootLayout to avoid missing of window events.
   useIsPwaInstallable()
+
+  // Populates voices available on the device and re-populates if list of voices change (mostly never happens). Initialised in RootLayout to avoid missing of window events.
+  usePopulateVoices()
 
   return (
     <html lang="en">

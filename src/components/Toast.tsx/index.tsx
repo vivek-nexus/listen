@@ -16,7 +16,6 @@ type ToastProps = {
 export default function Toast({ showToast, setShowToast, children }: ToastProps) {
     useEffect(() => {
         // TODO: Understand why below statement is logged to the console, when some random state variables in the store changes (some examples: articleLink, isPlayerOpen etc.)
-        console.log("New render effect " + showToast)
         if (showToast) {
             const toastTimeOut = setTimeout(() => {
                 setShowToast(false)
@@ -24,7 +23,6 @@ export default function Toast({ showToast, setShowToast, children }: ToastProps)
 
             // Clear the timeout
             return () => {
-                console.log("Cleaning up any open timeout" + showToast)
                 clearTimeout(toastTimeOut)
             }
         }

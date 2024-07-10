@@ -5,5 +5,5 @@ export function getLanguageName(languageCode: string) {
         // Assert that the  key is indeed present, since it is checked in the if statement above
         return LanguageCodeToLanguageMap[languageCode as keyof typeof LanguageCodeToLanguageMap]
     else
-        return undefined
+        return "unknown"
 }

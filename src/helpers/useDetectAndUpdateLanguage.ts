@@ -22,10 +22,10 @@ export function useDetectAndUpdateLanguage() {
                 if (detectedLanguages.length > 0 && detectedLanguages[0].is_reliable)
                     setArticleLanguageCode(detectedLanguages[0].language)
                 else
-                    setArticleLanguageCode(cld3Asm.LanguageCode.EN)
+                    setArticleLanguageCode("en")
             })
         }
         else
-            setArticleLanguageCode(cld3Asm.LanguageCode.EN)
+            setArticleLanguageCode("en")
     }, [articleToSpeak])
 }

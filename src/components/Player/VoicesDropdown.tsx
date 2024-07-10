@@ -2,7 +2,6 @@ import { getLanguageName } from '@/helpers/getLanguageName'
 import { isLocalStorageSupported } from '@/helpers/isLocalStorageSupported'
 import { useIsMobile } from '@/helpers/useIsMobile'
 import { useIsTablet } from '@/helpers/useIsTablet'
-import { useChooseBestVoice } from '@/helpers/webSpeech/useChooseBestVoice'
 import { useArticleStore } from '@/stores/useArticleStore'
 import { useGenericStore } from '@/stores/useGenericStore'
 import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
@@ -27,8 +26,8 @@ export function VoicesDropdown() {
 
     useEffect(() => {
         // Group voices for dropdown
-        const tempVoicesOfAutoDetectedLanguage: Array<Voice> = []
-        const tempVoicesOfOtherLanguages: Array<Voice> = []
+        const tempVoicesOfAutoDetectedLanguage: Voice[] = []
+        const tempVoicesOfOtherLanguages: Voice[] = []
 
         for (const voice of voices) {
             if (voice.lang === languageCodeOfArticleToSpeak)
@@ -40,19 +39,6 @@ export function VoicesDropdown() {
         setVoicesOfOtherLanguages(tempVoicesOfOtherLanguages)
     }, [languageCodeOfArticleToSpeak, voices])
 
-    // TODO: Decide what to do, when no voices are available in both 1 and 2
-    useEffect(() => {
-        if (voicesOfAutoDetectedLanguage.length === 0) {
-            setToastType("no-voice-found")
-            setShowToast(true)
-        }
-        // On close of player, reset the toast type back to default and remove any no-voice-found toast
-        return () => {
-            setToastType("language-detected")
-            setShowToast(false)
-        }
-    }, [voicesOfAutoDetectedLanguage])
-
     const optionsForDropdown = [
         {
             label: `${getLanguageName(languageCodeOfArticleToSpeak)} voices`,
@@ -63,9 +49,6 @@ export function VoicesDropdown() {
             options: voicesOfOtherLanguages
         }
     ]
-
-    // Chooses the best voice based on a combination of factors
-    useChooseBestVoice()
 
     // Formatted group heading
     // TODO: Set the right type for data
@@ -95,9 +78,13 @@ export function VoicesDropdown() {
 
     function handleOptionClick(data: Voice) {
         for (const voice of voices) {
-            if (voice.value === data.value)
+            if (voice.value === data.value) {
                 setVoiceToSpeakWith(voice)
+                setShowToast(true)
+                setToastType("param-hot-reload")
+            }
         }
+        // Saving to localStorage only on click user event. Not considering programmatic voiceToSpeakWith changes, since they are guesses by the system and not user preferences to be saved. Guesses should freely change every time based on the influencing factors, whereas user preferences should be derived only from user actions.
         if (isLocalStorageSupported()) {
             // Save voice name as the preferred voice for this language
             window.localStorage.setItem(`${data.lang}`, data.name)

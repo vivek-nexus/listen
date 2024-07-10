@@ -10,5 +10,7 @@ export const SpeechSettingDefaultValues = {
     pitch: 10,
     bgMusicVol: 10
 }
+// Google voices hang unpredictably for longer sentences
+export const maxSentenceLength = 200
 
 

@@ -7,6 +7,8 @@ import { useEffect, useState } from "react"
 import Button from "../Button"
 import FetchTab from "./FetchTab"
 import PasteTab from "./PasteTab"
+import { useSplitArticleToSentences } from "@/helpers/handleArticle/useSplitArticleToSentences"
+import { usePlayerStore } from "@/stores/usePlayerStore"
 
 
 export default function ArticleForm() {
@@ -22,6 +24,8 @@ export default function ArticleForm() {
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
+
+    const setPlayerState = usePlayerStore((state) => state.setPlayerState)
 
     const [showPlayButton, setShowPlayButton] = useState(false)
 
@@ -54,6 +58,8 @@ export default function ArticleForm() {
         else
             setShowToast(false)
     }, [languageCodeOfArticleToSpeak])
+
+    useSplitArticleToSentences()
 
 
     // Conditionally show or hide play button

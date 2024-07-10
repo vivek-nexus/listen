@@ -4,11 +4,13 @@ import ArticleForm from "@/components/ArticleForm"
 import Player from "@/components/Player"
 import Toast from "@/components/Toast.tsx"
 import { getLanguageName } from "@/helpers/getLanguageName"
-import { useFetchArticle } from "@/helpers/fetchArticle/useFetchArticle"
+import { useFetchArticle } from "@/helpers/handleArticle/useFetchArticle"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
-import { usePopulateVoices } from "@/helpers/webSpeech/usePopulateVoices"
+import { useChooseBestVoice } from "@/helpers/webSpeech/useChooseBestVoice"
+import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported"
+import { usePlayerStore } from "@/stores/usePlayerStore"
 
 export type ToastType = "language-detected" | "fetch-message"
 
@@ -23,11 +25,29 @@ export default function App() {
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
     const setIsFetching = useArticleStore((state) => state.setIsFetching)
 
+    const setStepValue = usePlayerStore((state) => state.setStepValue)
+
     // Fetches article whenever isFetching is set to true
     useFetchArticle()
 
-    // Populates voices available on the device and re-populates if list of voices change (mostly never happens)
-    usePopulateVoices()
+    // Read and choose the best voice based on a combination of factors
+    useChooseBestVoice()
+
+    // Read local storage preferences
+    useEffect(() => {
+        if (isLocalStorageSupported()) {
+            const rate = window.localStorage.getItem("rate")
+            const pitch = window.localStorage.getItem("pitch")
+            const bgMusicVol = window.localStorage.getItem("bgMusicVol")
+
+            if (rate)
+                setStepValue("rate", parseInt(rate))
+            if (pitch)
+                setStepValue("pitch", parseInt(pitch))
+            if (bgMusicVol)
+                setStepValue("bgMusicVol", parseInt(bgMusicVol))
+        }
+    }, [])
 
     // Parse URL params
     useEffect(() => {
@@ -84,8 +104,15 @@ export default function App() {
                         {toastType === "fetch-message" &&
                             <>Could not fetch the article! You may directly paste the article text.</>
                         }
+
                         {toastType === "no-voice-found" &&
                             <>No {getLanguageName(languageCodeOfArticleToSpeak)} voices found. Using default voice.</>
+                        }
+                        {toastType === "param-hot-reload" &&
+                            <>Changes will be applied when speaking the next sentence</>
+                        }
+                        {toastType === "install-selected-voice" &&
+                            <>Ensure selected voice is installed on your device. Click help icon for instructions.</>
                         }
                     </p>
                 </Toast>
