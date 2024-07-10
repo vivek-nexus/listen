@@ -1,7 +1,7 @@
 import { getLanguageName } from '@/helpers/getLanguageName'
 import { isLocalStorageSupported } from '@/helpers/isLocalStorageSupported'
-import { useIsMobile } from '@/helpers/useIsMobile'
-import { useIsTablet } from '@/helpers/useIsTablet'
+import { useIsMobileOnClient } from '@/helpers/useIsMobileOnClient'
+import { useIsTabletOnClient } from '@/helpers/useIsTabletOnClient'
 import { useArticleStore } from '@/stores/useArticleStore'
 import { useGenericStore } from '@/stores/useGenericStore'
 import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
@@ -21,8 +21,8 @@ export function VoicesDropdown() {
     const [voicesOfAutoDetectedLanguage, setVoicesOfAutoDetectedLanguage] = useState<Array<Voice>>([])
     const [voicesOfOtherLanguages, setVoicesOfOtherLanguages] = useState<Array<Voice>>([])
 
-    const isMobile = useIsMobile()
-    const isTablet = useIsTablet()
+    const isMobile = useIsMobileOnClient()
+    const isTablet = useIsTabletOnClient()
 
     useEffect(() => {
         // Group voices for dropdown

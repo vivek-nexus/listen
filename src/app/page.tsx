@@ -4,13 +4,14 @@ import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
 import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants/appConstants"
-import { useIsMobile } from "@/helpers/useIsMobile"
-import { useIsTablet } from "@/helpers/useIsTablet"
+import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
+import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
 import Link from "next/link"
+import { useEffect } from "react"
 
 export default function Home() {
-  const isMobile = useIsMobile()
-  const isTablet = useIsTablet()
+  const isMobile = useIsMobileOnClient()
+  const isTablet = useIsTabletOnClient()
 
   return (
     <div className="min-h-dvh flex items-center">

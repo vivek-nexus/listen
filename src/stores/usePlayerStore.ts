@@ -9,7 +9,7 @@ export type Voice = {
     value: string,
 }
 
-// TODO: Explain why complete is needed
+// Why complete state? Same as paused, but signifies that any next playing should start from index 0. Really for ease of understanding. Otherwise could have managed with just playing and paused states.
 type PlayerState = "playing" | "paused" | "complete"
 
 interface PlayerStoreState {

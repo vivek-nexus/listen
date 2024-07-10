@@ -5,8 +5,8 @@ import SpeechSettings from "./SpeechSettings"
 import { useEffect } from "react"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
-import { useIsMobile } from "@/helpers/useIsMobile"
-import { useIsTablet } from "@/helpers/useIsTablet"
+import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
+import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
 
 export default function Player() {
     const setShowToast = useGenericStore((state) => state.setShowToast)
@@ -18,8 +18,8 @@ export default function Player() {
     // Register keyboard shortcuts in the player
     usePlayerKeyBoardShortcuts()
 
-    const isMobile = useIsMobile()
-    const isTablet = useIsTablet()
+    const isMobile = useIsMobileOnClient()
+    const isTablet = useIsTabletOnClient()
 
     // Show toasts
     useEffect(() => {
@@ -36,17 +36,12 @@ export default function Player() {
                 setToastType("install-selected-voice")
             }
         }
-        // Toast clean up done by the useEffect in index.tsx to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
+        // Toast clean up done here to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
         return (() => {
             setShowToast(false)
             setToastType("language-detected")
         })
-    }, [])
-
-    // Clean up any toasts from all components inside the player
-    useEffect(() => {
-
-    }, [])
+    }, [isMobile, isTablet])
 
     return (
         <div className="bg-primary-800/10 lg:bg-primary-800/20 h-full flex flex-col">
