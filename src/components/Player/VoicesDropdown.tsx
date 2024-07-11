@@ -97,7 +97,6 @@ export function VoicesDropdown() {
             // TODO: Find a way to not bring up virtual keyboard on mobile, with isSearchable set to true
             isSearchable={(isMobile || isTablet) ? false : true}
             placeholder="Default voice"
-            // TODO: Read from local storage
             value={voiceToSpeakWith}
             options={optionsForDropdown}
             classNamePrefix="voices-dropdown"

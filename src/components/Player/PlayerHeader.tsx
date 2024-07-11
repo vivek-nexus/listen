@@ -87,7 +87,7 @@ export default function PlayerHeader() {
                     <Menu
                         isOpen={isHelpOpen}
                         setIsOpen={setIsHelpOpen}
-                        className="overflow-scroll"
+                        className="overflow-y-scroll custom-scrollbar"
                         classNameWhenOpen="max-h-[22rem] p-6 w-[18rem]"
                         classNameWhenClosed="max-h-0 p-0 w-0"
                     >
@@ -96,10 +96,10 @@ export default function PlayerHeader() {
                             <hr className="my-2 border-primary-800" />
                             <ul>
                                 <li className="list-disc ml-4 mb-2">
-                                    <p className="">On Android, open device settings. Search for "text to speech". Click on settings for the preferred engine and install voice data.</p>
+                                    <p className="">On Android, open device settings. Search for &quot;text to speech&quot;. Click on settings for the preferred engine and install voice data.</p>
                                 </li>
                                 <li className="list-disc ml-4">
-                                    <p className="">On iOS, open device settings. Search for "voices" or "spoken content". Choose a language and download voice data.</p>
+                                    <p className="">On iOS, open device settings. Search for &quot;voices&quot; or &quot;spoken content&quot;. Choose a language and download voice data.</p>
                                 </li>
                             </ul>
                         </div>

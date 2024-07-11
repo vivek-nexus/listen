@@ -7,9 +7,9 @@ export const GITHUB_MORE_HELP_LINK = "https://github.com/vivek-nexus/listen?tab=
 // TODO: Update link
 export const GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK = "hhttps://github.com/vivek-nexus/listen?tab=readme-ov-file#listen"
 export const PORTFOLIO_LINK = "https://vivek.nexus"
-export const DEFAULT_PASTED_ARTICLE = `Hello! Listen is your world-class reading companion. You can use this tool to listen to news pages or blog pages, as if it was a podcast. You can use it to proof-read, or should we say, proof-listen to your writing! So many possibilities, isn't it?
+export const DEFAULT_PASTED_ARTICLE = `Hello! Listen is your world-class reading companion. You can use this tool to listen to news pages or blog pages, as if they were podcasts. You can use it to proof-read, or should we say, proof-listen to your writing! So many possibilities, isn't it?
 
-On desktop devices, use Google Chrome browser for natural sounding voices. On Android and iOS, you may need to manually download and install voice data, in your device settings.
+On desktop devices, use Google Chrome browser for natural sounding voices. On Android and iOS, you may need to first download and install voice data, in your device settings.
 
 If you like Listen, you can install it as an app on your phone or desktop. Even more, you can quickly integrate it on your blog or webpages, so that, your readers can listen to your pages.
 

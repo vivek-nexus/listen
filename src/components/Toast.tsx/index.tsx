@@ -15,7 +15,7 @@ type ToastProps = {
 
 export default function Toast({ showToast, setShowToast, children }: ToastProps) {
     useEffect(() => {
-        // TODO: Understand why below statement is logged to the console, when some random state variables in the store changes (some examples: articleLink, isPlayerOpen etc.)
+        // TODO: Understand why component is re-rendered, when some random state variables in the store changes (some examples: articleLink, isPlayerOpen etc.)
         if (showToast) {
             const toastTimeOut = setTimeout(() => {
                 setShowToast(false)

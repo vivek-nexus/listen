@@ -3,11 +3,10 @@
 import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
-import { GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_REPO_LINK } from "@/constants/appConstants"
+import { GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK } from "@/constants/appConstants"
 import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
 import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
 import Link from "next/link"
-import { useEffect } from "react"
 
 export default function Home() {
   const isMobile = useIsMobileOnClient()

@@ -6,7 +6,7 @@ import "animate.css";
 import "./globals.css"
 import Head from "@/components/Head"
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
-import { usePopulateVoices } from "@/helpers/webSpeech/usePopulateVoices";
+import { usePopulateVoices } from "@/helpers/setUpWebSpeech/usePopulateVoices";
 
 const figtree = Figtree({ subsets: ["latin"] })
 

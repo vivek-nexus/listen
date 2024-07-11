@@ -8,7 +8,7 @@ import { useFetchArticle } from "@/helpers/handleArticle/useFetchArticle"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
-import { useChooseBestVoice } from "@/helpers/webSpeech/useChooseBestVoice"
+import { useChooseBestVoice } from "@/helpers/setUpWebSpeech/useChooseBestVoice"
 import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported"
 import { usePlayerStore } from "@/stores/usePlayerStore"
 
