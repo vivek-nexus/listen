@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import Select, { CSSObjectWithLabel } from 'react-select'
 
 export function VoicesDropdown() {
+    const isFrequentListener = useGenericStore((state) => state.isFrequentListener)
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
 
@@ -80,8 +81,11 @@ export function VoicesDropdown() {
         for (const voice of voices) {
             if (voice.value === data.value) {
                 setVoiceToSpeakWith(voice)
-                setShowToast(true)
-                setToastType("param-hot-reload")
+                // Don't show toast if the user is a frequent listener
+                if (!isFrequentListener) {
+                    setShowToast(true)
+                    setToastType("param-hot-reload")
+                }
             }
         }
         // Saving to localStorage only on click user event. Not considering programmatic voiceToSpeakWith changes, since they are guesses by the system and not user preferences to be saved. Guesses should freely change every time based on the influencing factors, whereas user preferences should be derived only from user actions.

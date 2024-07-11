@@ -1,10 +1,11 @@
 import { create } from "zustand"
-import { createJSONStorage, persist } from "zustand/middleware"
 
 type ToastType = "language-detected" | "fetch-message" | "no-voice-found" | "install-selected-voice" | "param-hot-reload"
 type TabsType = "fetch" | "paste"
 
 interface GenericStoreState {
+    isFrequentListener: boolean,
+    setIsFrequentListener: (newValue: boolean) => void,
     showToast: boolean,
     setShowToast: (newValue: boolean) => void,
     toastType: ToastType,
@@ -17,6 +18,8 @@ interface GenericStoreState {
 
 export const useGenericStore = create<GenericStoreState>(
     (set) => ({
+        isFrequentListener: false,
+        setIsFrequentListener: (newValue) => set({ isFrequentListener: newValue }),
         showToast: false,
         setShowToast: (newValue) => set({ showToast: newValue }),
         toastType: "language-detected",

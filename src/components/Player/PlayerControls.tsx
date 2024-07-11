@@ -165,9 +165,12 @@ export default function PlayerControls() {
 
     // Functions for buttons and keyboard event listeners
     function rewind() {
-        speechSynthesis.cancel()
-        speechEndRef.current = "rewind"
-        setPlayerState("playing")
+        // Prevent index from going below 0
+        if (speakingSentenceIndex > 0) {
+            speechSynthesis.cancel()
+            speechEndRef.current = "rewind"
+            setPlayerState("playing")
+        }
     }
 
     function playOrPause() {
@@ -185,9 +188,13 @@ export default function PlayerControls() {
     }
 
     function forward() {
-        speechSynthesis.cancel()
-        speechEndRef.current = "forward"
-        setPlayerState("playing")
+        // Prevent forwarding beyond the last index
+        if ((speakingSentenceIndex + 1) < sentences.length) {
+            if (speakingSentenceIndex)
+                speechSynthesis.cancel()
+            speechEndRef.current = "forward"
+            setPlayerState("playing")
+        }
     }
 
 
@@ -227,6 +234,7 @@ export default function PlayerControls() {
                         type="tertiary"
                         className="flex gap-2 items-center"
                         onClick={() => rewind()}
+                        isDisabled={speakingSentenceIndex <= 0}
                         toolTipText="Rewind (⬅️)"
                         toolTipPosition="top-left"
                     >
@@ -248,6 +256,7 @@ export default function PlayerControls() {
                         type="tertiary"
                         className="flex gap-2 items-center"
                         onClick={() => forward()}
+                        isDisabled={(speakingSentenceIndex + 1) >= sentences.length}
                         toolTipText="Forward (➡️)"
                         toolTipPosition="top-left"
                     >

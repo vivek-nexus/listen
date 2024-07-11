@@ -5,7 +5,7 @@ export const GITHUB_ISSUES_LINK = "https://github.com/vivek-nexus/listen/issues"
 // TODO: Update link
 export const GITHUB_MORE_HELP_LINK = "https://github.com/vivek-nexus/listen?tab=readme-ov-file#help"
 // TODO: Update link
-export const GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK = "hhttps://github.com/vivek-nexus/listen?tab=readme-ov-file#listen"
+export const GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK = "https://github.com/vivek-nexus/listen?tab=readme-ov-file#listen"
 export const PORTFOLIO_LINK = "https://vivek.nexus"
 export const DEFAULT_PASTED_ARTICLE = `Hello! Listen is your world-class reading companion. You can use this tool to listen to news pages or blog pages, as if they were podcasts. You can use it to proof-read, or should we say, proof-listen to your writing! So many possibilities, isn't it?
 
@@ -23,5 +23,6 @@ export const SpeechSettingDefaultValues = {
 }
 // Google voices on Chrome desktop, hang unpredictably for longer sentences
 export const maxSentenceLength = 200
+export const FREQUENT_LISTENER_THRESHOLD = 10;
 
 

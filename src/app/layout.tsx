@@ -22,6 +22,8 @@ export default function RootLayout({
   // Populates voices available on the device and re-populates if list of voices change (mostly never happens). Initialised in RootLayout to avoid missing of window events.
   usePopulateVoices()
 
+  // TODO: Add analytics
+
   return (
     <html lang="en">
       {/* Head component adds: title tag, meta tags and PWA manifest*/}

@@ -1,3 +1,6 @@
+import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient";
+import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient";
+
 type ButtonType = "primary" | "secondary" | "tertiary";
 
 type ButtonProps = {
@@ -11,13 +14,17 @@ type ButtonProps = {
 }
 
 export default function Button({ type, children, className, isDisabled, toolTipText, toolTipPosition, onClick }: ButtonProps) {
+    const isMobile = useIsMobileOnClient()
+    const isTablet = useIsTabletOnClient()
+
     return (
         <button
             // Uses data-tool-tip HTML attribute to specify tool tip text. Tool tip shown as :after element.
             // Defaults tool tip position to bottom-left, if not provided
             // Disabled hover opacity is 100, in order to show tooltip at full opacity
-            className={`rounded-full transition-all duration-500 ${className} ${toolTipText ? `tool-tip tool-tip-${toolTipPosition ? toolTipPosition : `bottom-left`}` : ``} ${getButtonType(type)} ${isDisabled ? `opacity-50 hover:opacity-100 cursor-not-allowed` : ``}`}
-            data-tool-tip={toolTipText}
+            // Don't show tooltips on mobile buttons, since they stay after you tap, which is annoying
+            className={`rounded-full transition-all duration-500 ${className} ${(toolTipText && !(isMobile || isTablet)) ? `tool-tip tool-tip-${toolTipPosition ? toolTipPosition : `bottom-left`}` : ``} ${getButtonType(type)} ${isDisabled ? `opacity-50 hover:opacity-100 cursor-not-allowed` : ``}`}
+            data-tool-tip={!(isMobile || isTablet) ? toolTipText : ``}
             onClick={onClick}
         >
             {children}

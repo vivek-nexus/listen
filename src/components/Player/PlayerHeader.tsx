@@ -116,7 +116,7 @@ export default function PlayerHeader() {
                             </a>
                             <a href={GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK} target="_blank">
                                 <Button type="tertiary" className="font-bold">
-                                    Integrate on your blog
+                                    Integrate Listen your blog
                                 </Button>
                             </a>
                         </div>
