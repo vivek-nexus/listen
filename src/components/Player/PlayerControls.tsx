@@ -194,6 +194,7 @@ export default function PlayerControls() {
 
     return (
         <>
+            {/* Mainly to keep mobile devices from going to sleep and killing JS, and for some nice background music. Playing audio does not prevent sleep, so an invisible tiny video. */}
             <BackgroundMusicThroughVideo />
             {/* READING ARTICLE */}
             <div className="flex-grow mx-8 my-6 flex flex-col justify-center">

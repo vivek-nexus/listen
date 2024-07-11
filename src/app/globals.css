@@ -92,11 +92,11 @@
 
 
 /* TODO: Add comments on cross browser compatibility */
-.hide-scrollbars {
+.hide-scrollbar {
   scrollbar-width: none;
 }
 
-.hide-scrollbars::-webkit-scrollbar {
+.hide-scrollbar::-webkit-scrollbar {
   width: 0;
   height: 0;
 }

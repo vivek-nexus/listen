@@ -1,4 +1,3 @@
-import { usePlayerKeyBoardShortcuts } from "@/helpers/usePlayerKeyBoardShortcuts"
 import PlayerControls from "./PlayerControls"
 import PlayerHeader from "./PlayerHeader"
 import SpeechSettings from "./SpeechSettings"
@@ -7,6 +6,8 @@ import { useGenericStore } from "@/stores/useGenericStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
 import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
 import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
+
+// https://dev.to/jankapunkt/cross-browser-speech-synthesis-the-hard-way-and-the-easy-way-353
 
 export default function Player() {
     const setShowToast = useGenericStore((state) => state.setShowToast)
@@ -19,21 +20,25 @@ export default function Player() {
 
     // Show toasts
     useEffect(() => {
-        // If voiceToSpeakWith is dummy (no voice found for auto detected language)
-        if ((voiceToSpeakWith.value === "default-voice")) {
-            setShowToast(true)
-            setToastType("no-voice-found")
-        }
-        // If voiceToSpeakWith is defined
-        else {
-            // Show informational toast on mobile and tablet
-            if (isMobile || isTablet) {
+        // Component mount also comes with an animation, toast also has animation. Add delay so that both don't mixed with each other and user misses the toast.
+        const timeout = setTimeout(() => {
+            // If voiceToSpeakWith is dummy (no voice found for auto detected language)
+            if ((voiceToSpeakWith.value === "default-voice")) {
                 setShowToast(true)
-                setToastType("install-selected-voice")
+                setToastType("no-voice-found")
             }
-        }
-        // Toast clean up done here to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
+            // If voiceToSpeakWith is defined
+            else {
+                // Show informational toast on mobile and tablet, since generally desktop voice data doesn't need explicit downloading
+                if (isMobile || isTablet) {
+                    setShowToast(true)
+                    setToastType("install-selected-voice")
+                }
+            }
+        }, 500)
         return (() => {
+            clearTimeout(timeout)
+            // This also cleans up any toast created by children of the Player component (like "param-hot-reload" toast by the dropdown)
             setShowToast(false)
             setToastType("language-detected")
         })

@@ -1,5 +1,3 @@
-import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient";
-import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { MutableRefObject, useEffect, useRef } from "react";
 
@@ -8,11 +6,8 @@ export default function BackgroundMusicThroughVideo() {
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)
     const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
 
-    const isMobile = useIsMobileOnClient()
-    const isTablet = useIsTabletOnClient()
-
     useEffect(() => {
-        videoRef.current.volume = (bgMusicVol / ((isMobile || isTablet) ? 500 : 100))
+        videoRef.current.volume = (bgMusicVol / (100))
         if ((playerState === "paused") || (playerState === "complete"))
             videoRef.current.pause()
         if (playerState === "playing")

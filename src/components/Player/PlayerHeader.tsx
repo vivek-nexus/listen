@@ -4,16 +4,25 @@ import { useArticleStore } from "@/stores/useArticleStore";
 import { useGenericStore } from "@/stores/useGenericStore";
 import { usePwaStore } from "@/stores/usePwaStore";
 import Button from "../Button";
+import { useState } from "react";
+import Menu from "../Menu";
+import { APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK, GITHUB_REPO_LINK } from "@/constants/appConstants";
+import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient";
+import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient";
 
 
 export default function PlayerHeader() {
     const isPwaInstallable = usePwaStore((state) => state.isPwaInstallable)
 
-    const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const tab = useGenericStore((state) => state.tab)
 
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
+
+    const isMobile = useIsMobileOnClient()
+    const isTablet = useIsTabletOnClient()
+
+    const [isHelpOpen, setIsHelpOpen] = useState(false)
 
 
     return (
@@ -34,6 +43,27 @@ export default function PlayerHeader() {
                     <p className="text-white/70">|</p>
                     <p className="text-white/70 text-sm">{getSpeakingTimeText(articleToSpeak)}</p>
                 </Button>
+                {/* SHARE ICON */}
+                {/* navigator.share is supported properly, only on mobile browsers*/}
+                {(isMobile || isTablet) && <Button
+                    type="tertiary"
+                    toolTipText="Share Listen"
+                    toolTipPosition="bottom-right"
+                    onClick={() => {
+                        try {
+                            navigator.share({
+                                title: "Listen",
+                                text: "Your wolrd class reading companion",
+                                url: `${APP_HOME_LINK}?utm_source=in-app-share`
+                            })
+                        }
+                        catch (error) {
+                            console.log(error)
+                        }
+                    }}
+                >
+                    <span className="material-icons text-2xl">share</span>
+                </Button>}
                 {/* PWA ICON */}
                 {isPwaInstallable &&
                     <Button
@@ -46,14 +76,52 @@ export default function PlayerHeader() {
                         <span className="hidden lg:block material-icons text-2xl">install_desktop</span>
                     </Button>
                 }
-                {/* Help ICON */}
-                <Button
-                    type="tertiary"
-                    toolTipText="Help"
-                    toolTipPosition="bottom-right"
-                >
-                    <span className="material-icons text-2xl">help</span>
-                </Button>
+                {/* HELP ICON */}
+                <div className="relative">
+                    <Button
+                        type="tertiary"
+                        onClick={() => setIsHelpOpen(!isHelpOpen)}
+                    >
+                        <span className="material-icons text-2xl">help</span>
+                    </Button>
+                    <Menu
+                        isOpen={isHelpOpen}
+                        setIsOpen={setIsHelpOpen}
+                        className="overflow-scroll"
+                        classNameWhenOpen="max-h-[22rem] p-6 w-[18rem]"
+                        classNameWhenClosed="max-h-0 p-0 w-0"
+                    >
+                        <div className="mb-4">
+                            <h3 className="text-lg font-bold">How to install voice data?</h3>
+                            <hr className="my-2 border-primary-800" />
+                            <ul>
+                                <li className="list-disc ml-4 mb-2">
+                                    <p className="">On Android, open device settings. Search for "text to speech". Click on settings for the preferred engine and install voice data.</p>
+                                </li>
+                                <li className="list-disc ml-4">
+                                    <p className="">On iOS, open device settings. Search for "voices" or "spoken content". Choose a language and download voice data.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <a href={GITHUB_ISSUES_LINK} target="_blank">
+                                <Button type="tertiary" className="font-bold" >
+                                    Report an issue
+                                </Button>
+                            </a>
+                            <a href={GITHUB_MORE_HELP_LINK} target="_blank">
+                                <Button type="tertiary" className="font-bold" >
+                                    Get more help
+                                </Button>
+                            </a>
+                            <a href={GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK} target="_blank">
+                                <Button type="tertiary" className="font-bold">
+                                    Integrate on your blog
+                                </Button>
+                            </a>
+                        </div>
+                    </Menu>
+                </div>
             </div>
         </div>
     )

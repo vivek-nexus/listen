@@ -49,7 +49,10 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                 {/* VALUE */}
                 {/* For rate and pitch, stored values range from 0 to 20. Hence divide by 10 and round to one decimal. */}
                 {/* Minimum width to prevent layout shift at different decimal places */}
-                <p className="font-bold min-w-6">
+                <p
+                    key={value}
+                    className="font-bold min-w-6 animate__animated animate__bounceIn"
+                >
                     {((item === "rate") || (item === "pitch")) ? (value / 10).toFixed(1) : value}
                 </p>
 

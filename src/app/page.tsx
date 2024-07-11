@@ -3,7 +3,7 @@
 import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
-import { GITHUB_REPO_LINK, PORTFOLIO_LINK } from "@/constants/appConstants"
+import { GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_REPO_LINK } from "@/constants/appConstants"
 import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
 import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
 import Link from "next/link"
@@ -42,7 +42,7 @@ export default function Home() {
                 Listen now
               </Button>
             </Link>
-            <a href={GITHUB_REPO_LINK} target="_blank" referrerPolicy="same-origin" >
+            <a href={GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK} target="_blank" referrerPolicy="same-origin" >
               <Button
                 type="secondary"
                 className="text-lg font-bold px-6 py-2 mb-4"

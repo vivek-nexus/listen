@@ -17,8 +17,8 @@ export function useChooseBestVoice() {
 
     useEffect(() => {
         let voiceToSpeakWith: Voice | undefined = undefined
-        let defaultVoices: Array<Voice> = []
-        const voicesOfAutoDetectedLanguage: Array<Voice> = []
+        let defaultVoices: Voice[] = []
+        const voicesOfAutoDetectedLanguage: Voice[] = []
 
         // Loop through voices on the device
         for (const voice of voices) {
