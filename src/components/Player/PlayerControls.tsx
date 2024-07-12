@@ -6,7 +6,7 @@ import { usePlayerStore } from "@/stores/usePlayerStore";
 import BackgroundMusicThroughVideo from "./BackgroundMusicThroughVideo";
 import { useGenericStore } from "@/stores/useGenericStore";
 
-type SpeechEndRef = "sentence-complete" | "pause" | "forward" | "rewind"
+type SpeechEndReasonRef = "sentence-complete" | "pause" | "forward" | "rewind"
 
 // This component has lot of functions within the body because I did not want to implement ref forwarding :(
 
@@ -27,8 +27,10 @@ export default function PlayerControls() {
     // Get reference to the raw voice
     const rawVoiceToSpeakWith: SpeechSynthesisVoice | undefined = getRawVoiceToSpeakWith()
 
-    const speechEndRef = useRef<SpeechEndRef>("sentence-complete")
+    const speechEndReasonRef = useRef<SpeechEndReasonRef>("sentence-complete")
+    const rewindButton = useRef() as MutableRefObject<HTMLElement>
     const playPauseButton = useRef() as MutableRefObject<HTMLElement>
+    const forwardButton = useRef() as MutableRefObject<HTMLElement>
 
     // Start speaking the first sentence, as soon as the component mounts. Speech will be triggered by change of playerState from "complete" to "playing".
     useEffect(() => {
@@ -47,7 +49,7 @@ export default function PlayerControls() {
     // On speech end or on error(needed for Safari), the ref value determines what to do next 
     useEffect(() => {
         // Default ref to sentence-complete. Any other speech end event will update the ref accordingly.
-        speechEndRef.current = "sentence-complete"
+        speechEndReasonRef.current = "sentence-complete"
 
         if (playerState === "playing") {
             if (("speechSynthesis" in window) && (speakingSentenceIndex < sentences.length)) {
@@ -99,16 +101,16 @@ export default function PlayerControls() {
     // Ref value is used to determine, what to do next
     function speechCompleteCallback() {
         console.log("Speech has ended")
-        if (speechEndRef.current === "pause") {
+        if (speechEndReasonRef.current === "pause") {
             setPlayerState("paused")
         }
-        if (speechEndRef.current === "forward") {
+        if (speechEndReasonRef.current === "forward") {
             setSpeakingSentenceIndex((speakingSentenceIndex + 1))
         }
-        if (speechEndRef.current === "rewind") {
+        if (speechEndReasonRef.current === "rewind") {
             setSpeakingSentenceIndex((speakingSentenceIndex - 1))
         }
-        if (speechEndRef.current === "sentence-complete") {
+        if (speechEndReasonRef.current === "sentence-complete") {
             // Prevent accessing item at (speakingSentenceIndex + 1), that does not exist in sentences
             if ((speakingSentenceIndex + 1) < sentences.length)
                 setSpeakingSentenceIndex((speakingSentenceIndex + 1))
@@ -139,7 +141,7 @@ export default function PlayerControls() {
 
     function blurCallback() {
         speechSynthesis.cancel()
-        speechEndRef.current = "pause"
+        speechEndReasonRef.current = "pause"
     }
 
     // Keyboard press callback
@@ -147,16 +149,16 @@ export default function PlayerControls() {
         if (event.key === "Escape")
             setIsPlayerOpen(false)
 
+        // Using button click, since calling rewind(), playPause(), forward() functions mess up the state unpredictably. TODO: Need to figure out why this happens.
         if (event.key === "ArrowLeft")
-            rewind()
+            rewindButton.current.click()
 
-        // Calling playPause() somehow never works and messes up the speech. Hence, falling back to button click.
         if (event.code === "Space") {
             playPauseButton.current.click()
         }
 
         if (event.key === "ArrowRight")
-            forward()
+            forwardButton.current.click()
     }
 
     // Functions for buttons and keyboard event listeners
@@ -164,9 +166,9 @@ export default function PlayerControls() {
         // Prevent index from going below 0
         if (speakingSentenceIndex > 0) {
             speechSynthesis.cancel()
-            speechEndRef.current = "rewind"
-            setPlayerState("playing")
+            speechEndReasonRef.current = "rewind"
             // To rewind, for cases where the player was in paused state
+            setPlayerState("playing")
             setSpeakingSentenceIndex((speakingSentenceIndex - 1))
         }
     }
@@ -174,7 +176,7 @@ export default function PlayerControls() {
     function playOrPause() {
         if (playerState === "playing") {
             speechSynthesis.cancel()
-            speechEndRef.current = "pause"
+            speechEndReasonRef.current = "pause"
         }
         if (playerState === "paused") {
             setPlayerState("playing")
@@ -189,10 +191,10 @@ export default function PlayerControls() {
         // Prevent forwarding beyond the last index
         if ((speakingSentenceIndex + 1) < sentences.length) {
             speechSynthesis.cancel()
-            speechEndRef.current = "forward"
-            setPlayerState("playing")
+            speechEndReasonRef.current = "forward"
             // To forward, for cases where the player was in paused state
             setSpeakingSentenceIndex((speakingSentenceIndex + 1))
+            setPlayerState("playing")
         }
     }
 
@@ -237,7 +239,7 @@ export default function PlayerControls() {
                         toolTipText="Rewind (⬅️)"
                         toolTipPosition="top-left"
                     >
-                        <span className="material-icons text-4xl">fast_rewind</span>
+                        <span ref={rewindButton} className="material-icons text-4xl">fast_rewind</span>
                     </Button>
                     <Button
                         type="primary"
@@ -259,7 +261,7 @@ export default function PlayerControls() {
                         toolTipText="Forward (➡️)"
                         toolTipPosition="top-left"
                     >
-                        <span className="material-icons text-4xl">fast_forward</span>
+                        <span ref={forwardButton} className="material-icons text-4xl">fast_forward</span>
                     </Button>
                 </div>
                 <div className="absolute top-2/3 w-full flex justify-center gap-3 blur-[3px] opacity-70">

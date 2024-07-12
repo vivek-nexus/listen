@@ -12,9 +12,10 @@ import { APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, 
 export default function PlayerHeader() {
     const isPwaInstallable = usePwaStore((state) => state.isPwaInstallable)
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
+    const tab = useGenericStore((state) => state.tab)
 
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
-    const tab = useGenericStore((state) => state.tab)
+    const articleLink = useArticleStore((state) => state.articleLink)
 
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
@@ -50,7 +51,7 @@ export default function PlayerHeader() {
                             navigator.share({
                                 title: "Listen",
                                 text: "Your wolrd class reading companion",
-                                url: `${APP_HOME_LINK}?utm_source=in-app-share`
+                                url: tab === "fetch" ? `${APP_HOME_LINK}?url=${articleLink}&utm_source=in-app-share` : `${APP_HOME_LINK}?utm_source=in-app-share`
                             })
                         }
                         catch (error) {

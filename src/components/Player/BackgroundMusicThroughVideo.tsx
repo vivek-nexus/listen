@@ -9,11 +9,27 @@ export default function BackgroundMusicThroughVideo() {
     const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
 
     useEffect(() => {
+        // On mobile devices, the video volume seems relatively loud by a factor of 10
+        // TODO: To test and update based on real devices
         videoRef.current.volume = (bgMusicVol / ((isMobileOrTablet ? 1000 : 100)))
-        if ((playerState === "paused") || (playerState === "complete"))
-            videoRef.current.pause()
-        if (playerState === "playing")
-            videoRef.current.play()
+        if ((playerState === "paused") || (playerState === "complete")) {
+            // To catch network errors or ref removed errors
+            try {
+                videoRef.current.pause()
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (playerState === "playing") {
+            // To catch network errors
+            try {
+                videoRef.current.play()
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
     }, [playerState, bgMusicVol])
 
     // TODO: Implement video play pause handling with ref forwarding

@@ -8,8 +8,19 @@ import Head from "@/components/Head"
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
 import { usePopulateVoices } from "@/helpers/setUpWebSpeech/usePopulateVoices";
 import { useIsMobileOrTabletOnClient } from "@/helpers/useIsMobileOrTabletOnClient";
+import { useEffect } from "react";
+import { shouldCaptureAnalytics } from "@/helpers/shouldCaptureAnalytics";
+import Script from "next/script";
 
 const figtree = Figtree({ subsets: ["latin"] })
+
+// Extend Window interface for mouseflow analytics property
+declare global {
+  interface Window {
+    _mfq: any,
+    dataLayer: any
+  }
+}
 
 export default function RootLayout({
   children,
@@ -26,12 +37,37 @@ export default function RootLayout({
   // Populates voices available on the device and re-populates if list of voices change (mostly never happens). Initialised in RootLayout to avoid missing of window events.
   usePopulateVoices()
 
-  // TODO: Add analytics
+  useEffect(() => {
+    if (shouldCaptureAnalytics()) {
+      // mouseflow analytics
+      window._mfq = window._mfq || [];
+      (function () {
+        var mf = document.createElement("script");
+        mf.type = "text/javascript"; mf.defer = true;
+        mf.src = "//cdn.mouseflow.com/projects/d650c614-2064-44cc-804a-54644c37dd52.js";
+        document.getElementsByTagName("head")[0].appendChild(mf);
+      })()
+    }
+  }, [])
 
   return (
     <html lang="en">
       {/* Head component adds: title tag, meta tags and PWA manifest*/}
       <Head />
+      {/* TODO: Add GA the right way with TS */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-7ZYB56R4BT"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-7ZYB56R4BT');
+        `}
+      </Script>
 
       <body
         className={`${figtree.className} animate__animated animate__fadeIn bg-black bg-[length:172px_172px] text-white/70 selection:bg-primary-800 selection:text-white/60`}
