@@ -7,20 +7,16 @@ import Button from "../Button";
 import { useState } from "react";
 import Menu from "../Menu";
 import { APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK, GITHUB_REPO_LINK } from "@/constants/appConstants";
-import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient";
-import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient";
 
 
 export default function PlayerHeader() {
     const isPwaInstallable = usePwaStore((state) => state.isPwaInstallable)
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
 
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const tab = useGenericStore((state) => state.tab)
 
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
-
-    const isMobile = useIsMobileOnClient()
-    const isTablet = useIsTabletOnClient()
 
     const [isHelpOpen, setIsHelpOpen] = useState(false)
 
@@ -45,7 +41,7 @@ export default function PlayerHeader() {
                 </Button>
                 {/* SHARE ICON */}
                 {/* navigator.share is supported properly, only on mobile browsers*/}
-                {(isMobile || isTablet) && <Button
+                {isMobileOrTablet && <Button
                     type="tertiary"
                     toolTipText="Share Listen"
                     toolTipPosition="bottom-right"

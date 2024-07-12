@@ -18,7 +18,13 @@ export default function BackgroundMusicThroughVideo() {
     useEffect(() => {
         videoRef.current.addEventListener("pause", handleVideoPlayPause)
 
-        return (() => videoRef.current.removeEventListener("pause", handleVideoPlayPause))
+        return (() => {
+            try {
+                videoRef.current.removeEventListener("pause", handleVideoPlayPause)
+            } catch (error) {
+                console.log(error)
+            }
+        })
     }, [])
 
     function handleVideoPlayPause() {

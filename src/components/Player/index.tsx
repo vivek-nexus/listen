@@ -4,21 +4,17 @@ import SpeechSettings from "./SpeechSettings"
 import { useEffect } from "react"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
-import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
-import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
 import { useIsFrequentListener } from "@/helpers/useIsFrequentListener"
 
 // https://dev.to/jankapunkt/cross-browser-speech-synthesis-the-hard-way-and-the-easy-way-353
 
 export default function Player() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const isFrequentListener = useGenericStore((state) => state.isFrequentListener)
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
 
     const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
-
-    const isMobile = useIsMobileOnClient()
-    const isTablet = useIsTabletOnClient()
 
     // Register custom hook to increment count as well as determine current frequent listener status
     useIsFrequentListener()
@@ -36,7 +32,7 @@ export default function Player() {
             else {
                 // Show informational toast on mobile and tablet, since generally desktop voice data doesn't need explicit downloading
                 // Don't show if the user is a frequent listener
-                if ((isMobile || isTablet) && !isFrequentListener) {
+                if (isMobileOrTablet && !isFrequentListener) {
                     setShowToast(true)
                     setToastType("install-selected-voice")
                 }
@@ -48,7 +44,7 @@ export default function Player() {
             setShowToast(false)
             setToastType("language-detected")
         })
-    }, [isMobile, isTablet])
+    }, [isMobileOrTablet])
 
     return (
         <div className="bg-primary-800/10 lg:bg-primary-800/20 h-full flex flex-col">

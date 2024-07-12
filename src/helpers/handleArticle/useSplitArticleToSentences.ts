@@ -1,8 +1,11 @@
 import { maxSentenceLength } from "@/constants/appConstants";
 import { useArticleStore } from "@/stores/useArticleStore";
 import { useEffect } from "react";
+import { useGenericStore } from "@/stores/useGenericStore";
 
 export function useSplitArticleToSentences() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
+
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const setSentences = useArticleStore((state) => state.setSentences)
 
@@ -36,25 +39,27 @@ export function useSplitArticleToSentences() {
             // Trim leading and trailing whitespace
             currentSentence = currentSentence.trim()
 
-            // If the current sentence exceeds max length, further split while preserving words
-            // Repeat until the current sentence is shorter than 250 characters
-            while (currentSentence.length > maxSentenceLength) {
-                // Find the last space within the max length, starting from maxSentenceLength and moving towards the beginning
-                let lastSpaceIndex = currentSentence.lastIndexOf(' ', maxSentenceLength)
+            if (!isMobileOrTablet) {
+                // Only on non mobile or non tablet devices, if the current sentence exceeds max length, further split while preserving words
+                // Repeat until the current sentence is shorter than 250 characters
+                while (currentSentence.length > maxSentenceLength) {
+                    // Find the last space within the max length, starting from maxSentenceLength and moving towards the beginning
+                    let lastSpaceIndex = currentSentence.lastIndexOf(' ', maxSentenceLength)
 
-                // If no space found, fallback to breaking the word boundary to split
-                if (lastSpaceIndex === -1) {
-                    lastSpaceIndex = maxSentenceLength
+                    // If no space found, fallback to breaking the word boundary to split
+                    if (lastSpaceIndex === -1) {
+                        lastSpaceIndex = maxSentenceLength
+                    }
+
+                    // Extract the segment up to the last space
+                    const segment = currentSentence.substring(0, lastSpaceIndex).trim()
+
+                    // Push the sliced segment into sentences array
+                    sentencesArray.push(segment)
+
+                    // Remove the processed segment from the sentence for next loop iteration (if the remaining sentence is still greater than 250 characters)
+                    currentSentence = currentSentence.substring(lastSpaceIndex).trim()
                 }
-
-                // Extract the segment up to the last space
-                const segment = currentSentence.substring(0, lastSpaceIndex).trim()
-
-                // Push the sliced segment into sentences array
-                sentencesArray.push(segment)
-
-                // Remove the processed segment from the sentence for next loop iteration (if the remaining sentence is still greater than 250 characters)
-                currentSentence = currentSentence.substring(lastSpaceIndex).trim()
             }
 
             // Push remaining or original sentence if within max length

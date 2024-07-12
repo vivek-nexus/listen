@@ -4,6 +4,8 @@ type ToastType = "language-detected" | "fetch-message" | "no-voice-found" | "ins
 type TabsType = "fetch" | "paste"
 
 interface GenericStoreState {
+    isMobileOrTablet: boolean,
+    setIsMobileOrTablet: (newValue: boolean) => void,
     isFrequentListener: boolean,
     setIsFrequentListener: (newValue: boolean) => void,
     showToast: boolean,
@@ -18,6 +20,8 @@ interface GenericStoreState {
 
 export const useGenericStore = create<GenericStoreState>(
     (set) => ({
+        isMobileOrTablet: false,
+        setIsMobileOrTablet: (newValue) => set({ isMobileOrTablet: newValue }),
         isFrequentListener: false,
         setIsFrequentListener: (newValue) => set({ isFrequentListener: newValue }),
         showToast: false,

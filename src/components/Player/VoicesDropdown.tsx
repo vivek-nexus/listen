@@ -1,7 +1,5 @@
 import { getLanguageName } from '@/helpers/getLanguageName'
 import { isLocalStorageSupported } from '@/helpers/isLocalStorageSupported'
-import { useIsMobileOnClient } from '@/helpers/useIsMobileOnClient'
-import { useIsTabletOnClient } from '@/helpers/useIsTabletOnClient'
 import { useArticleStore } from '@/stores/useArticleStore'
 import { useGenericStore } from '@/stores/useGenericStore'
 import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
@@ -9,6 +7,7 @@ import { useEffect, useState } from 'react'
 import Select, { CSSObjectWithLabel } from 'react-select'
 
 export function VoicesDropdown() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const isFrequentListener = useGenericStore((state) => state.isFrequentListener)
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
@@ -22,8 +21,6 @@ export function VoicesDropdown() {
     const [voicesOfAutoDetectedLanguage, setVoicesOfAutoDetectedLanguage] = useState<Array<Voice>>([])
     const [voicesOfOtherLanguages, setVoicesOfOtherLanguages] = useState<Array<Voice>>([])
 
-    const isMobile = useIsMobileOnClient()
-    const isTablet = useIsTabletOnClient()
 
     useEffect(() => {
         // Group voices for dropdown
@@ -99,7 +96,7 @@ export function VoicesDropdown() {
     return (
         <Select
             // TODO: Find a way to not bring up virtual keyboard on mobile, with isSearchable set to true
-            isSearchable={(isMobile || isTablet) ? false : true}
+            isSearchable={isMobileOrTablet ? false : true}
             placeholder="Default voice"
             value={voiceToSpeakWith}
             options={optionsForDropdown}

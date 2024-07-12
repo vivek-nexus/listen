@@ -3,8 +3,6 @@ import AnimatedSoundBars from "../AnimatedSoundBars";
 import Button from "../Button";
 import { MutableRefObject, useEffect, useRef } from "react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
-import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient";
-import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient";
 import BackgroundMusicThroughVideo from "./BackgroundMusicThroughVideo";
 import { useGenericStore } from "@/stores/useGenericStore";
 
@@ -13,6 +11,7 @@ type SpeechEndRef = "sentence-complete" | "pause" | "forward" | "rewind"
 // This component has lot of functions within the body because I did not want to implement ref forwarding :(
 
 export default function PlayerControls() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
     const sentences = useArticleStore((state) => state.sentences)
@@ -23,9 +22,6 @@ export default function PlayerControls() {
     const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
     const rate = usePlayerStore((state) => state.rate)
     const pitch = usePlayerStore((state) => state.pitch)
-
-    const isMobile = useIsMobileOnClient()
-    const isTablet = useIsTabletOnClient()
 
 
     // Get reference to the raw voice
@@ -83,13 +79,13 @@ export default function PlayerControls() {
     // Pause speech on blur (mobile and tablet)
     // Javascript is killed after a while (unlike desktop browsers) and player state will be a mess
     useEffect(() => {
-        if (isMobile || isTablet) {
+        if (isMobileOrTablet) {
             window.addEventListener("blur", blurCallback)
             return (() => {
                 window.removeEventListener("blur", blurCallback)
             })
         }
-    }, [isMobile, isTablet])
+    }, [isMobileOrTablet])
 
     // Register keyboard shortcuts for player actions
     useEffect(() => {
@@ -170,6 +166,8 @@ export default function PlayerControls() {
             speechSynthesis.cancel()
             speechEndRef.current = "rewind"
             setPlayerState("playing")
+            // To rewind, for cases where the player was in paused state
+            setSpeakingSentenceIndex((speakingSentenceIndex - 1))
         }
     }
 
@@ -190,10 +188,11 @@ export default function PlayerControls() {
     function forward() {
         // Prevent forwarding beyond the last index
         if ((speakingSentenceIndex + 1) < sentences.length) {
-            if (speakingSentenceIndex)
-                speechSynthesis.cancel()
+            speechSynthesis.cancel()
             speechEndRef.current = "forward"
             setPlayerState("playing")
+            // To forward, for cases where the player was in paused state
+            setSpeakingSentenceIndex((speakingSentenceIndex + 1))
         }
     }
 

@@ -36,7 +36,7 @@ export const usePlayerStore = create<PlayerStoreState>(
     (set) => ({
         rate: 10,
         pitch: 10,
-        bgMusicVol: 10,
+        bgMusicVol: 2,
         incrementStepValue: (item, step) => set((state) => ({ [item]: (state[item] + step) })),
         decrementStepValue: (item, step) => set((state) => ({ [item]: (state[item] - step) })),
         setStepValue: (item, defaultValue) => set({ [item]: defaultValue }),

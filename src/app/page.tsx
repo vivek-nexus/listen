@@ -4,20 +4,18 @@ import Button from "@/components/Button"
 import HomePageBranding from "@/components/HomePageBranding"
 import Phone from "@/components/Phone"
 import { GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK } from "@/constants/appConstants"
-import { useIsMobileOnClient } from "@/helpers/useIsMobileOnClient"
-import { useIsTabletOnClient } from "@/helpers/useIsTabletOnClient"
+import { useGenericStore } from "@/stores/useGenericStore"
 import Link from "next/link"
 
 export default function Home() {
-  const isMobile = useIsMobileOnClient()
-  const isTablet = useIsTabletOnClient()
+  const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
 
   return (
     <div className="min-h-dvh flex items-center">
       <div className="max-w-[1280px] mx-auto px-12 py-12 lg:py-0 flex-grow flex flex-col lg:flex-row items-center justify-between gap-24">
 
         {/* READING CONTENT */}
-        <div className={`order-2 lg:order-1 animate__animated ${(isMobile || isTablet) ? `animate__fadeInUp` : `animate__fadeInLeft`}`}>
+        <div className={`order-2 lg:order-1 animate__animated ${isMobileOrTablet ? `animate__fadeInUp` : `animate__fadeInLeft`}`}>
           {/* Setting height and width of the container, for the phone to fill */}
           <div className="h-[320px] w-[172px] lg:h-[360px] lg:w-[200px] mx-auto mb-8">
             <Phone content="reading" />
@@ -58,7 +56,7 @@ export default function Home() {
         </div>
 
         {/* LISTENING CONTENT */}
-        <div className={`order-3 lg:order-3 animate__animated ${(isMobile || isTablet) ? `animate__fadeInUp` : `animate__fadeInRight`}`}>
+        <div className={`order-3 lg:order-3 animate__animated ${isMobileOrTablet ? `animate__fadeInUp` : `animate__fadeInRight`}`}>
           {/* Setting height and width of the container, for the phone to fill */}
           <div className="h-[320px] w-[172px] lg:h-[360px] lg:w-[200px] mx-auto mb-8">
             <Phone content="listening" />

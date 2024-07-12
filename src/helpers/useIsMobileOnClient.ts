@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react'
-import { isMobile } from 'react-device-detect'
+import { useGenericStore } from '@/stores/useGenericStore'
+import { useEffect } from 'react'
+import { isMobile, isTablet } from 'react-device-detect'
 
-// If you consume the return value inside useEffect, make sure to add it in the dependency array. This is because this hook can update value only after calling component mounts.
-export function useIsMobileOnClient() {
-    const [isMobileOnClient, setIsMobileOnClient] = useState(false)
+// If you consume the state variable, make sure to add it in the dependency array. This is because this hook can update value only after calling component mounts.
+export function useIsMobileOrTabletOnClient() {
+    const setIsMobileOrTablet = useGenericStore((state) => state.setIsMobileOrTablet)
 
     useEffect(() => {
-        setIsMobileOnClient(isMobile)
-    }, [isMobile])
-
-    return isMobileOnClient
+        setIsMobileOrTablet((isMobile || isTablet))
+    }, [isMobile, isTablet])
 }
