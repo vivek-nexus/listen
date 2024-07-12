@@ -126,11 +126,11 @@ export function VoicesDropdown() {
                 }),
                 input: (base) => ({
                     ...base,
-                    color: "var(--white-70)",
+                    color: "var(--primary-800)",
                 }),
                 singleValue: (base: CSSObjectWithLabel) => ({
                     ...base,
-                    color: "var(--white-70)",
+                    color: "var(--primary-800)",
                 }),
                 dropdownIndicator: (base: CSSObjectWithLabel) => ({
                     ...base,

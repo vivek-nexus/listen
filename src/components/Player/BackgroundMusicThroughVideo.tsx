@@ -1,13 +1,15 @@
+import { useGenericStore } from "@/stores/useGenericStore";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { MutableRefObject, useEffect, useRef } from "react";
 
 export default function BackgroundMusicThroughVideo() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const playerState = usePlayerStore((state) => state.playerState)
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)
     const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
 
     useEffect(() => {
-        videoRef.current.volume = (bgMusicVol / (100))
+        videoRef.current.volume = (bgMusicVol / ((isMobileOrTablet ? 1000 : 100)))
         if ((playerState === "paused") || (playerState === "complete"))
             videoRef.current.pause()
         if (playerState === "playing")

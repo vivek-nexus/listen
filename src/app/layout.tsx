@@ -7,6 +7,7 @@ import "./globals.css"
 import Head from "@/components/Head"
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
 import { usePopulateVoices } from "@/helpers/setUpWebSpeech/usePopulateVoices";
+import { useIsMobileOrTabletOnClient } from "@/helpers/useIsMobileOrTabletOnClient";
 
 const figtree = Figtree({ subsets: ["latin"] })
 
@@ -18,6 +19,9 @@ export default function RootLayout({
 
   // Determine PWA status. Initialised in RootLayout to avoid missing of window events.
   useIsPwaInstallable()
+
+  // Determines device type for usage across the app
+  useIsMobileOrTabletOnClient()
 
   // Populates voices available on the device and re-populates if list of voices change (mostly never happens). Initialised in RootLayout to avoid missing of window events.
   usePopulateVoices()
