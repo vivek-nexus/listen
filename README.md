@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Listen
+A text to speech web application that speaks word, sentences or even long articles in a music player like interface.
 
-## Getting Started
+**View the app at https://www.vivek.nexus/listen**
 
-First, run the development server:
+<img src="https://www.vivek.nexus/listen/link-preview.png" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br />
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br />
 
-## Learn More
+## Passing article text to pre-fill
+Pass the article text as a URL parameter. URL encode the text for sanity.
 
-To learn more about Next.js, take a look at the following resources:
+Example: https://www.vivek.nexus/listen/app?text=This%20is%20the%20first%20line%20of%20the%20article.%0A%0AThis%20is%20the%20second%20line.%20Make%20sure%20to%20URL%20encode%20the%20text%20before%20passing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Passing a link to fetch
+Pass the link as a URL parameter. Make sure to allow cross origin requests (CORS) on your website server from https://www.vivek.nexus origin.
+- If you use no-code hosting methods, consult your hosting provider's documentation to enable CORS
+- If you control the code on your server, see https://www.w3.org/wiki/CORS_Enabled for instructions
 
-## Deploy on Vercel
+Example: https://www.vivek.nexus/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br />
+
+<br />
+
+
+## Integrating Listen on your blog
+
+#### [Option 1] Load Listen as an iframe (recommended method)
+- On your blog pages, load the site as an iframe in a suitable way. Make sure the iframe size is at least 360px by 780px for optimal UI experience.
+- Use URL params to send your article
+
+#### [Option 2] Open Listen in a new tab
+- On your blog page, provide a button such as `Listen to this article`
+- On click of the button, open Listen in a new tab. Send your article using URL params.
+
+
+## Help
+Create an issue here https://github.com/vivek-nexus/listen/issues
