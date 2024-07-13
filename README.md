@@ -30,6 +30,7 @@ A text to speech web application that speaks words, sentences or even long artic
     - If you use no-code hosting methods, consult your hosting provider's documentation to enable CORS
     - If you control the code on your server, see https://www.w3.org/wiki/CORS_Enabled for instructions 
 - Send your article through URL parameters. See below section for details.
+- You can also first check if user has at least one voice of a specific langauge, with my [simple helper function](https://github.com/vivek-nexus/check-webspeech-voice-availability). The result of this function can be then used to condiitionally determine if Listen should be offered for that user.
 
 ### [Option 2] Open Listen in a new tab (no-code method)
 - On your blog page, add a button or text such as `Listen to this article`
