@@ -11,7 +11,9 @@ A text to speech web application that speaks words, sentences or even long artic
 - You can use it to record **voice-overs**
 - and much more...
 
-**View the app at https://www.vivek.nexus/listen**
+**View the app at https://www.vivek.nexus/listen**.
+
+Older versions of this project: [v4](https://github.com/vivek-nexus/listen-v4) | [v3](https://github.com/vivek-nexus/lizen) | [v2](https://github.com/vivek-nexus/podcastify-it)
 
 
 <br />
@@ -56,7 +58,13 @@ Pass the article text as a URL parameter. URL encode the text for sanity.
 
 Example: https://www.vivek.nexus/listen/app?text=This%20is%20the%20first%20line%20of%20the%20article.%0A%0AThis%20is%20the%20second%20line.%20Make%20sure%20to%20URL%20encode%20the%20text%20before%20passing
 
+<br />
+<br />
+<br />
 
+## For nerds
+1. To detect language of article: Google compact langauge detector v3 via cld3-asm (https://github.com/kwonoj/cld3-asm)
+2. To extract article text from HTML: Mozilla Readability (https://github.com/mozilla/readability)
 
 <br />
 <br />
