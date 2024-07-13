@@ -50,7 +50,7 @@ export default function PlayerHeader() {
                         try {
                             navigator.share({
                                 title: "Listen",
-                                text: "Your world class reading companion",
+                                text: "Listen, your world-class reading companion:",
                                 url: tab === "fetch" ? `${APP_APP_LINK}?url=${articleLink}&utm_source=in-app-share` : `${APP_HOME_LINK}?utm_source=in-app-share`
                             })
                         }
