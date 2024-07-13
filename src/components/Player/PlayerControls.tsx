@@ -5,6 +5,7 @@ import { MutableRefObject, useEffect, useRef } from "react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import BackgroundMusicThroughVideo from "./BackgroundMusicThroughVideo";
 import { useGenericStore } from "@/stores/useGenericStore";
+import { getIframeStatus } from "@/helpers/getIframeStatus";
 
 type SpeechEndReasonRef = "sentence-complete" | "pause" | "forward" | "rewind"
 
@@ -88,6 +89,17 @@ export default function PlayerControls() {
             })
         }
     }, [isMobileOrTablet])
+
+    // For cross origin iframes (sites that integrate Listen on their pages), pause speech whenever focus goes outside of iframe.
+    // Critical example: Site opens Listen iframe in a modal. After speaking 2 sentences, user decides to stop listening. Instead of clicking the close icon within Listen, they click on close icon of the modal provided by the site. If iframe is not removed from the DOM (instead just set to display: none), then speech will continue in the background.
+    useEffect(() => {
+        if (getIframeStatus() === "cross-origin-iframe") {
+            window.addEventListener("blur", blurCallback)
+            return (() => {
+                window.removeEventListener("blur", blurCallback)
+            })
+        }
+    }, [])
 
     // Register keyboard shortcuts for player actions
     useEffect(() => {
