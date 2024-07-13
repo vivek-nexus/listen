@@ -6,7 +6,7 @@ import { usePwaStore } from "@/stores/usePwaStore";
 import Button from "../Button";
 import { useState } from "react";
 import Menu from "../Menu";
-import { APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK, GITHUB_REPO_LINK } from "@/constants/appConstants";
+import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants";
 
 
 export default function PlayerHeader() {
@@ -50,8 +50,8 @@ export default function PlayerHeader() {
                         try {
                             navigator.share({
                                 title: "Listen",
-                                text: "Your wolrd class reading companion",
-                                url: tab === "fetch" ? `${APP_HOME_LINK}?url=${articleLink}&utm_source=in-app-share` : `${APP_HOME_LINK}?utm_source=in-app-share`
+                                text: "Your world class reading companion",
+                                url: tab === "fetch" ? `${APP_APP_LINK}?url=${articleLink}&utm_source=in-app-share` : `${APP_HOME_LINK}?utm_source=in-app-share`
                             })
                         }
                         catch (error) {
