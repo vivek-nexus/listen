@@ -113,9 +113,6 @@ export default function PlayerControls() {
     // Ref value is used to determine, what to do next
     function speechCompleteCallback() {
         console.log("Speech has ended")
-        if (speechEndReasonRef.current === "pause") {
-            setPlayerState("paused")
-        }
         if (speechEndReasonRef.current === "forward") {
             setSpeakingSentenceIndex((speakingSentenceIndex + 1))
         }
@@ -162,6 +159,7 @@ export default function PlayerControls() {
             setIsPlayerOpen(false)
 
         // Using button click, since calling rewind(), playPause(), forward() functions mess up the state unpredictably. TODO: Need to figure out why this happens.
+        // Button click also causes issues if the element is currently focussed.
         if (event.key === "ArrowLeft")
             rewindButton.current.click()
 
@@ -189,6 +187,7 @@ export default function PlayerControls() {
         if (playerState === "playing") {
             speechSynthesis.cancel()
             speechEndReasonRef.current = "pause"
+            setPlayerState("paused")
         }
         if (playerState === "paused") {
             setPlayerState("playing")

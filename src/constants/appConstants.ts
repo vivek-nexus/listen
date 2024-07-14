@@ -14,7 +14,7 @@ For best listening experience, here are some recommendations. On desktop devices
 If you like Listen, you can install it as an app on your phone or desktop. Even more, you can quickly integrate it on your blog or webpages, so that your readers can instantly listen to your pages.
 
 Okay bye bye!`
-export const CORS_ERROR_MESSAGE = `[LISTEN]: To fetch the article, make sure to allow cross origin requests (CORS) on your server from https://www.vivek.nexus. See https://github.com/vivek-nexus/listen/blob/main/README.md#passing-a-link-to-fetch.`
+export const CORS_ERROR_MESSAGE = `[LISTEN]: To fetch the article, make sure to allow cross origin requests (CORS) on your server from https://www.vivek.nexus. See https://github.com/vivek-nexus/listen?tab=readme-ov-file#listen.`
 export const PROXY_SERVER_URL = "https://render-express-server-q222.onrender.com"
 export const SpeechSettingDefaultValues = {
     rate: 10,

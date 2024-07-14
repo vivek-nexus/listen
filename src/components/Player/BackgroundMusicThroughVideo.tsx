@@ -33,20 +33,20 @@ export default function BackgroundMusicThroughVideo() {
     }, [playerState, bgMusicVol])
 
     // TODO: Implement video play pause handling with ref forwarding
-    useEffect(() => {
-        videoRef.current.addEventListener("pause", handleVideoPlayPause)
+    // useEffect(() => {
+    //     videoRef.current.addEventListener("pause", handleVideoPlayPause)
 
-        return (() => {
-            try {
-                videoRef.current.removeEventListener("pause", handleVideoPlayPause)
-            } catch (error) {
-                console.log(error)
-            }
-        })
-    }, [])
+    //     return (() => {
+    //         try {
+    //             videoRef.current.removeEventListener("pause", handleVideoPlayPause)
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     })
+    // }, [])
 
-    function handleVideoPlayPause() {
-    }
+    // function handleVideoPlayPause() {
+    // }
 
     return (
         // Fixed position tiny invisible video
