@@ -113,6 +113,10 @@ export default function PlayerControls() {
     // Ref value is used to determine, what to do next
     function speechCompleteCallback() {
         console.log("Speech has ended")
+        // Pause using ref value does not work on Safari. The ref value updated by ref setting function, is not reflected in this callback. Just call setPlayerState("paused") in the respective function please.
+        if (speechEndReasonRef.current === "pause") {
+            setPlayerState("paused")
+        }
         if (speechEndReasonRef.current === "forward") {
             setSpeakingSentenceIndex((speakingSentenceIndex + 1))
         }
@@ -151,6 +155,8 @@ export default function PlayerControls() {
     function blurCallback() {
         speechSynthesis.cancel()
         speechEndReasonRef.current = "pause"
+        // For Safari
+        setPlayerState("paused")
     }
 
     // Keyboard press callback
@@ -187,6 +193,7 @@ export default function PlayerControls() {
         if (playerState === "playing") {
             speechSynthesis.cancel()
             speechEndReasonRef.current = "pause"
+            // For Safari
             setPlayerState("paused")
         }
         if (playerState === "paused") {

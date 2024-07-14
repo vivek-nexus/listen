@@ -20,7 +20,7 @@ export function useChooseBestVoice() {
         let defaultVoices: Voice[] = []
         const voicesOfAutoDetectedLanguage: Voice[] = []
 
-        // Loop through voices on the device
+        // Loop through populated voices
         for (const voice of voices) {
             // Pick up all voices of auto detected language
             if (voice.lang === languageCodeOfArticleToSpeak)
@@ -74,6 +74,7 @@ export function useChooseBestVoice() {
             setVoiceToSpeakWith({
                 default: false,
                 lang: "en",
+                langWithLocale: "en-US",
                 localService: true,
                 name: "Default voice",
                 value: "default-voice"

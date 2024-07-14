@@ -66,7 +66,7 @@ export function VoicesDropdown() {
                 className="flex items-center justify-between"
                 onClick={() => handleOptionClick(data)}
             >
-                <span>{data.name}</span>
+                <span>{data.name} ({data.langWithLocale})</span>
                 {!data.localService &&
                     <span className="ml-2 px-3 py-1 text-xs bg-primary-800/30 text-white/70 rounded-full">NATURAL</span>
                 }

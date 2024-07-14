@@ -4,6 +4,7 @@ export type Item = "rate" | "pitch" | "bgMusicVol"
 export type Voice = {
     default: boolean,
     lang: string,
+    langWithLocale: string,
     localService: boolean,
     name: string,
     value: string,
@@ -45,6 +46,7 @@ export const usePlayerStore = create<PlayerStoreState>(
         voiceToSpeakWith: {
             default: false,
             lang: "en",
+            langWithLocale: "en-US",
             localService: true,
             name: "Default voice",
             value: "default-voice"

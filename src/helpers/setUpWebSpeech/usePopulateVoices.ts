@@ -41,6 +41,7 @@ export function usePopulateVoices() {
                 default: rawVoice.default,
                 // Get first two characters for two character language code. Some devices have three character language code before "-" or "_", so taking first two letters is more reliable. Default to English for type safety later on (to circle back).
                 lang: rawVoice.lang.slice(0, 2) ? rawVoice.lang.slice(0, 2) : `en`,
+                langWithLocale: rawVoice.lang,
                 localService: rawVoice.localService,
                 name: rawVoice.name,
                 value: rawVoice.voiceURI,
