@@ -46,7 +46,7 @@ export const usePlayerStore = create<PlayerStoreState>(
         voiceToSpeakWith: {
             default: false,
             lang: "en",
-            langWithLocale: "en-US",
+            langWithLocale: "en",
             localService: true,
             name: "Default voice",
             value: "default-voice"

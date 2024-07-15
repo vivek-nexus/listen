@@ -86,7 +86,7 @@ export default function SpeechSettings() {
             </div>
 
             <p className="lg:hidden text-center text-sm">On mobile devices, ensure selected voice is installed in your device text to speech settings</p>
-            <p className="hidden lg:block text-center text-sm">On desktop devices, use Google Chrome for more natural voices</p>
+            <p className="hidden lg:block text-center text-sm">On desktop devices, use Google Chrome or Edge browser for more natural voices</p>
         </div>
     )
 }
