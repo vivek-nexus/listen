@@ -17,7 +17,6 @@ export default function Input({ className, placeholder, defaultValue, value, isD
             defaultValue={defaultValue}
             value={value}
             disabled={isDisabled}
-            // title={isDisabled ? disabledTitle : ``}
             onChange={onChange}
         />
     )

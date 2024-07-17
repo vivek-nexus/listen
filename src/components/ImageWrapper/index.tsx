@@ -4,8 +4,8 @@ type ImageWrapperProps = {
     alt: string
 }
 
-// SSR warning to think about:
-// Warning: Prop `src` did not match. Server: "/github.svg" Client: "undefined/github.svg"
+// ImageWrapper component needed to selectively prefix URLs between development and production
+// TODO: Fix warning: Prop `src` did not match. Server: "/github.svg" Client: "undefined/github.svg"
 
 export default function ImageWrapper({ src, className, alt }: ImageWrapperProps) {
     return (

@@ -9,4 +9,5 @@ export const usePwaStore = create<PwaStoreState>(
     (set) => ({
         isPwaInstallable: false,
         setIsPwaInstallable: (newValue) => set({ isPwaInstallable: newValue })
-    }))
+    })
+)

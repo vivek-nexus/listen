@@ -1,11 +1,11 @@
+import { getIframeStatus } from "@/helpers/getIframeStatus";
 import { useArticleStore } from "@/stores/useArticleStore";
+import { useGenericStore } from "@/stores/useGenericStore";
+import { usePlayerStore } from "@/stores/usePlayerStore";
+import { MutableRefObject, useEffect, useRef } from "react";
 import AnimatedSoundBars from "../AnimatedSoundBars";
 import Button from "../Button";
-import { MutableRefObject, useEffect, useRef } from "react";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import BackgroundMusicThroughVideo from "./BackgroundMusicThroughVideo";
-import { useGenericStore } from "@/stores/useGenericStore";
-import { getIframeStatus } from "@/helpers/getIframeStatus";
 
 type SpeechEndReasonRef = "sentence-complete" | "pause" | "forward" | "rewind"
 
@@ -16,6 +16,7 @@ export default function PlayerControls() {
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
     const sentences = useArticleStore((state) => state.sentences)
+
     const playerState = usePlayerStore((state) => state.playerState)
     const setPlayerState = usePlayerStore((state) => state.setPlayerState)
     const speakingSentenceIndex = usePlayerStore((state) => state.speakingSentenceIndex)
@@ -23,7 +24,6 @@ export default function PlayerControls() {
     const voiceToSpeakWith = usePlayerStore((state) => state.voiceToSpeakWith)
     const rate = usePlayerStore((state) => state.rate)
     const pitch = usePlayerStore((state) => state.pitch)
-
 
     // Get reference to the raw voice
     const rawVoiceToSpeakWith: SpeechSynthesisVoice | undefined = getRawVoiceToSpeakWith()

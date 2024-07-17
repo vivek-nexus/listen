@@ -1,4 +1,5 @@
 import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
+import { useSplitArticleToSentences } from "@/helpers/handleArticle/useSplitArticleToSentences"
 import { useDetectAndUpdateLanguage } from "@/helpers/useDetectAndUpdateLanguage"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
@@ -7,25 +8,21 @@ import { useEffect, useState } from "react"
 import Button from "../Button"
 import FetchTab from "./FetchTab"
 import PasteTab from "./PasteTab"
-import { useSplitArticleToSentences } from "@/helpers/handleArticle/useSplitArticleToSentences"
-import { usePlayerStore } from "@/stores/usePlayerStore"
 
 
 export default function ArticleForm() {
     const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
     const setShowToast = useGenericStore((state) => state.setShowToast)
     const setToastType = useGenericStore((state) => state.setToastType)
-
     const tab = useGenericStore((state) => state.tab)
     const setTab = useGenericStore((state) => state.setTab)
+
     const fetchedArticle = useArticleStore((state) => state.fetchedArticle)
     const pastedArticle = useArticleStore((state) => state.pastedArticle)
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
-
-    const setPlayerState = usePlayerStore((state) => state.setPlayerState)
 
     const [showPlayButton, setShowPlayButton] = useState(false)
 

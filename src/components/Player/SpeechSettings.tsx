@@ -1,16 +1,12 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import Button from "../Button";
-import { VoicesDropdown } from "./VoicesDropdown";
-import StepInput from "./StepInput";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported";
-import { useGenericStore } from "@/stores/useGenericStore";
+import { usePlayerStore } from "@/stores/usePlayerStore";
+import { useEffect, useState } from "react";
+import Button from "../Button";
 import Menu from "../Menu";
+import StepInput from "./StepInput";
+import { VoicesDropdown } from "./VoicesDropdown";
 
 export default function SpeechSettings() {
-    const setShowToast = useGenericStore((state) => state.setShowToast)
-    const setToastType = useGenericStore((state) => state.setToastType)
-
     const rate = usePlayerStore((state) => state.rate)
     const pitch = usePlayerStore((state) => state.pitch)
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)

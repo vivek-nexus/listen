@@ -1,6 +1,6 @@
-import Button from "../Button"
-import { Item, usePlayerStore } from "@/stores/usePlayerStore"
 import { SpeechSettingDefaultValues } from "@/constants/appConstants"
+import { Item, usePlayerStore } from "@/stores/usePlayerStore"
+import Button from "../Button"
 
 type StepInputProps = {
     label: string,

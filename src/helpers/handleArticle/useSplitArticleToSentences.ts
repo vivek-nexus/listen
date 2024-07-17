@@ -1,7 +1,7 @@
 import { maxSentenceLength } from "@/constants/appConstants";
 import { useArticleStore } from "@/stores/useArticleStore";
-import { useEffect } from "react";
 import { useGenericStore } from "@/stores/useGenericStore";
+import { useEffect } from "react";
 
 export function useSplitArticleToSentences() {
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)

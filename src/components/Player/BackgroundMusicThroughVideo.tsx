@@ -4,8 +4,10 @@ import { MutableRefObject, useEffect, useRef } from "react";
 
 export default function BackgroundMusicThroughVideo() {
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
+
     const playerState = usePlayerStore((state) => state.playerState)
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)
+
     const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
 
     useEffect(() => {
@@ -50,6 +52,7 @@ export default function BackgroundMusicThroughVideo() {
 
     return (
         // Fixed position tiny invisible video
+        // TODO: process.env.NEXT_PUBLIC_LINK_PREFIX evaluates to undefined in development. Need to figure out why (already tried a lot).
         <video ref={videoRef} loop className="fixed top-0 left-0 -z-50 h-2 w-1 pointer-events-none opacity-0">
             <source src={`${process.env.NEXT_PUBLIC_LINK_PREFIX}/the-beat-of-nature-122841.mp4`} type="video/mp4" />
             Your browser does not support video playback.

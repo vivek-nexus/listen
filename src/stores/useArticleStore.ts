@@ -46,5 +46,4 @@ export const useArticleStore = create<ArticleStoreState>(
         sentences: [],
         setSentences: (newValue: string[]) => set({ sentences: newValue }),
         setArticleStoreStringItem: (item, newValue) => set({ [item]: newValue }),
-
     }))

@@ -1,23 +1,23 @@
+import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants";
 import { getSpeakingTimeText } from "@/helpers/getSpeakingTimeText";
 import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle/fireInstallPrompt";
 import { useArticleStore } from "@/stores/useArticleStore";
 import { useGenericStore } from "@/stores/useGenericStore";
 import { usePwaStore } from "@/stores/usePwaStore";
-import Button from "../Button";
 import { useState } from "react";
+import Button from "../Button";
 import Menu from "../Menu";
-import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants";
 
 
 export default function PlayerHeader() {
-    const isPwaInstallable = usePwaStore((state) => state.isPwaInstallable)
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const tab = useGenericStore((state) => state.tab)
+    const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
+
+    const isPwaInstallable = usePwaStore((state) => state.isPwaInstallable)
 
     const articleToSpeak = useArticleStore((state) => state.articleToSpeak)
     const articleLink = useArticleStore((state) => state.articleLink)
-
-    const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
     const [isHelpOpen, setIsHelpOpen] = useState(false)
 

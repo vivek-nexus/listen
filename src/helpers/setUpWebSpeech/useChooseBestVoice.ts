@@ -12,6 +12,7 @@ import { isLocalStorageSupported } from "../isLocalStorageSupported";
 
 export function useChooseBestVoice() {
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
+
     const voices = usePlayerStore((state) => state.voices)
     const setVoiceToSpeakWith = usePlayerStore((state) => state.setVoiceToSpeakWith)
 

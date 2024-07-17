@@ -1,6 +1,6 @@
-import Rectangle from "./Rectangle"
-import styles from "./Phone.module.css"
 import AnimatedSoundBars from "../AnimatedSoundBars"
+import styles from "./Phone.module.css"
+import Rectangle from "./Rectangle"
 
 type PhoneProps = {
     content: "reading" | "listening"

@@ -4,10 +4,11 @@ import Button from "../Button";
 import TextArea from "../TextArea";
 
 export default function PasteTab() {
+    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
+
     const pastedArticle = useArticleStore((state) => state.pastedArticle)
     const setArticleStoreStringItem = useArticleStore((state) => state.setArticleStoreStringItem)
 
-    const isPlayerOpen = useGenericStore((state) => state.isPlayerOpen)
 
     return (
         <div className="relative flex-grow animate__animated animate__fadeIn">

@@ -1,10 +1,10 @@
+import { useIsFrequentListener } from "@/helpers/useIsFrequentListener"
+import { useGenericStore } from "@/stores/useGenericStore"
+import { usePlayerStore } from "@/stores/usePlayerStore"
+import { useEffect } from "react"
 import PlayerControls from "./PlayerControls"
 import PlayerHeader from "./PlayerHeader"
 import SpeechSettings from "./SpeechSettings"
-import { useEffect } from "react"
-import { useGenericStore } from "@/stores/useGenericStore"
-import { usePlayerStore } from "@/stores/usePlayerStore"
-import { useIsFrequentListener } from "@/helpers/useIsFrequentListener"
 
 // https://dev.to/jankapunkt/cross-browser-speech-synthesis-the-hard-way-and-the-easy-way-353
 

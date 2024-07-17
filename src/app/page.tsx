@@ -39,7 +39,7 @@ export default function Home() {
                 Listen now
               </Button>
             </Link>
-            <a href={GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK} target="_blank" referrerPolicy="same-origin" >
+            <a href={GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK} target="_blank">
               <Button
                 type="secondary"
                 className="text-lg font-bold px-6 py-2 mb-4"
@@ -48,8 +48,8 @@ export default function Home() {
               </Button>
             </a>
           </div>
-          {/* ELEMENT FOR DESKTOP */}
 
+          {/* ELEMENT FOR DESKTOP */}
           <div className="hidden lg:block ">
             <HomePageBranding />
           </div>
@@ -66,8 +66,6 @@ export default function Home() {
             <p className="text-2xl text-green-500">Low screen time 😍</p>
           </div>
         </div>
-
-
 
         {/* ELEMENT FOR PAGE BOTTOM POSITIONING ON MOBILE AND TABLET*/}
         <div className="block lg:hidden order-4">

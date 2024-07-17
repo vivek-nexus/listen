@@ -56,4 +56,5 @@ export const usePlayerStore = create<PlayerStoreState>(
         setPlayerState: (newValue: PlayerState) => set({ playerState: newValue }),
         speakingSentenceIndex: 0,
         setSpeakingSentenceIndex: (newValue: number) => set({ speakingSentenceIndex: newValue })
-    }))
+    })
+)

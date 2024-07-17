@@ -1,16 +1,16 @@
 "use client"
 
-import { Figtree } from "next/font/google"
-import 'material-icons/iconfont/filled.css'
-import "animate.css";
-import "./globals.css"
-import Head from "@/components/Head"
+import Head from "@/components/Head";
 import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
 import { usePopulateVoices } from "@/helpers/setUpWebSpeech/usePopulateVoices";
-import { useIsMobileOrTabletOnClient } from "@/helpers/useIsMobileOrTabletOnClient";
-import { useEffect } from "react";
 import { shouldCaptureAnalytics } from "@/helpers/shouldCaptureAnalytics";
+import { useIsMobileOrTabletOnClient } from "@/helpers/useIsMobileOrTabletOnClient";
+import "animate.css";
+import 'material-icons/iconfont/filled.css';
+import { Figtree } from "next/font/google";
 import Script from "next/script";
+import { useEffect } from "react";
+import "./globals.css";
 
 const figtree = Figtree({ subsets: ["latin"] })
 
