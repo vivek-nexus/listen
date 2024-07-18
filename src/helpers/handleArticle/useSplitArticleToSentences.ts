@@ -16,7 +16,7 @@ export function useSplitArticleToSentences() {
         // Chinese: 。, ！, ？, ……
         // Japanese: 。, ！, ？, ･･･
         // Arabic: ., ؟, !
-        const sentenceSplitter = /([.|!|?|…|।|。|！|？]+[\])'"’”"]*\s+)/
+        const sentenceSplitter = /([.|!|?|…|।|。|！|？]+[\])'"’”"]*\s*)\s*/
 
         // Split the text into initial sentences. Contains sliced sentences and punctuation marks as items.
         // In the resultant array, sentence slices will be found at even indexes and punctuations at odd indexes.
