@@ -27,10 +27,8 @@ export default function TextArea({ className, placeholder, defaultValue, value, 
                 defaultValue={defaultValue}
                 value={value}
                 disabled={isDisabled}
-
                 onChange={onChange}
             />
-
         </div>
     )
 }

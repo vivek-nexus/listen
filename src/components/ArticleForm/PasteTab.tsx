@@ -18,7 +18,6 @@ export default function PasteTab() {
                 className="pointer-events-auto cursor-auto"
                 onChange={(event) => {
                     setArticleStoreStringItem("pastedArticle", event.target.value)
-                    // SplitArticleToSentencesHelper((event), setSentencesArray)
                 }}
                 isDisabled={isPlayerOpen ? true : false}
                 toolTipText={isPlayerOpen ? `Close player to edit` : ``}
@@ -29,9 +28,13 @@ export default function PasteTab() {
                     type="tertiary"
                     className="py-0 pl-4 font-bold"
                     onClick={() => {
-                        setArticleStoreStringItem("pastedArticle", "")
-                        // SplitArticleToSentencesHelper(("Text from tab 2" + text), setSentencesArray)
+                        if (!isPlayerOpen) {
+                            setArticleStoreStringItem("pastedArticle", "")
+                        }
                     }}
+                    isDisabled={isPlayerOpen}
+                    toolTipText={isPlayerOpen ? `Close player to edit` : ``}
+                    toolTipPosition="bottom-right"
                 >
                     Clear
                 </Button>
