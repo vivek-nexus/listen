@@ -4,7 +4,7 @@
 <img src="https://www.vivek.nexus/listen/link-preview.png" />
 
 
-A text to speech web application that speaks words, sentences or even long articles, in a music player like interface.
+A web app that helps you listen to any written material (instead of reading on your screen), in a variety of languages.
 
 - You can use it to listen to news pages or blog pages, as if they were **podcasts**
 - You can use it to **proof-read**, or should we say, proof-listen to your writing
