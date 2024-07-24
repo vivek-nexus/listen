@@ -39,8 +39,9 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                     // min+step, to prevent going into negative values
                     isDisabled={value < (min + step)}
                     onClick={() => {
-                        if (value > (min))
+                        if (value > (min)) {
                             decrementStepValue(item, step)
+                        }
                     }}
                 >
                     <span className="material-icons text-primary-800">remove</span>
@@ -62,8 +63,9 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                     className={`flex items-center`}
                     isDisabled={value >= (max)}
                     onClick={() => {
-                        if (value < (max))
+                        if (value < (max)) {
                             incrementStepValue(item, step)
+                        }
                     }}
                 >
                     <span className="material-icons  text-primary-800">add</span>

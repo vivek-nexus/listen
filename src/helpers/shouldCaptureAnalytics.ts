@@ -4,11 +4,14 @@ export function shouldCaptureAnalytics() {
 
     if (hasParam) {
         // Drop analytics 
-        if (hasParam.includes("corrieredellacalabria.it"))
+        if (hasParam.includes("corrieredellacalabria.it")) {
             return false
-        else
+        }
+        else {
             return true
+        }
     }
-    else
+    else {
         return true
+    }
 }

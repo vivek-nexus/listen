@@ -29,10 +29,12 @@ export default function ArticleForm() {
 
     // Update articleToSpeak
     useEffect(() => {
-        if (tab === "fetch")
+        if (tab === "fetch") {
             setArticleStoreStringItem("articleToSpeak", fetchedArticle.article)
-        if (tab === "paste")
+        }
+        if (tab === "paste") {
             setArticleStoreStringItem("articleToSpeak", pastedArticle)
+        }
     }, [fetchedArticle, pastedArticle, tab])
 
     // Custom hook that detects and updates articleLanguageCode state variable, whenever articleToSpeak changes
@@ -40,8 +42,9 @@ export default function ArticleForm() {
 
     // Reset default pasted text, if text area is empty in paste tab
     useEffect(() => {
-        if ((tab === "paste") && (pastedArticle === ""))
+        if ((tab === "paste") && (pastedArticle === "")) {
             setArticleStoreStringItem("pastedArticle", DEFAULT_PASTED_ARTICLE)
+        }
     }, [tab])
 
     // Show language toast whenever detected language changes
@@ -52,8 +55,9 @@ export default function ArticleForm() {
             setToastType("language-detected")
             setShowToast(true)
         }
-        else
+        else {
             setShowToast(false)
+        }
     }, [languageCodeOfArticleToSpeak])
 
     useSplitArticleToSentences()
@@ -62,16 +66,20 @@ export default function ArticleForm() {
     // Conditionally show or hide play button
     useEffect(() => {
         if (tab === "fetch") {
-            if ((fetchedArticle.title !== "") && (fetchedArticle.article !== "") && (!isPlayerOpen))
+            if ((fetchedArticle.title !== "") && (fetchedArticle.article !== "") && (!isPlayerOpen)) {
                 setShowPlayButton(true)
-            else
+            }
+            else {
                 setShowPlayButton(false)
+            }
         }
         if (tab === "paste") {
-            if ((pastedArticle !== "") && (!isPlayerOpen))
+            if ((pastedArticle !== "") && (!isPlayerOpen)) {
                 setShowPlayButton(true)
-            else
+            }
+            else {
                 setShowPlayButton(false)
+            }
         }
     }, [tab, articleToSpeak, isPlayerOpen])
 

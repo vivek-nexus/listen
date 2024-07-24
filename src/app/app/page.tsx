@@ -40,12 +40,15 @@ export default function App() {
             const pitch = window.localStorage.getItem("pitch")
             const bgMusicVol = window.localStorage.getItem("bgMusicVol")
 
-            if (rate)
+            if (rate) {
                 setStepValue("rate", parseInt(rate))
-            if (pitch)
+            }
+            if (pitch) {
                 setStepValue("pitch", parseInt(pitch))
-            if (bgMusicVol)
+            }
+            if (bgMusicVol) {
                 setStepValue("bgMusicVol", parseInt(bgMusicVol))
+            }
         }
     }, [])
 

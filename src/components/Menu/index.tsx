@@ -17,8 +17,9 @@ export default function Menu({ className, classNameWhenOpen, classNameWhenClosed
 
     // TODO: If outside click is on dropdown, then the settings container does not close
     function detectOutsideClick(event: Event) {
-        if (!settingsRef.current.contains(event.target as Node) && isOpen)
+        if (!settingsRef.current.contains(event.target as Node) && isOpen) {
             setIsOpen(false)
+        }
     }
 
     useEffect(() => {

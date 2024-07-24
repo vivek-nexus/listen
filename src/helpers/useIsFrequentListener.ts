@@ -18,8 +18,9 @@ export function useIsFrequentListener() {
                 if ((listenCount > FREQUENT_LISTENER_THRESHOLD))
                     setIsFrequentListener(true)
             }
-            else
+            else {
                 window.localStorage.setItem("listenCount", "1")
+            }
         }
     }, [])
 }

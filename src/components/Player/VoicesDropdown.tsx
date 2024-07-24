@@ -28,10 +28,12 @@ export function VoicesDropdown() {
         const tempVoicesOfOtherLanguages: Voice[] = []
 
         for (const voice of voices) {
-            if (voice.lang === languageCodeOfArticleToSpeak)
+            if (voice.lang === languageCodeOfArticleToSpeak) {
                 tempVoicesOfAutoDetectedLanguage.push(voice)
-            else
+            }
+            else {
                 tempVoicesOfOtherLanguages.push(voice)
+            }
         }
         setVoicesOfAutoDetectedLanguage(tempVoicesOfAutoDetectedLanguage)
         setVoicesOfOtherLanguages(tempVoicesOfOtherLanguages)

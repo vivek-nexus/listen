@@ -19,13 +19,16 @@ export function useDetectAndUpdateLanguage() {
                 const detectedLanguages = identifier.findMostFrequentLanguages(articleToSpeak, 1)
                 identifier.dispose()
 
-                if (detectedLanguages.length > 0 && detectedLanguages[0].is_reliable)
+                if (detectedLanguages.length > 0 && detectedLanguages[0].is_reliable) {
                     setArticleLanguageCode(detectedLanguages[0].language)
-                else
+                }
+                else {
                     setArticleLanguageCode("en")
+                }
             })
         }
-        else
+        else {
             setArticleLanguageCode("en")
+        }
     }, [articleToSpeak])
 }

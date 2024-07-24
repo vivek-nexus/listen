@@ -6,8 +6,9 @@ export function usePlayerKeyBoardShortcuts() {
     const setIsPlayerOpen = useGenericStore((state) => state.setIsPlayerOpen)
 
     function closePlayer(event: KeyboardEvent) {
-        if (event.key === "Escape")
+        if (event.key === "Escape") {
             setIsPlayerOpen(false)
+        }
     }
 
     useEffect(() => {

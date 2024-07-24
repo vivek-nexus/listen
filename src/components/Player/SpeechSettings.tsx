@@ -5,8 +5,10 @@ import Button from "../Button";
 import Menu from "../Menu";
 import StepInput from "./StepInput";
 import { VoicesDropdown } from "./VoicesDropdown";
+import { useGenericStore } from "@/stores/useGenericStore";
 
 export default function SpeechSettings() {
+    const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const rate = usePlayerStore((state) => state.rate)
     const pitch = usePlayerStore((state) => state.pitch)
     const bgMusicVol = usePlayerStore((state) => state.bgMusicVol)
@@ -25,11 +27,8 @@ export default function SpeechSettings() {
     }, [rate, pitch, bgMusicVol])
 
     // TODO: Add hot reload toast when values change, but only on first render
-    useEffect(() => {
-
-
-        // Toast clean up done by the useEffect in index.tsx to prevent set and clean up conflicts within components (that are trying to show toasts) of Player
-    }, [rate, pitch, bgMusicVol])
+    // useEffect(() => {
+    // }, [rate, pitch, bgMusicVol])
 
     return (
         <div>
@@ -81,8 +80,10 @@ export default function SpeechSettings() {
                 </div>
             </div>
 
-            <p className="lg:hidden text-center text-sm">On mobile devices, ensure selected voice is installed in your device text to speech settings</p>
-            <p className="hidden lg:block text-center text-sm">On desktop devices, use Google Chrome or Edge browser for more natural voices</p>
+            {isMobileOrTablet
+                ? <p className="text-center text-sm">On mobile devices, ensure selected voice is installed in your device text to speech settings</p>
+                : <p className="text-center text-sm">On desktop devices, use Google Chrome or Edge browser for more natural voices</p>
+            }
         </div>
     )
 }

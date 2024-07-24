@@ -33,8 +33,9 @@ export function useSplitArticleToSentences() {
 
             // Pick up the punctuation mark from the next item and append to currentSentence
             // For the last item, there will be no punctuation following it. Hence, the check to avoid accessing an element that does not exist.
-            if ((i + 1) < initialSentences.length)
+            if ((i + 1) < initialSentences.length) {
                 currentSentence += initialSentences[i + 1]
+            }
 
             // Trim leading and trailing whitespace
             currentSentence = currentSentence.trim()

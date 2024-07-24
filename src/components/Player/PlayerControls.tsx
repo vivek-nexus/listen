@@ -121,10 +121,12 @@ export default function PlayerControls() {
         }
         if (speechEndReasonRef.current === "sentence-complete") {
             // Prevent accessing item at (speakingSentenceIndex + 1), that does not exist in sentences
-            if ((speakingSentenceIndex + 1) < sentences.length)
+            if ((speakingSentenceIndex + 1) < sentences.length) {
                 setSpeakingSentenceIndex((speakingSentenceIndex + 1))
-            else
+            }
+            else {
                 setPlayerState("complete")
+            }
         }
     }
 
@@ -134,8 +136,9 @@ export default function PlayerControls() {
         const rawVoices = synthesisInterface.getVoices()
 
         for (const voice of rawVoices) {
-            if (voice.name === voiceToSpeakWith.name)
+            if (voice.name === voiceToSpeakWith.name) {
                 return voice
+            }
         }
 
         // Most likely, there is no voice available on the device, for the detected language
@@ -157,20 +160,23 @@ export default function PlayerControls() {
 
     // Keyboard press callback
     function handleKeyDown(event: KeyboardEvent) {
-        if (event.key === "Escape")
+        if (event.key === "Escape") {
             setIsPlayerOpen(false)
+        }
 
         // Using button click, since calling rewind(), playPause(), forward() functions mess up the state unpredictably. TODO: Need to figure out why this happens.
         // Button click also causes issues if the element is currently focussed.
-        if (event.key === "ArrowLeft")
+        if (event.key === "ArrowLeft") {
             rewindButton.current.click()
+        }
 
         if (event.code === "Space") {
             playPauseButton.current.click()
         }
 
-        if (event.key === "ArrowRight")
+        if (event.key === "ArrowRight") {
             forwardButton.current.click()
+        }
     }
 
     // Functions for buttons and keyboard event listeners

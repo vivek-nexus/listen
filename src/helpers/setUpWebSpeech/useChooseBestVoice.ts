@@ -6,9 +6,9 @@ import { isLocalStorageSupported } from "../isLocalStorageSupported";
 // Choose best voice based on auto detected language and voice availability on the device.
 
 // At least one voice available for the auto detected language:
-// A If there is a user preferred voice for this language from a previous session and that voice is available, use that
-// B If not 2.1, if there are remote voices, use the first one
-// C If neither 2.1 or 2.2, fallback to use auto detected language's first default/non-default voice.
+// A. If there is a user preferred voice for this language from a previous session and that voice is available, use that
+// B. If not 2.1, if there are remote voices, use the first one
+// C. If neither 2.1 or 2.2, fallback to use auto detected language's first default/non-default voice.
 
 export function useChooseBestVoice() {
     const languageCodeOfArticleToSpeak = useArticleStore((state) => state.languageCodeOfArticleToSpeak)
@@ -24,16 +24,18 @@ export function useChooseBestVoice() {
         // Loop through populated voices
         for (const voice of voices) {
             // Pick up all voices of auto detected language
-            if (voice.lang === languageCodeOfArticleToSpeak)
+            if (voice.lang === languageCodeOfArticleToSpeak) {
                 voicesOfAutoDetectedLanguage.push(voice)
+            }
             // Pick up all default voices. Some device have more than one default voice for reasons unknown (may be one default per language?).
-            if (voice.default)
+            if (voice.default) {
                 defaultVoices.push(voice)
+            }
         }
 
         // At least one voice available for the auto detected language
         if (voicesOfAutoDetectedLanguage.length !== 0) {
-            // A Check if there is a user preferred voice for the auto detected language and if it is available
+            // A. check if there is a user preferred voice for the auto detected language and if it is available
             if (isLocalStorageSupported()) {
                 const voiceName = window.localStorage.getItem(`${languageCodeOfArticleToSpeak}`)
                 if (voiceName) {
@@ -47,7 +49,7 @@ export function useChooseBestVoice() {
                 }
             }
 
-            // B Check if there are any remote voices
+            // B. Check if there are any remote voices
             if (voiceToSpeakWith === undefined) {
                 // Pick up the first remote (non local) voice in voicesOfAutoDetectedLanguage
                 for (const voice of voicesOfAutoDetectedLanguage) {
@@ -57,7 +59,7 @@ export function useChooseBestVoice() {
                 }
             }
 
-            // C Fallback to auto detected language's first default/non-default voice
+            // C. Fallback to auto detected language's first default/non-default voice
             if (voiceToSpeakWith === undefined) {
                 // Set to the first voice of the auto detected language 
                 voiceToSpeakWith = voicesOfAutoDetectedLanguage[0]
@@ -72,17 +74,18 @@ export function useChooseBestVoice() {
         }
         // Dummy voice. When speaking, if this is the value of voiceToSpeakWith, don't provide a voice to speak with. Let the TTS engine decide what voice to use.
         else {
-            setVoiceToSpeakWith({
+            voiceToSpeakWith = {
                 default: false,
                 lang: "en",
                 langWithLocale: "en-US",
                 localService: true,
                 name: "Default voice",
                 value: "default-voice"
-            })
+            }
         }
 
-        if (voiceToSpeakWith)
+        if (voiceToSpeakWith) {
             setVoiceToSpeakWith(voiceToSpeakWith)
+        }
     }, [voices, languageCodeOfArticleToSpeak])
 }

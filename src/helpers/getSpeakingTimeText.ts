@@ -6,14 +6,18 @@ export function getSpeakingTimeText(text: string) {
         const minTime = (Math.floor(words.length / 150))
         const maxTime = Math.floor(words.length / 110)
         if (minTime > 1) {
-            if (minTime === maxTime)
+            if (minTime === maxTime) {
                 return `~${maxTime} min`
-            else
+            }
+            else {
                 return `${minTime} - ${maxTime} min`
+            }
         }
-        else
+        else {
             return `<1 min`
+        }
     }
-    else
+    else {
         return `<1 min`
+    }
 }

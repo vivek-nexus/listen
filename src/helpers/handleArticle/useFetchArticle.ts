@@ -41,6 +41,5 @@ export function useFetchArticle() {
             setToastType("language-detected")
             setShowToast(false)
         }
-
     }, [tab])
 }
