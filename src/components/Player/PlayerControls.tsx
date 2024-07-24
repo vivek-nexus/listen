@@ -84,9 +84,7 @@ export default function PlayerControls() {
     useEffect(() => {
         if (isMobileOrTablet) {
             window.addEventListener("blur", blurCallback)
-            return (() => {
-                window.removeEventListener("blur", blurCallback)
-            })
+            return (() => window.removeEventListener("blur", blurCallback))
         }
     }, [isMobileOrTablet])
 
@@ -95,9 +93,7 @@ export default function PlayerControls() {
     useEffect(() => {
         if (getIframeStatus() === "cross-origin-iframe") {
             window.addEventListener("blur", blurCallback)
-            return (() => {
-                window.removeEventListener("blur", blurCallback)
-            })
+            return (() => window.removeEventListener("blur", blurCallback))
         }
     }, [])
 

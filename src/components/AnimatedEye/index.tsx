@@ -30,7 +30,7 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
                     pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
                 }
                 catch (error) {
-
+                    console.log(error)
                 }
             }
         }
@@ -42,8 +42,9 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
 
     // spin when loading
     useEffect(() => {
+        let timeout: NodeJS.Timeout
         if (pupil.current && isLoading) {
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 // Calculate the x and y based on angle. Multiply with different factors for x and y, to account for eye ball height being greater than width.
                 const translateX = (Math.cos(angle * (Math.PI / 180)) * PUPIL_X_ADJUSTMENT)
                 const translateY = (Math.sin(angle * (Math.PI / 180)) * PUPIL_Y_ADJUSTMENT)
@@ -51,25 +52,29 @@ export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
                 try {
                     pupil.current.style.transform = `translate(${translateX}px, ${translateY}px)`
                 } catch (error) {
-
+                    console.log(error)
                 }
                 setAngle(angle + 10)
             }, 20)
         }
+
+        return (() => clearTimeout(timeout))
     }, [angle, isLoading])
 
     // blink eye periodically
     useEffect(() => {
+        let timeout: NodeJS.Timeout
         if (isClosed) {
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 setIsClosed(false)
-            }, 400);
+            }, 400)
         }
         else {
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 setIsClosed(true)
-            }, 2500);
+            }, 2500)
         }
+        return (() => clearTimeout(timeout))
     }, [isClosed])
 
     return (

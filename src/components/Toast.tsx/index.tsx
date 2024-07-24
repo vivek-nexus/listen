@@ -22,9 +22,7 @@ export default function Toast({ showToast, setShowToast, children }: ToastProps)
             }, 5000)
 
             // Clear the timeout
-            return () => {
-                clearTimeout(toastTimeOut)
-            }
+            return (() => clearTimeout(toastTimeOut))
         }
         // showToast dependency to show toast whenever setShowToast(true) is called
         // children dependency to clear old toast timeout and start a new timeout, whenever children changes
