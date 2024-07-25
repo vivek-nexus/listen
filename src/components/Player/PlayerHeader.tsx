@@ -1,6 +1,6 @@
 import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants";
 import { getSpeakingTimeText } from "@/helpers/getSpeakingTimeText";
-import { fireInstallPrompt } from "@/helpers/handlePwaLifeCycle/fireInstallPrompt";
+import { fireInstallPrompt } from "@/helpers/fireInstallPrompt";
 import { useArticleStore } from "@/stores/useArticleStore";
 import { useGenericStore } from "@/stores/useGenericStore";
 import { usePwaStore } from "@/stores/usePwaStore";

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Button from "../Button";
 import Menu from "../Menu";
 import StepInput from "./StepInput";
-import { VoicesDropdown } from "./VoicesDropdown";
+import VoicesDropdown from "./VoicesDropdown";
 import { useGenericStore } from "@/stores/useGenericStore";
 
 export default function SpeechSettings() {

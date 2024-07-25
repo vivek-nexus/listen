@@ -1,7 +1,7 @@
 import { CORS_ERROR_MESSAGE, PROXY_SERVER_URL } from "@/constants/appConstants"
 import { FetchedArticle } from "@/stores/useArticleStore"
 import { Readability } from "@mozilla/readability"
-import { getIframeStatus } from "../getIframeStatus"
+import { getIframeStatus } from "./getIframeStatus"
 
 export function fetchArticle(link: string): Promise<FetchedArticle> {
     const iframeStatus = getIframeStatus()

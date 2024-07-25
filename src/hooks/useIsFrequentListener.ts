@@ -1,7 +1,7 @@
 import { FREQUENT_LISTENER_THRESHOLD } from "@/constants/appConstants";
 import { useGenericStore } from "@/stores/useGenericStore";
 import { useEffect } from "react";
-import { isLocalStorageSupported } from "./isLocalStorageSupported";
+import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported";
 
 // custom hook that increments count on every mount
 // Determine current frequent listener status and updates store variable

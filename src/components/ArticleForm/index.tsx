@@ -1,6 +1,6 @@
 import { DEFAULT_PASTED_ARTICLE } from "@/constants/appConstants"
-import { useSplitArticleToSentences } from "@/helpers/handleArticle/useSplitArticleToSentences"
-import { useDetectAndUpdateLanguage } from "@/helpers/useDetectAndUpdateLanguage"
+import { useSplitArticleToSentences } from "@/hooks/useSplitArticleToSentences"
+import { useDetectAndUpdateLanguage } from "@/hooks/useDetectAndUpdateLanguage"
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import Link from "next/link"

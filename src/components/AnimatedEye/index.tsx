@@ -1,12 +1,14 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react"
 import styles from "./AnimatedEye.module.css"
 
+type AnimatedEyeProps = { isLoading: boolean }
+
 // Multiplying factors for pupil movement. Adjust based on eye ball size.
 const PUPIL_X_ADJUSTMENT = 12
 const PUPIL_Y_ADJUSTMENT = 32
 
 // Renders an animated eye
-export default function AnimatedEye({ isLoading }: { isLoading: boolean }) {
+export default function AnimatedEye({ isLoading }: AnimatedEyeProps) {
     const [isClosed, setIsClosed] = useState(false)
     const [angle, setAngle] = useState(0)
     // Ref needed to manipulate style.transform property of the pupil div directly

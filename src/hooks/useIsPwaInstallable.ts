@@ -1,6 +1,5 @@
 import { useEffect } from "react"
-import { usePwaStore } from "../../stores/usePwaStore"
-
+import { usePwaStore } from "@/stores/usePwaStore"
 // beforeinstallprompt is non standard web API. Hence skipping type, since there isn't much value. https://stackoverflow.com/q/51503754
 export let deferredPrompt: any
 

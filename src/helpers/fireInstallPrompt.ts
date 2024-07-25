@@ -1,4 +1,4 @@
-import { deferredPrompt } from "./useIsPwaInstallable"
+import { deferredPrompt } from "@/hooks/useIsPwaInstallable"
 
 // Call this helper function to show PWA install prompt. useIsPwaInstallable hook must have been used for this helper function to work.
 export function fireInstallPrompt() {

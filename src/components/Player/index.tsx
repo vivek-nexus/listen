@@ -1,4 +1,4 @@
-import { useIsFrequentListener } from "@/helpers/useIsFrequentListener"
+import { useIsFrequentListener } from "@/hooks/useIsFrequentListener"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { usePlayerStore } from "@/stores/usePlayerStore"
 import { useEffect } from "react"

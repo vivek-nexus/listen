@@ -1,7 +1,7 @@
 import { useArticleStore } from "@/stores/useArticleStore"
 import { useGenericStore } from "@/stores/useGenericStore"
 import { useEffect } from "react"
-import { fetchArticle } from "./fetchArticle"
+import { fetchArticle } from "@/helpers/fetchArticle"
 
 // Fetches article whenever isFetching is set to true. Register the hook before parsing URL params for automatic fetching of passed URL.
 export function useFetchArticle() {

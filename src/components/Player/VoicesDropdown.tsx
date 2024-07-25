@@ -6,7 +6,7 @@ import { Voice, usePlayerStore } from '@/stores/usePlayerStore'
 import { useEffect, useState } from 'react'
 import Select, { CSSObjectWithLabel } from 'react-select'
 
-export function VoicesDropdown() {
+export default function VoicesDropdown() {
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
     const isFrequentListener = useGenericStore((state) => state.isFrequentListener)
     const setShowToast = useGenericStore((state) => state.setShowToast)

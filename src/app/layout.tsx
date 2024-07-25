@@ -1,10 +1,10 @@
 "use client"
 
 import Head from "@/components/Head";
-import { useIsPwaInstallable } from "@/helpers/handlePwaLifeCycle/useIsPwaInstallable";
-import { usePopulateVoices } from "@/helpers/setUpWebSpeech/usePopulateVoices";
+import { useIsPwaInstallable } from "@/hooks/useIsPwaInstallable";
+import { usePopulateVoices } from "@/hooks/usePopulateVoices";
 import { shouldCaptureAnalytics } from "@/helpers/shouldCaptureAnalytics";
-import { useIsMobileOrTabletOnClient } from "@/helpers/useIsMobileOrTabletOnClient";
+import { useIsMobileOrTabletOnClient } from "@/hooks/useIsMobileOrTabletOnClient";
 import "animate.css";
 import 'material-icons/iconfont/filled.css';
 import { Figtree } from "next/font/google";

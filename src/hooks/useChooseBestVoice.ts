@@ -1,7 +1,7 @@
 import { useArticleStore } from "@/stores/useArticleStore";
 import { Voice, usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect } from "react";
-import { isLocalStorageSupported } from "../isLocalStorageSupported";
+import { isLocalStorageSupported } from "@/helpers/isLocalStorageSupported";
 
 // Choose best voice based on auto detected language and voice availability on the device.
 
