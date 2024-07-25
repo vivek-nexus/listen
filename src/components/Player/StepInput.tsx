@@ -18,7 +18,7 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
 
 
     return (
-        <form className="w-full">
+        <div className="w-full">
             <div className="flex gap-4 items-center justify-between mb-1">
                 <p className=" text-primary-800">{label}</p>
                 <Button
@@ -71,6 +71,6 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                     <span className="material-icons  text-primary-800">add</span>
                 </Button>
             </div>
-        </form>
+        </div>
     )
 }

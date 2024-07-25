@@ -18,7 +18,7 @@ export default function FetchTab() {
 
     return (
         <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
-            <form>
+            <div>
                 <div
                     ref={articleLinkRef}
                     className="relative mb-12">
@@ -42,7 +42,7 @@ export default function FetchTab() {
                         </Button>
                     </div>
                 </div>
-            </form>
+            </div>
             {/* EYES: Follows mouse or shows loading state. Grows to take the the available space in article form container. */}
             {(!fetchedArticle.title || !fetchedArticle.article) &&
                 <div
