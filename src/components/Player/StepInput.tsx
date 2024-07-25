@@ -18,7 +18,7 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
 
 
     return (
-        <div className="w-full">
+        <form className="w-full">
             <div className="flex gap-4 items-center justify-between mb-1">
                 <p className=" text-primary-800">{label}</p>
                 <Button
@@ -26,7 +26,7 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                     className={`flex items-center`}
                     onClick={() => setStepValue(item, SpeechSettingDefaultValues[item])}
                 >
-                    <span className="material-icons text-primary-800">backspace</span>
+                    <span className="material-icons text-primary-800">settings_backup_restore</span>
                 </Button>
             </div>
 
@@ -71,6 +71,6 @@ export default function StepInput({ label, item, min, max, step, value }: StepIn
                     <span className="material-icons  text-primary-800">add</span>
                 </Button>
             </div>
-        </div>
+        </form>
     )
 }

@@ -77,7 +77,7 @@ export default function App() {
         // Over flow clip is needed to control unwanted scroll on mobile device. Can't understand why, but it is needed.
         <div className="h-dvh overflow-clip flex justify-center items-center">
             {/* CONTAINER FOR ARTICLE FORM AND PLAYER */}
-            <div
+            <main
                 className={`relative w-full h-full bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:overflow-clip shadow-container-glow-on-pattern-2 lg:flex lg:flex-row`}
             >
 
@@ -120,7 +120,7 @@ export default function App() {
                     </p>
                 </Toast>
                 {/* TODO: If articleToSpeak transitions from non English to English and has a blank value during the transition (new fetch or user cleared the article), then toast doesn't show. This is because the language of blank articleToSpeak is en and the language of new English article is also English. */}
-            </div>
+            </main>
         </div>
     )
 }

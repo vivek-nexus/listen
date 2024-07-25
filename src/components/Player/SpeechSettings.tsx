@@ -33,9 +33,9 @@ export default function SpeechSettings() {
     return (
         <div>
             <div className="mb-4 flex gap-2 items-center">
-                <div className="flex-grow">
+                <form className="flex-grow">
                     <VoicesDropdown />
-                </div>
+                </form>
                 <div className="relative">
                     <Button
                         type="tertiary"

@@ -18,29 +18,31 @@ export default function FetchTab() {
 
     return (
         <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
-            <div
-                ref={articleLinkRef}
-                className="relative mb-12">
-                <Input
-                    placeholder="Link to article"
-                    value={articleLink}
-                    onChange={(event) => {
-                        setArticleStoreStringItem("articleLink", event.target.value)
-                    }}
-                />
-                <div className="absolute inline-block right-0 h-full">
-                    <Button
-                        type="primary"
-                        className="rounded-l-none py-2 px-4 "
-                        onClick={() => setIsFetching(true)}
-                        isDisabled={(articleLink === "") || isPlayerOpen}
-                        toolTipText={isPlayerOpen ? `Close player to fetch` : (articleLink === "" ? `Please provide a link` : ``)}
-                        toolTipPosition="bottom-right"
-                    >
-                        Fetch
-                    </Button>
+            <form>
+                <div
+                    ref={articleLinkRef}
+                    className="relative mb-12">
+                    <Input
+                        placeholder="Link to article"
+                        value={articleLink}
+                        onChange={(event) => {
+                            setArticleStoreStringItem("articleLink", event.target.value)
+                        }}
+                    />
+                    <div className="absolute inline-block right-0 h-full">
+                        <Button
+                            type="primary"
+                            className="rounded-l-none py-2 px-4 "
+                            onClick={() => setIsFetching(true)}
+                            isDisabled={(articleLink === "") || isPlayerOpen}
+                            toolTipText={isPlayerOpen ? `Close player to fetch` : (articleLink === "" ? `Please provide a link` : ``)}
+                            toolTipPosition="bottom-right"
+                        >
+                            Fetch
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            </form>
             {/* EYES: Follows mouse or shows loading state. Grows to take the the available space in article form container. */}
             {(!fetchedArticle.title || !fetchedArticle.article) &&
                 <div
@@ -64,7 +66,7 @@ export default function FetchTab() {
                 </div>}
             {/* FETCHED ARTICLE: Grows to take the the available space in article form container. */}
             {(fetchedArticle.title && fetchedArticle.article) &&
-                <div className="flex-grow flex flex-col min-h-0 overflow-clip rounded-lg animate__animated animate__fadeIn">
+                <article className="flex-grow flex flex-col min-h-0 overflow-clip rounded-lg animate__animated animate__fadeIn">
                     {/* FETCHED ARTICLE TITLE */}
                     <div className="px-6 py-4 bg-primary-800/40 font-bold">
                         <a href={articleLink} target="_blank">
@@ -77,7 +79,7 @@ export default function FetchTab() {
                     <div className="p-6 bg-primary-800/30 overflow-y-auto custom-scrollbar text-white/60">
                         <p>{fetchedArticle.article}</p>
                     </div>
-                </div>}
+                </article>}
         </div>
     )
 }

@@ -11,7 +11,7 @@ export default function Home() {
   const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
 
   return (
-    <div className="min-h-dvh flex items-center">
+    <main className="min-h-dvh flex items-center">
       <div className="max-w-[1280px] mx-auto px-12 py-12 lg:py-0 flex-grow flex flex-col lg:flex-row items-center justify-between gap-24">
 
         {/* READING CONTENT */}
@@ -72,6 +72,6 @@ export default function Home() {
           <HomePageBranding />
         </div>
       </div>
-    </div>
+    </main>
   )
 }

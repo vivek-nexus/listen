@@ -101,7 +101,7 @@ export default function ArticleForm() {
             </Link>
 
             {/* TABS */}
-            <div className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
+            <nav className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
                 <Button
                     type={tab === "fetch" ? `primary` : `tertiary`}
                     className="px-6 py-2"
@@ -128,7 +128,7 @@ export default function ArticleForm() {
                 >
                     Paste article
                 </Button>
-            </div>
+            </nav>
 
             {/* FETCH TAB */}
             {tab === "fetch" &&

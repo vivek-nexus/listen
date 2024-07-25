@@ -23,7 +23,7 @@ export default function PlayerHeader() {
 
 
     return (
-        <div className="bg-primary-800/30 px-6 py-3">
+        <header className="bg-primary-800/30 px-6 py-3">
             <div className="flex gap-4 items-center">
                 {/* CLOSE ICON + PLAYER TITLE */}
                 <Button
@@ -120,6 +120,6 @@ export default function PlayerHeader() {
                     </Menu>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }
