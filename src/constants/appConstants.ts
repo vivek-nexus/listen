@@ -7,7 +7,7 @@ export const GITHUB_MORE_HELP_LINK = "https://github.com/vivek-nexus/listen?tab=
 // TODO: Update link
 export const GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK = "https://github.com/vivek-nexus/listen?tab=readme-ov-file#listen"
 export const PORTFOLIO_LINK = "https://vivek.nexus"
-export const DEFAULT_PASTED_ARTICLE = `Hello! Listen is your world-class reading companion. You can use it to listen to news pages or blog pages, as if they were podcasts. You can use it to proof-read, or should we say, proof-listen to your writing. You can use it to record voice-overs. So many possibilities, isn't it?
+export const DEFAULT_PASTED_ARTICLE = `Hello! Listen is your world-class multilingual reading companion. You can use it to listen to news pages or blog pages, as if they were podcasts. You can use it to proof-read, or should we say, proof-listen to your writing. You can use it to record voice-overs. So many possibilities, isn't it?
 
 For best listening experience, here are some recommendations. On desktop devices, use Google Chrome or Edge browser for natural sounding voices. On Android and iOS, you may need to first download and install voice data, in your device settings.
 
