@@ -33,7 +33,7 @@ export default function PlayerHeader() {
                     toolTipPosition="bottom-left"
                     onClick={() => setIsPlayerOpen(false)}
                 >
-                    <span className="material-icons text-2xl">close</span>
+                    <span className="material-icons text-2xl rotate-90 lg:rotate-0">chevron_right</span>
                     <p className={`text-white/70 font-bold`}>
                         {tab === "fetch" ? `Fetched article` : `Pasted article`}
                     </p>
