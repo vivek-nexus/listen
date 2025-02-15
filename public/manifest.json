@@ -3,7 +3,7 @@
     "short_name": "Listen",
     "description": "Stop long form reading, cut screen time and start listening!",
     "id": "/listen/app",
-    "start_url": "/listen/app?utm_source=pwa",
+    "start_url": "/app?utm_source=pwa",
     "display": "fullScreen",
     "background_color": "#000000",
     "theme_color": "#008080",
