@@ -48,8 +48,6 @@ export default function RootLayout({
         document.getElementsByTagName("head")[0].appendChild(mf)
       })()
     }
-
-    <Script src="https://js.sentry-cdn.com/1ab87654846261733864ff1fab6aa45f.min.js" crossOrigin="anonymous"></Script>
   }, [])
 
   return (
@@ -70,6 +68,14 @@ export default function RootLayout({
           gtag('config', 'G-7ZYB56R4BT');
         `}
       </Script>
+
+      <Script src="https://js.sentry-cdn.com/1ab87654846261733864ff1fab6aa45f.min.js" crossOrigin="anonymous" />
+      <Script id="sentry">{`
+      Sentry.onLoad(function() {
+      Sentry.init({
+            });
+        });
+      `}</Script>
 
       <body
         className={`${figtree.className} animate__animated animate__fadeIn bg-black bg-[length:172px_172px] text-white/70 selection:bg-primary-800 selection:text-white/60`}
