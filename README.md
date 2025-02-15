@@ -1,7 +1,7 @@
 # Listen
 > **Your world-class reading companion**
 
-<img src="https://www.vivek.nexus/listen/link-preview.png" />
+<img src="https://listen.viveknexus.com/link-preview.png" />
 
 
 A web app that helps you listen to any written material (instead of reading on your screen), in a variety of languages.
@@ -11,7 +11,7 @@ A web app that helps you listen to any written material (instead of reading on y
 - You can use it to record **voice-overs**
 - and much more...
 
-**View the app at https://www.vivek.nexus/listen**.
+**View the app at https://listen.viveknexus.com**.
 
 Older versions of this project: [v4](https://github.com/vivek-nexus/listen-v4) | [v3](https://github.com/vivek-nexus/lizen) | [v2](https://github.com/vivek-nexus/podcastify-it)
 
@@ -28,7 +28,7 @@ Older versions of this project: [v4](https://github.com/vivek-nexus/listen-v4) |
 
 ### [Option 1] Load Listen as an iframe (code method)
 - On your blog pages, load Listen as an iframe in a suitable way. Make sure the iframe size is at least 360px by 780px for optimal UI experience.
--  Make sure to allow cross origin requests (CORS) on your website server from https://www.vivek.nexus origin, so that Listen can fetch article HTML from your server.
+-  Make sure to allow cross origin requests (CORS) on your website server from https://listen.viveknexus.com origin, so that Listen can fetch article HTML from your server.
     - If you use no-code hosting methods, consult your hosting provider's documentation to enable CORS
     - If you control the code on your server, see https://www.w3.org/wiki/CORS_Enabled for instructions 
 - Send your article through URL parameters. See below section for details.
@@ -50,13 +50,13 @@ Older versions of this project: [v4](https://github.com/vivek-nexus/listen-v4) |
 ### Passing article link
 Pass the link as a URL parameter
 
-Example: https://www.vivek.nexus/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
+Example: https://listen.viveknexus.com/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
 
 
 ### Passing article text
 Pass the article text as a URL parameter. URL encode the text for sanity.
 
-Example: https://www.vivek.nexus/listen/app?text=This%20is%20the%20first%20line%20of%20the%20article.%0A%0AThis%20is%20the%20second%20line.%20Make%20sure%20to%20URL%20encode%20the%20text%20before%20passing
+Example: https://listen.viveknexus.com/app?text=This%20is%20the%20first%20line%20of%20the%20article.%0A%0AThis%20is%20the%20second%20line.%20Make%20sure%20to%20URL%20encode%20the%20text%20before%20passing
 
 <br />
 <br />
