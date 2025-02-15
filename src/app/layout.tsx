@@ -1,16 +1,16 @@
 "use client"
 
-import Head from "@/components/Head";
-import { useIsPwaInstallable } from "@/hooks/useIsPwaInstallable";
-import { usePopulateVoices } from "@/hooks/usePopulateVoices";
-import { shouldCaptureAnalytics } from "@/helpers/shouldCaptureAnalytics";
-import { useIsMobileOrTabletOnClient } from "@/hooks/useIsMobileOrTabletOnClient";
-import "animate.css";
-import 'material-icons/iconfont/filled.css';
-import { Figtree } from "next/font/google";
-import Script from "next/script";
-import { useEffect } from "react";
-import "./globals.css";
+import Head from "@/components/Head"
+import { useIsPwaInstallable } from "@/hooks/useIsPwaInstallable"
+import { usePopulateVoices } from "@/hooks/usePopulateVoices"
+import { shouldCaptureAnalytics } from "@/helpers/shouldCaptureAnalytics"
+import { useIsMobileOrTabletOnClient } from "@/hooks/useIsMobileOrTabletOnClient"
+import "animate.css"
+import 'material-icons/iconfont/filled.css'
+import { Figtree } from "next/font/google"
+import Script from "next/script"
+import { useEffect } from "react"
+import "./globals.css"
 
 const figtree = Figtree({ subsets: ["latin"] })
 
@@ -42,12 +42,14 @@ export default function RootLayout({
       // mouseflow analytics
       window._mfq = window._mfq || [];
       (function () {
-        var mf = document.createElement("script");
-        mf.type = "text/javascript"; mf.defer = true;
-        mf.src = "//cdn.mouseflow.com/projects/d650c614-2064-44cc-804a-54644c37dd52.js";
-        document.getElementsByTagName("head")[0].appendChild(mf);
+        var mf = document.createElement("script")
+        mf.type = "text/javascript"; mf.defer = true
+        mf.src = "//cdn.mouseflow.com/projects/d650c614-2064-44cc-804a-54644c37dd52.js"
+        document.getElementsByTagName("head")[0].appendChild(mf)
       })()
     }
+
+    <Script src="https://js.sentry-cdn.com/1ab87654846261733864ff1fab6aa45f.min.js" crossOrigin="anonymous"></Script>
   }, [])
 
   return (
