@@ -15,7 +15,6 @@ export default function Head() {
             <meta property="og:url" content="https://vivek-nexus.github.io/listen/" />
             <meta property="og:image" content="https://vivek-nexus.github.io/listen/link-preview.png" />
             <meta property="og:description" content="Your world-class multilingual reading companion" />
-            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         </head>
     )
 }

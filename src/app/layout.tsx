@@ -48,6 +48,30 @@ export default function RootLayout({
         document.getElementsByTagName("head")[0].appendChild(mf)
       })()
     }
+
+    const body = document.querySelector('body')
+    if (body) {
+      // Create an Intersection Observer to detect when the body is in view
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // The body is now visible in the viewport
+            console.log('Iframe is visible, making fetch request...')
+
+            fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url${window.location.href}`)
+
+            // Stop observing after the fetch request is made
+            observer.unobserve(body)
+          }
+        })
+      }, {
+        threshold: 0.5 // The iframe needs to be at least 50% visible to trigger the callback
+      })
+
+      // Start observing the iframe
+      observer.observe(body)
+    }
+
   }, [])
 
   return (
@@ -68,14 +92,6 @@ export default function RootLayout({
           gtag('config', 'G-7ZYB56R4BT');
         `}
       </Script>
-
-      <Script src="https://js.sentry-cdn.com/1ab87654846261733864ff1fab6aa45f.min.js" crossOrigin="anonymous" />
-      <Script id="sentry">{`
-      Sentry.onLoad(function() {
-      Sentry.init({
-            });
-        });
-      `}</Script>
 
       <body
         className={`${figtree.className} animate__animated animate__fadeIn bg-black bg-[length:172px_172px] text-white/70 selection:bg-primary-800 selection:text-white/60`}
