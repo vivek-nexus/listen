@@ -50,7 +50,7 @@ export default function RootLayout({
     }
 
     const body = document.querySelector('body')
-    if (body) {
+    if (body && !shouldCaptureAnalytics()) {
       // Create an Intersection Observer to detect when the body is in view
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
