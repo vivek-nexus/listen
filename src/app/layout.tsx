@@ -56,9 +56,7 @@ export default function RootLayout({
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             // The body is now visible in the viewport
-            console.log('Iframe is visible, making fetch request...')
-
-            fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url${window.location.href}`)
+            fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url=${encodeURIComponent(window.location.href)}`)
 
             // Stop observing after the fetch request is made
             observer.unobserve(body)
