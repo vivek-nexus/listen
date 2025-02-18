@@ -95,7 +95,8 @@ export default function RootLayout({
         className={`${figtree.className} animate__animated animate__fadeIn bg-black bg-[length:172px_172px] text-white/70 selection:bg-primary-800 selection:text-white/60`}
         // inline style due to dependency on environment variable
         style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_LINK_PREFIX}/bg-pattern.svg)`
+          // A blank env variable is getting evaluated to undefined, hence the check to replace it with empty string
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_LINK_PREFIX ? process.env.NEXT_PUBLIC_LINK_PREFIX : ``}/bg-pattern.svg)`
         }}
       >
         {children}

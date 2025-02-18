@@ -9,6 +9,7 @@ type ImageWrapperProps = {
 
 export default function ImageWrapper({ src, className, alt }: ImageWrapperProps) {
     return (
-        <img src={`${process.env.NEXT_PUBLIC_LINK_PREFIX}/${src}`} className={className} alt={alt} />
+        // A blank env variable is getting evaluated to undefined, hence the check to replace it with empty string
+        <img src={`${process.env.NEXT_PUBLIC_LINK_PREFIX ? process.env.NEXT_PUBLIC_LINK_PREFIX : ``}/${src}`} className={className} alt={alt} />
     )
 }

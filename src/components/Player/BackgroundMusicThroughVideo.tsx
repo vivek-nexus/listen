@@ -1,6 +1,6 @@
-import { useGenericStore } from "@/stores/useGenericStore";
-import { usePlayerStore } from "@/stores/usePlayerStore";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { useGenericStore } from "@/stores/useGenericStore"
+import { usePlayerStore } from "@/stores/usePlayerStore"
+import { MutableRefObject, useEffect, useRef } from "react"
 
 export default function BackgroundMusicThroughVideo() {
     const isMobileOrTablet = useGenericStore((state) => state.isMobileOrTablet)
@@ -52,9 +52,9 @@ export default function BackgroundMusicThroughVideo() {
 
     return (
         // Fixed position tiny invisible video
-        // TODO: process.env.NEXT_PUBLIC_LINK_PREFIX evaluates to undefined in development. Need to figure out why (already tried a lot).
+        // A blank env variable is getting evaluated to undefined, hence the check to replace it with empty string
         <video ref={videoRef} loop className="fixed top-0 left-0 -z-50 h-2 w-1 pointer-events-none opacity-0">
-            <source src={`${process.env.NEXT_PUBLIC_LINK_PREFIX}/the-beat-of-nature-122841.mp4`} type="video/mp4" />
+            <source src={`${process.env.NEXT_PUBLIC_LINK_PREFIX ? process.env.NEXT_PUBLIC_LINK_PREFIX : ``}/the-beat-of-nature-122841.mp4`} type="video/mp4" />
             Your browser does not support video playback.
         </video>
     )

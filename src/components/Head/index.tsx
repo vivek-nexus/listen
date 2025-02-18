@@ -4,10 +4,12 @@ export default function Head() {
             <title>Listen</title>
             <meta name="description" content="Stop long form reading, cut screen time and start listening!" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <link rel="icon" href={`${process.env.NEXT_PUBLIC_LINK_PREFIX}/logo.png`} />
+            {/* A blank env variable is getting evaluated to undefined, hence the check to replace it with empty string */}
+            <link rel="icon" href={`${process.env.NEXT_PUBLIC_LINK_PREFIX ? process.env.NEXT_PUBLIC_LINK_PREFIX : ``}/logo.png`} />
             {/* https://melvingeorge.me/blog/nextjs-pwa */}
             {/* TODO add screenshot in manifest to provide rich install experience */}
-            <link rel="manifest" href={`${process.env.NEXT_PUBLIC_LINK_PREFIX}/manifest.json`} />
+            {/* A blank env variable is getting evaluated to undefined, hence the check to replace it with empty string */}
+            <link rel="manifest" href={`${process.env.NEXT_PUBLIC_LINK_PREFIX ? process.env.NEXT_PUBLIC_LINK_PREFIX : ``}/manifest.json`} />
             <meta name="theme-color" content="#00a885" />
             {/* Open graph tags */}
             <meta property="og:type" content="website" />
