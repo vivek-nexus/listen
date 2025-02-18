@@ -38,24 +38,11 @@ export default function PlayerControls() {
         setSpeakingSentenceIndex(0)
         setPlayerState("playing")
 
-        // [TEMPORARY FIX] Chrome desktop suddenly has a new issue — does not start speaking at once. Seems to require a pause/play to start speaking. Need to figure out real reason.
-        const timeOut1 = setTimeout(() => {
-            speechSynthesis.cancel()
-            setPlayerState("paused")
-        }, 100)
-
-        const timeOut2 = setTimeout(() => {
-            setPlayerState("playing")
-        }, 500)
-
         // Cancel active speech and reset state variables
         return (() => {
             speechSynthesis.cancel()
             setPlayerState("complete")
             setSpeakingSentenceIndex(0)
-
-            clearTimeout(timeOut1)
-            clearTimeout(timeOut2)
         })
     }, [])
 
