@@ -63,7 +63,7 @@ export default function RootLayout({
           }
         })
       }, {
-        threshold: 0.5 // The iframe needs to be at least 50% visible to trigger the callback
+        threshold: 1
       })
 
       // Start observing the iframe
