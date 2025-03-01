@@ -63,7 +63,7 @@ export default function RootLayout({
           }
         })
       }, {
-        threshold: 1
+        threshold: 0.5
       })
 
       // Start observing the iframe
