@@ -49,26 +49,28 @@ export default function RootLayout({
       })()
     }
 
-    const body = document.querySelector('body')
-    if (body) {
-      // Create an Intersection Observer to detect when the body is in view
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // The body is now visible in the viewport
-            fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url=${encodeURIComponent(window.location.href)}`)
+    // const body = document.querySelector('body')
+    // if (body) {
+    //   // Create an Intersection Observer to detect when the body is in view
+    //   const observer = new IntersectionObserver((entries, observer) => {
+    //     entries.forEach(entry => {
+    //       if (entry.isIntersecting) {
+    //         // The body is now visible in the viewport
+    //         fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url=${encodeURIComponent(window.location.href)}`, {
+    //           mode: "no-cors"
+    //         })
 
-            // Stop observing after the fetch request is made
-            observer.unobserve(body)
-          }
-        })
-      }, {
-        threshold: 0.5
-      })
+    //         // Stop observing after the fetch request is made
+    //         observer.unobserve(body)
+    //       }
+    //     })
+    //   }, {
+    //     threshold: 0.5
+    //   })
 
-      // Start observing the iframe
-      observer.observe(body)
-    }
+    //   // Start observing the iframe
+    //   observer.observe(body)
+    // }
 
   }, [])
 

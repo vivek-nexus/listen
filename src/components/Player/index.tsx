@@ -19,6 +19,13 @@ export default function Player() {
     // Register custom hook to increment count as well as determine current frequent listener status
     useIsFrequentListener()
 
+    // Anonymous analytics to log player used
+    useEffect(() => {
+        fetch(`https://script.google.com/macros/s/AKfycbzZYWNu-Bb87iIaP82AJkpdkwUWEw-kN-ngdTb9-f64vmTrzYL07gDB1Q9QdGFOImxH/exec?url=${encodeURIComponent(window.location.href)}`, {
+            mode: "no-cors"
+        })
+    }, [])
+
     // Show toasts
     useEffect(() => {
         // Component mount also comes with an animation, toast also has animation. Add delay so that both don't mixed with each other and user misses the toast.

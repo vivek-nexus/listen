@@ -6,8 +6,9 @@ import { getIframeStatus } from "./getIframeStatus"
 export function fetchArticle(link: string): Promise<FetchedArticle> {
     const iframeStatus = getIframeStatus()
     const shouldFetchViaProxyServer = ((iframeStatus === "same-origin-iframe") || (iframeStatus === "standalone-page")) ? true : false
-    // For cross origin iframes, respective server must allow cross origin requests from https://vivek.nexus
-    const urlToFetch = shouldFetchViaProxyServer ? `${PROXY_SERVER_URL}/fetch-html?url=${link}` : `${link}`
+    // For cross origin iframes, respective server must allow cross origin requests from https://listen.viveknexus.com
+    // const urlToFetch = shouldFetchViaProxyServer ? `${PROXY_SERVER_URL}/fetch-html?url=${link}` : `${link}`
+    const urlToFetch = true ? `${PROXY_SERVER_URL}/fetch-html?url=${link}` : `${link}`
 
     // Return the fetch promise
     return fetch(urlToFetch)
