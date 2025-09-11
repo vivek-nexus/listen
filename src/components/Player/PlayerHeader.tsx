@@ -1,12 +1,12 @@
-import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants";
-import { getSpeakingTimeText } from "@/helpers/getSpeakingTimeText";
-import { fireInstallPrompt } from "@/helpers/fireInstallPrompt";
-import { useArticleStore } from "@/stores/useArticleStore";
-import { useGenericStore } from "@/stores/useGenericStore";
-import { usePwaStore } from "@/stores/usePwaStore";
-import { useState } from "react";
-import Button from "../Button";
-import Menu from "../Menu";
+import { APP_APP_LINK, APP_HOME_LINK, GITHUB_INTEGRATE_ON_YOUR_BLOG_LINK, GITHUB_ISSUES_LINK, GITHUB_MORE_HELP_LINK } from "@/constants/appConstants"
+import { getSpeakingTimeText } from "@/helpers/getSpeakingTimeText"
+import { fireInstallPrompt } from "@/helpers/fireInstallPrompt"
+import { useArticleStore } from "@/stores/useArticleStore"
+import { useGenericStore } from "@/stores/useGenericStore"
+import { usePwaStore } from "@/stores/usePwaStore"
+import { useState } from "react"
+import Button from "../Button"
+import Menu from "../Menu"
 
 
 export default function PlayerHeader() {
@@ -33,7 +33,7 @@ export default function PlayerHeader() {
                     toolTipPosition="bottom-left"
                     onClick={() => setIsPlayerOpen(false)}
                 >
-                    <span className="material-icons text-2xl rotate-90 lg:rotate-0">chevron_right</span>
+                    <span className="material-icons text-2xl">close</span>
                     <p className={`text-white/70 font-bold`}>
                         {tab === "fetch" ? `Fetched article` : `Pasted article`}
                     </p>
