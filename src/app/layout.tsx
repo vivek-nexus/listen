@@ -11,6 +11,8 @@ import { Figtree } from "next/font/google"
 import Script from "next/script"
 import { useEffect } from "react"
 import "./globals.css"
+import { PROXY_SERVER_URL } from "@/constants/appConstants"
+
 
 const figtree = Figtree({ subsets: ["latin"] })
 
@@ -48,6 +50,9 @@ export default function RootLayout({
         document.getElementsByTagName("head")[0].appendChild(mf)
       })()
     }
+
+    // Wake up proxy server
+    fetch(`${PROXY_SERVER_URL}/health`, { mode: 'no-cors' })
 
   }, [])
 
