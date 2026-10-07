@@ -60,8 +60,8 @@ export default function FetchTab() {
                         <AnimatedEye isLoading={isFetching} />
                     </div>
                     <p
-                        className=" text-primary-800 ">
-                        {isFetching ? `Fetching, hold on...` : `Need a nice link?`}
+                        className="text-primary-800 text-xl">
+                        {isFetching ? `Fetching, hold on...` : `Need a link?`}
                     </p>
                 </div>}
             {/* FETCHED ARTICLE: Grows to take the the available space in article form container. */}
